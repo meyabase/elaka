@@ -1,3 +1,6 @@
+require "nested_form/engine"
+require "nested_form/builder_mixin"
+
 RailsAdmin.config do |config|
   # Fixing citext incompatibility, see https://github.com/sferik/rails_admin/issues/1734,
   # https://github.com/sferik/rails_admin/issues/2177
