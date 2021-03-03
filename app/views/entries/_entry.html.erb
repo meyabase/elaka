@@ -1,0 +1,314 @@
+<!--suppress ALL -->
+<div class="card p-3 border-0 shadow-sm" id="entry-card-<%= entry.id %>">
+  <div class="row align-content-center">
+    <div class="col my-auto">
+      <div class="card-group mb-0">
+        <div class="card card-border-style">
+          <div class="card-header text-center card-border-style bg-white">
+            <div class="row gx-5">
+
+              <!-- Initialize title variables -->
+              <% from_title = '' %>
+              <% to_title = '' %>
+
+              <!-- Get translation type, and assign to correct variable -->
+              <% if entry.translation == 1 %>
+                <% from_title = 'English' %>
+                <% to_title = 'Oshindonga' %>
+              <% elsif entry.translation == 2 %>
+                <% from_title = 'Oshindonga' %>
+                <% to_title = 'English' %>
+              <% elsif entry.translation == 3 %>
+                <% from_title = 'English' %>
+                <% to_title = 'Oshikwanyama' %>
+              <% elsif entry.translation == 4 %>
+                <% from_title = 'Oshikwanyama' %>
+                <% to_title = 'English' %>
+              <% end %>
+
+
+              <div class="col p-1 text-center">
+                  <span class="font-weight-bold title-text" id="from-title" style="color: #ababab">
+                    <%= from_title %>
+                  </span>
+              </div>
+
+              <div class="col p-1 text-center">
+                  <span>
+                  <i class="bi bi-arrow-right" style="font-size: 1rem; color: #ababab;"></i>
+                </span>
+              </div>
+
+              <div class="col p-1 text-center">
+                  <span class="font-weight-bold title-text" id="to-title" style="color: #ababab;">
+                    <%= to_title %>
+                  </span>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="card-body card-border-style p-0 small">
+            <div class="row gx-5 mx-auto">
+
+              <% if entry.from.split(' ').size > 15 || entry.to.split(' ').size > 15 %>
+                <div class="col-md-6 p-0 bg-light" id="from-column">
+                  <div class="card bg-transparent p-3 from-card-large rounded-0 border-right-0" style="border-color: #f3f3f3 !important;">
+                    <span><%= link_to entry.from, entry_path(entry), class: 'text-secondary text-decoration-none' %></span>
+                  </div>
+                </div>
+
+                <div class="col-md-6 p-0 bg-light" id="to-column">
+                  <div class="card card-border-style bg-transparent border-0 p-3">
+                    <span><%= link_to entry.to, entry_path(entry), class: 'text-secondary text-decoration-none' %></span>
+                  </div>
+                </div>
+              <% else %>
+                <div class="col p-0 bg-light" id="from-column">
+                  <div class="card bg-transparent p-3 border-right
+                              border-bottom-0 border-left-0 border-top-0 rounded-0" style="border-color: #f3f3f3 !important;">
+                    <span><%= link_to entry.from, entry_path(entry), class: 'text-secondary text-decoration-none' %></span>
+                  </div>
+                </div>
+
+                <div class="col p-0 bg-light" id="to-column">
+                  <div class="card card-border-style bg-transparent border-0 p-3">
+                    <span><%= link_to entry.to, entry_path(entry), class: 'text-secondary text-decoration-none' %></span>
+                  </div>
+                </div>
+              <% end %>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row m-0 entry-rows align-items-center">
+    <div class="col-sm p-0">
+      <div class="translation-source text-decoration-none d-inline" style="color: #ababab">
+          <span>
+            <%= link_to is_moderator(entry.user) + '@' + entry.user.username, profile_path(entry.user), class: 'text-decoration-none username' %>
+          </span>
+        <span style="font-size: 0.8em">
+            &nbsp;•&nbsp;&nbsp;<%= time_ago_in_words(entry.created_at) %>
+          </span>
+
+        <!-- translation verification -->
+        <span style="float: right; height: fit-content; width: fit-content">
+          <% if user_signed_in? and current_user.moderator? %>
+            <%= render 'entries/verify/update', entry: entry %>
+          <% else %>
+            <%= render 'entries/verify/show', entry: entry %>
+          <% end %>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <hr class="custom-horizontal" style="margin-top: 8px; margin-bottom: 8px">
+
+  <div class="row m-0">
+    <div class="col-sm p-0 d-inline-block">
+      <div class="translation-source text-decoration-none d-inline">
+
+        <span class="dropup">
+          <a class="btn-sm m-0 btn-outline-light text-decoration-none remove-webkit" style="color: #ababab;"
+             type="button" id="more-menu-<%= entry.id %>" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-three-dots"></i>
+          </a>
+
+          <ul class="dropdown-menu" aria-labelledby="more-menu-<%= entry.id %>">
+
+            <li>
+              <%= render 'entries/save', entry: entry %>
+            </li>
+
+            <li>
+              <%= link_to new_entry_report_path(entry), class: "dropdown-item", target: :_blank do %>
+                <% if entry.reports_count > 0 %>
+                  <i class="bi bi-flag-fill text-danger" style="padding-right: 0.5em;"></i>
+                  <small class="text-danger"><%= pluralize(entry.reports_count, 'Report') %></small>
+                <% else %>
+                  <i class="bi bi-flag text-secondary" style="padding-right: 0.5em;"></i>
+                  <small class="text-secondary">Report Translation</small>
+                <% end %>
+              <% end %>
+            </li>
+
+            <li>
+              <a class="btn-outline-light remove-webkit dropdown-item text-secondary" type="button" id="copy-link-<%= entry.id %>"
+                 onclick="linkClipboard(<%= entry.id %>)">
+                <i class="bi bi-clipboard" style="padding-right: 0.5em;"></i>
+                <small>Copy link</small>
+              </a>
+            </li>
+
+            <input type="text" value="<%= entry_url(entry) %>" id="link-value-<%= entry.id %>" hidden>
+
+            <li>
+              <a class="btn-outline-light remove-webkit dropdown-item text-secondary" type="button" id="copy-translation-<%= entry.id %>"
+                 onclick="translationClipboard(<%= entry.id %>)">
+                <i class="bi bi-clipboard" style="padding-right: 0.5em;"></i>
+                <small>Copy translation</small>
+              </a>
+            </li>
+
+            <input type="text" value="<%= entry.from %>" id="from-translation-value-<%= entry.id %>" hidden>
+            <input type="text" value="<%= entry.to %>" id="to-translation-value-<%= entry.id %>" hidden>
+
+          </ul>
+        </span>
+
+        <% if user_signed_in? and current_user.moderator? %>
+          <span>
+            <%= link_to edit_entry_path(entry), class: "btn-sm m-0 btn-outline-light text-decoration-none", style: "color: #ababab;" do %>
+              <i class="bi bi-pencil-fill"></i>
+            <% end %>
+          </span>
+
+          <span>
+            <% if entry.reports_count > 0 %>
+              <i class="bi bi-flag-fill text-danger" style="padding-right: 0.5em;"></i>
+            <% end %>
+          </span>
+
+          <!-- Delete translation trigger modal -->
+          <i type="button" class="bi bi-trash btn-sm m-0 remove-webkit btn-outline-light text-decoration-none p-1"
+             style="color: #ababab;" data-bs-toggle="modal" data-bs-target="#delete-modal-<%= entry.id %>"></i>
+
+          <!-- Modal -->
+          <div class="modal fade" id="delete-modal-<%= entry.id %>" tabindex="-1" role="dialog" aria-labelledby="deleteAccountModal" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content p-2">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="deleteTranslationModal">Delete translation</h5>
+                  <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close" id="close-delete-modal-<%= entry.id %>">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <p class="text-secondary">
+                    The translation starting with
+                    <strong class="text-danger"><%= entry.from.chars.first(10).join %></strong>
+                    will be permanently removed with all it's associations.
+                  </p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary font-weight-bold" data-bs-dismiss="modal">Cancel</button>
+                  <%= button_to "Confirm", entry_path(entry),
+                                class: "btn btn-danger font-weight-bold",
+                                method: :delete,
+                                onclick: "confirmDelete(#{entry.id})" %>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+
+        <div class="d-inline-block" style="float: right; background-color: #f8f9fa; border-radius: 7em" id="vote-<%= entry.id %>">
+          <% if user_signed_in? %>
+            <%= render 'entries/votes/signed_in', entry: entry %>
+          <% else %>
+            <%= render 'entries/votes/not_signed_in', entry: entry %>
+          <% end %>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <% if entry.find_votes_for(:vote_scope => 'verify').size == 1 %>
+    <% if user_signed_in? and current_user.moderator? and not current_user.voted_up_on? entry, :vote_scope => 'verify'%>
+      <hr class="custom-horizontal" style="margin-top: 8px; margin-bottom: 8px">
+
+      <div class="row m-0">
+        <div class="col-sm p-0">
+          <div class="translation-source text-decoration-none d-inline username">
+            Verified by
+            <%=  link_to is_moderator(get_verified(entry)) + "@#{ get_verified(entry).username }", profile_path(get_verified(entry)), class: "username text-decoration-none"  %>
+          </div>
+        </div>
+      </div>
+    <%  end %>
+  <% end %>
+
+  <!-- This is just a simple notice/toast when text is copied -->
+  <div class="position-fixed top-0 start-50 translate-middle-x p-3" id="toast-entry-<%= entry.id %>" style="z-index: 5">
+    <div class="toast toast-entry-<%= entry.id %> hide text-secondary bg-light border-0"
+         data-bs-delay="1500" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="custom-toast-header">
+        <strong id="toast-title-entry-<%= %>" class="text-success">Notice</strong>
+        <button type="button" style="float: right;" class="btn-close btn-close-secondary" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body toast-body-entry-<%= entry.id %>">
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+
+    // Position toast according to screen size
+    if ($(window).width() < 992) {
+        $('#toast-entry-<%= entry.id %>').removeClass().addClass("position-fixed top-0 start-50 translate-middle-x p-3");
+    }
+    else {
+        $('#toast-entry-<%= entry.id %>').removeClass().addClass("position-fixed top-0 end-0 p-3");
+    }
+
+    function removeFadeOut( element, speed ) {
+        var seconds = speed/1000;
+        element.style.transition = "opacity " + seconds + "s ease";
+
+        element.style.opacity = 0;
+        setTimeout(function() {
+            element.parentNode.removeChild(element);
+        }, speed);
+    }
+
+    function confirmDelete(id) {
+        removeFadeOut(document.getElementById('entry-card-' + id), 1000);
+        document.getElementById('close-delete-modal-' + id).click()
+        $('.toast-body-entry-' + id).html('Translation deleted successfully.')
+        $('.toast-entry-' + id).toast('show')
+    }
+
+    // Copy the link to clipboard
+    function linkClipboard(id) {
+        var entryPath = document.getElementById('link-value-' + id)
+        entryPath.hidden = false
+        entryPath.focus()
+        entryPath.select()
+        document.execCommand('copy')
+        entryPath.hidden = true
+        $('#toast-title-entry' + id).className = "text-success"
+        $('#toast-title-entry' + id).innerHTML = "Notice"
+        $('.toast-body-entry-' + id).html('Link copied successfully!')
+        $('.toast-entry-' + id).toast('show')
+    }
+
+    // Copy both to anf from translation to clipboard
+    function translationClipboard(id) {
+        var fromTranslation = document.getElementById('from-translation-value-' + id)
+        var toTranslation = document.getElementById('to-translation-value-' + id)
+        fromTranslation.hidden = false
+        toTranslation.hidden = false
+        toTranslation.value = fromTranslation.value + ' -> ' + toTranslation.value
+        toTranslation.focus()
+        toTranslation.select()
+        document.execCommand('copy')
+        fromTranslation.hidden = false
+        toTranslation.hidden = false
+        $('#toast-title-entry' + id).className = "text-success"
+        $('#toast-title-entry' + id).innerHTML = "Notice"
+        $('.toast-body-entry-' + id).html('Translation copied successfully!')
+        $('.toast-entry-' + id).toast('show')
+    }
+</script>

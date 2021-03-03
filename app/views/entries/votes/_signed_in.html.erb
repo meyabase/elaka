@@ -1,0 +1,121 @@
+<!--suppress ALL -->
+<!-- There's a bug with a workaround or so, simply likes are pseudo created and
+real values on reflect after reflect. See my questions below
+https://stackoverflow.com/questions/66299201/how-to-implement-link-to-ajax-remote-true-respond-to-without-rendering-new-u
+https://stackoverflow.com/questions/66277189/how-to-use-ajax-to-reload-a-section-of-page-unrelated-to-rails-controller-action
+-->
+<%= button_to unupvote_entry_path(entry), remote: true, method: :put,
+              class: "btn btn-light like", hidden: "hidden",
+              id: "unupvote-button-#{ entry.id }",
+              onclick: "unupvote(#{ entry.id })" do %>
+  <i class="bi bi-hand-thumbs-up-fill custom-blue" id="unupvote-icon-<%= entry.id  %>"></i>
+  <small class="custom-blue" id="unupcount-<%= entry.id %>" >
+    <%= trim_zero(entry.get_likes(:vote_scope => 'vote').size) %>
+  </small>
+<% end %>
+
+<%= button_to upvote_entry_path(entry), remote: true, method: :put,
+              class: "btn btn-light like", hidden: "hidden",
+              id: "upvote-button-#{ entry.id }",
+              onclick: "upvote(#{ entry.id })" do %>
+  <i class="bi bi-hand-thumbs-up custom-gray" id="upvote-icon-<%= entry.id  %>"></i>
+  <small class="custom-gray" id="upcount-<%= entry.id %>">
+    <%= trim_zero(entry.get_likes(:vote_scope => 'vote').size) %>
+  </small>
+<% end %>
+
+<%= button_to undownvote_entry_path(entry), remote: true, method: :put,
+              class: "btn btn-light dislike", hidden: "hidden",
+              id: "undownvote-button-#{ entry.id }",
+              onclick: "undownvote(#{ entry.id })" do %>
+  <i class="bi bi-hand-thumbs-down-fill custom-blue" id="undownvote-icon-<%= entry.id  %>"></i>
+  <small class="custom-blue" id="undowncount-<%= entry.id %>" >
+    <%= trim_zero(entry.get_dislikes(:vote_scope => 'vote').size) %>
+  </small>
+<% end %>
+
+<%= button_to downvote_entry_path(entry), remote: true, method: :put,
+              class: "btn btn-light dislike", hidden: "hidden",
+              id: "downvote-button-#{ entry.id }",
+              onclick: "downvote(#{ entry.id })" do %>
+  <i class="bi bi-hand-thumbs-down custom-gray" id="downvote-icon-<%= entry.id  %>"></i>
+  <small class="custom-gray" id="downcount-<%= entry.id %>">
+    <%= trim_zero(entry.get_dislikes(:vote_scope => 'vote').size) %>
+  </small>
+<% end %>
+
+<script>
+    // Hide and show the right buttons
+    if (<%= user_signed_in? and current_user.voted_up_on? entry, :vote_scope => 'vote' %>) {
+        document.getElementById('unupvote-button-<%= entry.id %>').hidden = false
+        document.getElementById('upvote-button-<%= entry.id %>').hidden = true
+        localStorage.setItem('switchUp-<%= entry.id %>', true)
+    }
+    else if (<%= user_signed_in? and not current_user.voted_up_on? entry, :vote_scope => 'vote' %>) {
+        document.getElementById('unupvote-button-<%= entry.id %>').hidden = true
+        document.getElementById('upvote-button-<%= entry.id %>').hidden = false
+        localStorage.setItem('switchUp-<%= entry.id %>', false)
+    }
+
+    if (<%= user_signed_in? and current_user.voted_down_on? entry, :vote_scope => 'vote' %>) {
+        document.getElementById('undownvote-button-<%= entry.id %>').hidden = false
+        document.getElementById('downvote-button-<%= entry.id %>').hidden = true
+        localStorage.setItem('switchDown-<%= entry.id %>', true)
+    }
+    else if (<%= user_signed_in? and not current_user.voted_down_on? entry, :vote_scope => 'vote' %>) {
+        document.getElementById('undownvote-button-<%= entry.id %>').hidden = true
+        document.getElementById('downvote-button-<%= entry.id %>').hidden = false
+        localStorage.setItem('switchDown-<%= entry.id %>', false)
+    }
+
+    // onClick, hide and show the right buttons
+    function upvote(id) {
+        let upCount = sizeFilter(document.getElementById('upcount-' + id).innerHTML.replace(/^\s+|\s+$/g, ''))
+        document.getElementById('unupvote-button-' + id).hidden = false
+        document.getElementById('upvote-button-' + id).hidden = true
+        document.getElementById('unupcount-' + id).innerHTML = upCount + 1
+
+        let switchDown = localStorage.getItem('switchDown-' + id)
+        if (switchDown == 'true') {
+            let undownCount = sizeFilter(document.getElementById('undowncount-' + id).innerHTML)
+            document.getElementById('undownvote-button-' + id).hidden = true
+            document.getElementById('downvote-button-' + id).hidden = false
+            document.getElementById('downcount-' + id).innerText = undownCount - 1
+            localStorage.setItem('switchDown-' + id, false)
+        }
+    }
+    function unupvote(id) {
+        let unupCount = sizeFilter(document.getElementById('unupcount-' + id).innerHTML)
+        document.getElementById('unupvote-button-' + id).hidden = true
+        document.getElementById('upvote-button-' + id).hidden = false
+        document.getElementById('upcount-' + id).innerHTML = unupCount - 1
+    }
+    function downvote(id) {
+        let downCount = sizeFilter(document.getElementById('downcount-' + id).innerHTML.replace(/^\s+|\s+$/g, ''))
+        document.getElementById('undownvote-button-' + id).hidden = false
+        document.getElementById('downvote-button-' + id).hidden = true
+        document.getElementById('undowncount-' + id).innerHTML = downCount + 1
+
+        let switchUp = localStorage.getItem('switchUp-' + id)
+        console.log(switchUp)
+        if (switchUp == 'true') {
+            let unupCount = sizeFilter(document.getElementById('unupcount-' + id).innerHTML)
+            document.getElementById('unupvote-button-' + id).hidden = true
+            document.getElementById('upvote-button-' + id).hidden = false
+            document.getElementById('upcount-' + id).innerHTML = unupCount - 1
+            localStorage.setItem('switchUp-' + id, false)
+        }
+    }
+    function undownvote(id) {
+        let undownCount = sizeFilter(document.getElementById('undowncount-' + id).innerHTML)
+        document.getElementById('undownvote-button-' + id).hidden = true
+        document.getElementById('downvote-button-' + id).hidden = false
+        document.getElementById('downcount-' + id).innerText = undownCount - 1
+    }
+
+    function sizeFilter(size) {
+        if (parseInt(size) <= 0 || size === '')
+            return 0
+        else return parseInt(size)
+    }
+</script>

@@ -1,0 +1,42 @@
+<!--suppress ALL -->
+<%= search_form_for @search, url: users_path do |f|%>
+  <div class="form-group">
+    <div class="field">
+      <div class="input-group">
+        <%= f.search_field :username_cont, class: "form-control session-form password-format-input",
+                           placeholder: "konga / search" %>
+        <button class="input-group-text toggle-password-btn bg-white" id="search-button" type="submit">
+          <i class="bi bi-search" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<!-- Show search results -->
+<% if @users.count > 10 %>
+  <% filter = "More than 10 users found" %>
+<% else %>
+  <% filter = pluralize(@users.count, "user") + " found" %>
+<% end %>
+<p class="text-secondary"><%= filter %></p>
+<hr class="custom-horizontal">
+<table class="table table-custom table-hover text-gray">
+  <thead>
+  <tr style="font-weight: normal;">
+    <th class="border-0" style="font-weight: normal;" scope="col">Username</th>
+    <th class="border-0 text-center" style="font-weight: normal;" scope="col">Entries</th>
+    <th class="border-0 text-right" style="font-weight: normal;" scope="col">Joined</th>
+  </tr>
+  </thead>
+  <tbody id="users-wrap">
+  <% @users.each do | user | %>
+    <%= render 'pages/users', user: user %>
+  <% end %>
+  </tbody>
+</table>
+<div id="users-load-more" class="text-center">
+  <%= link_to_next_page @users, 'load more', remote: true,
+                        class: "text-secondary p-2 rounded btn-outline-dark text-decoration-none"%>
+</div>
+<br>

@@ -1,0 +1,96 @@
+<!--suppress CheckTagEmptyBody -->
+<div class="col p-0" style="margin-bottom: 0.5em;" id="report-column-<%= report.id %>">
+  <span class="text-gray">
+    <%= link_to is_moderator(get_user(report.user_id)) + '@' + get_user(report.user_id).username,
+                profile_path(get_user(report.user_id)), class: 'text-decoration-none username', style: "font-size: 0.9em;" %>
+    <span style="font-size: 0.77em;"><%= report.content %></span>
+
+    <% if user_signed_in? and current_user.moderator? %>
+      <!-- Delete report trigger modal -->
+      <i type="button" class="bi bi-trash btn-sm m-0 remove-webkit bg-transparent text-decoration-none p-1"
+         style="color: #ababab; margin-left: 0.5em !important;" data-bs-toggle="modal" data-bs-target="#delete-report-<%= report.id %>"></i>
+
+      <!-- Modal -->
+      <div class="modal fade" id="delete-report-<%= report.id %>" tabindex="-1" role="dialog"
+           aria-labelledby="deleteAccountModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content p-2">
+            <div class="modal-header">
+              <h5 class="modal-title text-dark" id="deleteTranslationModal">Delete translation</h5>
+              <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close" id="close-report-modal-<%= report.id %>">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p class="text-secondary small">
+                The report starting with
+                <strong class="text-danger"><%= report.content.chars.first(10).join %></strong>
+                will be permanently removed.
+              </p>
+
+              <div class="text-secondary small font-weight-bold">Only proceed when:</div>
+              <ul>
+                <li class="text-secondary small">The complaint is resolved</li>
+                <li class="text-secondary small">The translation is acceptable</li>
+                <li class="text-secondary small">Other valid reasons</li>
+                <li class="text-secondary small">Go against any of our other <%= link_to "content guidelines", guidelines_path %></li>
+              </ul>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary font-weight-bold" data-bs-dismiss="modal">Cancel</button>
+
+              <% unless defined? @entry %>
+                <%  @entry = entry  %>
+              <% end %>
+
+              <%= button_to "Confirm", entry_report_path(@entry, report),
+                            class: "btn btn-danger font-weight-bold",
+                            method: :delete,
+                            onclick: "confirmDeleteReport(#{ report.id })" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </span>
+</div>
+
+<!-- This is just a simple notice/toast when report is deleted -->
+<div class="position-fixed top-0 start-50 translate-middle-x p-3" id="toast-report-<%= report.id %>" style="z-index: 5">
+  <div class="toast toast-report-<%= report.id %> hide text-secondary bg-light border-0"
+       data-bs-delay="1500" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="custom-toast-header">
+      <strong class="text-success">Notice</strong>
+      <button type="button" style="float: right;" class="btn-close btn-close-secondary" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body toast-body-report-<%= report.id %>">
+    </div>
+  </div>
+</div>
+
+<script>
+    // Position toast according to screen size
+    if ($(window).width() < 992) {
+        $('#toast-report-<%= report.id %>').removeClass().addClass("position-fixed top-0 start-50 translate-middle-x p-3");
+    }
+    else {
+        $('#toast-report-<%= report.id %>').removeClass().addClass("position-fixed top-0 end-0 p-3");
+    }
+
+    function removeFadeOut( element, speed ) {
+        var seconds = speed/1000;
+        element.style.transition = "opacity " + seconds + "s ease";
+
+        element.style.opacity = 0;
+        setTimeout(function() {
+            element.parentNode.removeChild(element);
+        }, speed);
+    }
+
+    function confirmDeleteReport(id) {
+        removeFadeOut(document.getElementById('report-column-' + id), 1000);
+        document.getElementById('close-report-modal-' + id).click()
+        $('.toast-body-report-' + id).html('Report deleted successfully.')
+        $('.toast-report-' + id).toast('show')
+    }
+</script>

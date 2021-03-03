@@ -1,0 +1,30 @@
+<!--suppress ALL -->
+<%= search_form_for @search, url: results_path do |f|%>
+  <div class="form-group">
+    <div class="field">
+      <div class="input-group">
+        <%= f.search_field :from_or_to_cont, class: "form-control session-form password-format-input",
+                           placeholder: "konga / search" %>
+        <button class="input-group-text toggle-password-btn bg-white" id="search-button" type="submit">
+          <i class="bi bi-search" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<hr class="custom-horizontal">
+
+<!-- Show search results -->
+<p class="text-secondary font-weight-bold">Search Results</p>
+<div id="results-wrap">
+  <% @entries.each do | entry | %>
+    <%= render 'entries/entry', entry: entry %>
+    <br>
+  <% end %>
+</div>
+<div id="load-more-results" class="text-center">
+  <%= link_to_next_page @entries, 'load more', remote: true,
+                        class: "text-secondary p-2 rounded btn-outline-dark text-decoration-none"%>
+</div>
+<br>

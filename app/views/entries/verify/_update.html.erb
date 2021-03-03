@@ -1,0 +1,63 @@
+<!--suppress ALL -->
+<span id="show-unverify-<%= entry.id %>" data-bs-toggle="tooltip" data-bs-placement="top"
+      title="Translation Verified" style="float: right;" hidden>
+  <i type="button" class="remove-webkit bi bi-patch-check-fill btn-sm m-0 text-decoration-none p-0 custom-blue"></i>
+</span>
+
+<span id="show-verify-<%= entry.id %>" data-bs-toggle="tooltip" data-bs-placement="top"
+      title="Not Verified" style="float: right;" hidden>
+  <i type="button" class="remove-webkit bi bi-patch-check-fill btn-sm m-0 text-decoration-none p-0 custom-gray"></i>
+</span>
+
+<span id="verify-form-<%= entry.id %>" hidden>
+  <%= button_to verify_entry_path(entry), class: "btn btn-light bg-transparent text-decoration-none p-0",
+                remote: true, method: :put, style: "margin-right: 0.3em;",
+                id: "verify-entry-#{ entry.id }",
+                onclick: "verifyEntry(#{ entry.id })" do %>
+  <i class="bi bi-toggle-off custom-gray" style=""></i>
+<% end %>
+</span>
+
+<span id="unverify-form-<%= entry.id %>" hidden>
+  <%= button_to unverify_entry_path(entry), class: "btn bg-transparent text-decoration-none p-0",
+                remote: true, method: :put, style: "margin-right: 0.3em;",
+                id: "unverify-entry-#{ entry.id }",
+                onclick: "unverifyEntry(#{ entry.id })" do %>
+  <i class="bi bi-toggle-on custom-blue" style="" ></i>
+<% end %>
+</span>
+
+<script>
+    if ( <%= current_user.voted_up_on? entry, :vote_scope => 'verify' %> ) {
+        document.getElementById('show-verify-<%= entry.id %>').hidden = true
+        document.getElementById('verify-form-<%= entry.id %>').hidden = true
+        document.getElementById('show-unverify-<%= entry.id %>').hidden = false
+        document.getElementById('unverify-form-<%= entry.id %>').hidden = false
+    }
+    else if ( (<%= entry.find_votes_for(:vote_scope => 'verify').size %>) === 0 ) {
+        document.getElementById('show-verify-<%= entry.id %>').hidden = false
+        document.getElementById('verify-form-<%= entry.id %>').hidden = false
+        document.getElementById('show-unverify-<%= entry.id %>').hidden = true
+        document.getElementById('unverify-form-<%= entry.id %>').hidden = true
+    }
+    else {
+        document.getElementById('show-verify-<%= entry.id %>').hidden = true
+        document.getElementById('verify-form-<%= entry.id %>').hidden = true
+        document.getElementById('show-unverify-<%= entry.id %>').hidden = false
+        document.getElementById('unverify-form-<%= entry.id %>').hidden = true
+    }
+
+    function verifyEntry(id) {
+        document.getElementById('show-verify-' + id).hidden = true
+        document.getElementById('verify-form-' + id).hidden = true
+        document.getElementById('show-unverify-' + id).hidden = false
+        document.getElementById('unverify-form-' + id).hidden = false
+    }
+
+    function unverifyEntry(id) {
+        document.getElementById('show-verify-' + id).hidden = false
+        document.getElementById('verify-form-' + id).hidden = false
+        document.getElementById('show-unverify-' + id).hidden = true
+        document.getElementById('unverify-form-' + id).hidden = true
+    }
+</script>

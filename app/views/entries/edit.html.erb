@@ -1,0 +1,323 @@
+<!--suppress ALL -->
+<h5 class="text-secondary">Edit Translation</h5>
+<hr class="custom-horizontal">
+
+<div class="card p-3 border-0 shadow-sm">
+  <%= form_for @entry do |f| %>
+    <div class="row align-content-center">
+      <div class="col my-auto">
+        <div class="card-group mb-0">
+          <div class="card card-border-style">
+            <div class="card-header card-border-style small">
+              <div class="row gx-5">
+
+                <!-- Initialize title variables -->
+                <% from_title = '' %>
+                <% to_title = '' %>
+
+                <!-- Get translation type, and assign to correct variable -->
+                <% if @entry.translation == 1 %>
+                  <% from_title = 'English' %>
+                  <% to_title = 'Oshindonga' %>
+                <% elsif @entry.translation == 2 %>
+                  <% from_title = 'Oshindonga' %>
+                  <% to_title = 'English' %>
+                <% elsif @entry.translation == 3 %>
+                  <% from_title = 'English' %>
+                  <% to_title = 'Oshikwanyama' %>
+                <% elsif @entry.translation == 4 %>
+                  <% from_title = 'Oshikwanyama' %>
+                  <% to_title = 'English' %>
+                <% end %>
+
+                <div class="col p-0 text-center">
+                  <!-- From translation => modal -->
+                  <button type="button" class="btn btn-outline-light p-2 dropdown-toggle text-secondary font-weight-bold" data-bs-toggle="modal" data-bs-target="#translationTypeModal">
+                    <span class="title-text" id="from-title"><%= from_title %></span>
+                  </button>
+                </div>
+
+                <div class="col-1 p-0 text-center">
+                  <!-- Swap translation -->
+                  <button class="btn btn-outline-light p-2 text-secondary" id="swap-translation" type="button">
+                    <i class="bi bi-arrow-left-right" style="font-size: 0.9rem;"></i>
+                  </button>
+                </div>
+
+                <div class="col p-0 text-center">
+                  <!-- To translation => modal -->
+                  <button type="button" class="btn btn-outline-light p-2 dropdown-toggle text-secondary font-weight-bold" data-bs-toggle="modal" data-bs-target="#translationTypeModal">
+                    <span class="title-text" id="to-title"><%= to_title %></span>
+                  </button>
+                </div>
+
+                <!-- Set translation type, see js script at the bottom -->
+                <%= f.number_field :translation, id: 'translation-type', value: 1, hidden: 'hidden' %>
+                <%= f.text_field :language, id: 'language', value: 'a', hidden: 'hidden' %>
+
+                <!-- Translation Modal -->
+                <div class="modal fade" id="translationTypeModal" tabindex="-1" aria-labelledby="translationTypeModal" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="translationTypeModal">Select Translation</h5>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <div>
+                          <button class="btn menu-btn btn-block btn-outline-light border text-dark" id="one" type="button">
+                            English to <span class="text-success">Oshindonga</span>
+                          </button>
+                        </div>
+
+                        <div>
+                          <button class="btn menu-btn btn-block btn-outline-light border text-dark" id="two" type="button">
+                            <span class="text-success">Oshindonga</span> to English
+                          </button>
+                        </div>
+
+                        <div>
+                          <button class="btn menu-btn btn-block btn-outline-light border text-dark" id="three" type="button">
+                            English to <span class="text-danger">Oshikwanyama</span>
+                          </button>
+                        </div>
+
+                        <div>
+                          <button class="btn menu-btn btn-block btn-outline-light border text-dark" id="four" type="button">
+                            <span class="text-danger">Oshikwanyama</span> to English
+                          </button>
+                        </div>
+
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="close-modal">Cancel</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <div class="card-body card-border-style p-0">
+              <div class="row gx-5 mx-auto">
+                <div class="col-md-6 p-0">
+                  <div class="card from-card card-border-style p-2">
+                    <%= f.text_area :from, class: 'form-control small from-entry-form border-0',
+                                    id: 'from-text', spellcheck: 'false', autofocus: 'autofocus' %>
+                    <div class="text-right fs-6 p-0 m-0">
+                      <button type="button" class="btn from-count-btn" disabled>
+                        <span id="from-count">0 / 50</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6 p-0">
+                  <div class="card to-card card-border-style border-0 p-2">
+                    <%= f.text_area :to, class: 'form-control small to-entry-form border-0',
+                                    id: 'to-text', spellcheck: 'false', type: 'search' %>
+                    <div class="text-right fs-6 p-0 m-0">
+                      <button type="button" class="btn to-count-btn" disabled>
+                        <span id="to-count">0 / 50</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p></p>
+
+    <div class="row align-items-center">
+      <div class="col-md-6">
+        <div class="form-group">
+          <div class="field">
+            <div class="text-center">
+              <%= f.submit "Update Translation", class: "btn btn-primary btn-block font-weight-bold",
+                           id: 'submit-btn'%>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <div class="field">
+            <div class="text-center">
+              <div class="col">
+                <small class="text-secondary fst-italic">
+                  Updating as <%= link_to '@' + current_user.username, profile_path(current_user), class: 'text-dark' %>
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<script>
+    // Change translations when you click option in modal
+    // 'type' is the translation option which is also the localStorage 'value'
+    function translation(key, type, fromLanguage, toLanguage, language) {
+        document.getElementById(type).addEventListener('click', function () {
+            document.getElementById('translation-type').value = key;
+            document.getElementById('from-title').innerHTML = fromLanguage;
+            document.getElementById('to-title').innerHTML = toLanguage;
+            document.getElementById('language').value = language;
+            localStorage.setItem('translation', type); // Save to localStorage
+
+            document.getElementById('close-modal').click();  // Close the modal
+        })
+    }
+
+    translation(1, 'one', 'English', 'Oshindonga', 'a');
+    translation(2, 'two', 'Oshindonga', 'English', 'a');
+    translation(3, 'three', 'English', 'Oshikwanyama', 'b');
+    translation(4, 'four', 'Oshikwanyama', 'English', 'b');
+
+    // Set translation
+    function setTranslation(key, type, fromLanguage, toLanguage, language) {
+        document.getElementById('translation-type').value = key;
+        document.getElementById('from-title').innerHTML = fromLanguage;
+        document.getElementById('to-title').innerHTML = toLanguage;
+        document.getElementById('language').value = language;
+        localStorage.setItem('translation', type); // Save to localStorage
+    }
+
+    // Re-set to local storage again
+    let value = localStorage.getItem('translation')  // currently stored 'value'
+    if (value === 'one')
+        setTranslation(1, 'one', 'English', 'Oshindonga', 'a');
+    if (value === 'two')
+        setTranslation(2, 'two', 'Oshindonga', 'English', 'a');
+    if (value === 'three')
+        setTranslation(3, 'three', 'English', 'Oshikwanyama', 'b');
+    if (value === 'four')
+        setTranslation(4, 'four', 'Oshikwanyama', 'English', 'b');
+
+    // Swap translations on click
+    document.getElementById('swap-translation').addEventListener('click', function () {
+        let value = localStorage.getItem('translation')  // currently stored 'value'
+
+        if (value === 'one')
+            setTranslation(2, 'two', 'Oshindonga', 'English', 'a');
+        if (value === 'two')
+            setTranslation(1, 'one', 'English', 'Oshindonga', 'a');
+        if (value === 'three')
+            setTranslation(4, 'four', 'Oshikwanyama', 'English', 'b');
+        if (value === 'four')
+            setTranslation(3, 'three', 'English', 'Oshikwanyama', 'b');
+
+        // [a, b] = [b, a];
+        [document.getElementById('from-text').value, document.getElementById('to-text').value] =
+            [document.getElementById('to-text').value, document.getElementById('from-text').value]
+    })
+
+
+    // Dynamically expand the textarea
+    function expandTextarea(id) {
+        document.getElementById(id).addEventListener('keyup', function() {
+            this.style.overflow = 'hidden';
+            this.style.height = 0;
+            this.style.height = this.scrollHeight + 'px';
+        }, false);
+
+    }
+    expandTextarea('from-text');
+    expandTextarea('to-text')
+
+    // I know this could've been one function and call it
+    // twice but well, just two iterations so all good for now
+
+    // Validate word limit, allowed characters and so on
+    let format = /^[a-zA-Z,.!?'‘`’\-\s]*$/
+    function validate() {
+        // from textarea validations
+        let fromText = document.getElementById('from-text');
+        let fromWords = fromText.value.replace(/\s{2,}/g, ' ');
+        let fromCount
+        if (fromWords === ' ' || fromWords === '')
+            fromCount = 0;
+        else
+            fromCount = fromWords.trim().split(' ').length;
+
+        let fromCountLabel = document.getElementById('from-count');
+        fromCountLabel.innerHTML = fromCount + " / 50";
+        fromCountLabel.style.color="#495057";
+
+        if (fromCount > 50) {
+            fromText.style.color="#dc3545";
+            fromCountLabel.innerHTML = "Word limit exceeded: " + fromCount + " / 50";
+            return  true;
+        }
+
+        if (!format.test(fromWords)) {
+            fromText.style.color="#dc3545";
+            fromCountLabel.innerHTML = "Your input contains an invalid character!";
+            return true;
+        }
+
+        // to textarea validations
+        let toText = document.getElementById('to-text');
+        let toWords = toText.value.replace(/\s{2,}/g, ' ');
+        let toCount
+        if (toWords === ' ' || toWords === '')
+            toCount = 0;
+        else
+            toCount = toWords.trim().split(' ').length;
+
+        let toCountLabel = document.getElementById('to-count');
+        toCountLabel.innerHTML = toCount + " / 50";
+        toCountLabel.style.color="#495057";
+
+        if (toCount > 50) {
+            toText.style.color="#dc3545";
+            toCountLabel.innerHTML = "Word limit exceeded: " + toCount + " / 50";
+            return  true;
+        }
+
+        if (!format.test(toWords)) {
+            toText.style.color="#dc3545";
+            toCountLabel.innerHTML = "Your input contains an invalid character!";
+            return true;
+        }
+
+        // If both columns contain identical characters and if one column isn't empty
+        // because space ' ' or '' kinda counts ☹️
+        if ((fromWords.toLowerCase() === toWords.toLowerCase()) && (toCount !== 0) ) {
+            fromText.style.color="#dc3545";
+            fromCountLabel.innerHTML = "Translations can't be identical";
+
+            toText.style.color="#dc3545";
+            toCountLabel.innerHTML = "Translations can't be identical";
+            return  true;
+        }
+
+        // Default form-control text color
+        fromText.style.color="#495057";
+        toText.style.color="#495057";
+
+        // if one of the textarea is empty
+        return fromWords.replace(/^\s+|\s+$/g, '').length === 0 || toWords.replace(/^\s+|\s+$/g, '').length === 0;
+    }
+
+    // Call the validate function on keyup in both form-controls
+    document.getElementById('from-text').addEventListener('keyup', function () {
+        document.getElementById('submit-btn').disabled = !!validate();
+    })
+
+    document.getElementById('to-text').addEventListener('keyup', function () {
+        document.getElementById('submit-btn').disabled = !!validate();
+    })
+
+    if (document.getElementById('from-text').value.replace(/^\s+|\s+$/g, '').length === 0 || document.getElementById('to-text').value.replace(/^\s+|\s+$/g, '').length === 0)
+        document.getElementById('submit-btn').disabled = true
+</script>

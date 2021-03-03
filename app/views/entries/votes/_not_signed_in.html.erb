@@ -1,0 +1,23 @@
+<!--suppress ALL -->
+<%= button_to upvote_entry_path(entry), remote: true, method: :put,
+              class: "btn btn-light like", onclick: "goToSignIn();" do %>
+  <i class="bi bi-hand-thumbs-up" style="color: #ababab;" ></i>
+  <small style="color: #ababab;">
+    <%= trim_zero(entry.get_likes.size) %>
+  </small>
+<% end %>
+
+<%= button_to downvote_entry_path(entry), remote: true, method: :put,
+              class: "btn btn-light dislike", onclick: "goToSignIn();" do %>
+  <i class="bi bi-hand-thumbs-down" style="color: #ababab;" ></i>
+  <small style="color: #ababab;">
+    <%= trim_zero(entry.get_dislikes.size) %>
+  </small>
+<% end %>
+
+<script>
+    // if user not signed in, redirect to login page
+  function goToSignIn() {
+      window.location.pathname = "<%= new_user_session_path %>"
+  }
+</script>

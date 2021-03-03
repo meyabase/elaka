@@ -5,62 +5,52 @@
 <div class="row justify-content-center">
   <div class="my-auto">
     <div class="card-group mb-0">
-      <div class="card shadow-sm border-0">
-        <div class="col-md-9 align-self-center">
-          <div class="card-body">
-            <div class="d-flex flex-column text-center">
-              <br>
-              <h5 class="text-secondary text-center">Sign in and contribute</h5>
-              <hr class="custom-horizontal">
+      <div class="card sign-in-forms shadow-sm border-0">
+        <div class="card-body">
+          <div class="d-flex flex-column text-center">
+            <br>
+            <h5 class="text-secondary text-center">Sign in and contribute</h5>
+            <hr class="custom-horizontal">
 
-              <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-                <div class="form-group">
-                  <div class="field">
-                    <%= f.text_field :login, class: 'form-control session-form', placeholder: 'username or email'%>
-                  </div>
-                </div>
+            <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+              <div class="input-group mb-3">
+                <%= f.text_field :login, class: 'form-control session-form', placeholder: 'username or email'%>
+              </div>
 
-                <div class="form-group">
-                  <div class="field">
-                    <div class="input-group">
-                      <%= f.password_field :password, autocomplete: "current-password",
-                                           class: 'form-control session-form password-format-input', type: 'password', id: 'password-format', placeholder: 'password'%>
-                      <button class="input-group-text toggle-password-btn bg-white" type="button" id="toggle-password-btn">
-                        <i class="bi bi-eye-slash-fill" aria-hidden="true"></i>
-                      </button>
-                    </div>
-                  </div>
-                </div>
+              <div class="input-group mb-3">
+                <%= f.password_field :password, autocomplete: "current-password",
+                                     class: 'form-control session-form password-format-input', type: 'password', id: 'password-format', placeholder: 'password'%>
+                <button class="input-group-text toggle-password-btn bg-white" type="button" id="toggle-password-btn">
+                  <i class="bi bi-eye-slash-fill" aria-hidden="true"></i>
+                </button>
+              </div>
 
-                <div class="form-group">
-                  <div class="form-row">
-                    <div class="col" style="padding-left: 0.7em;">
+              <div class="input-group mb-3">
+                <div class="col">
+                    <span style="float: left;">
                       <% if devise_mapping.rememberable? %>
                         <%= f.check_box :remember_me, class: 'form-check-input', type: 'checkbox' %>
                         <%= f.label :remember_me, class: 'text-dark' %>
                       <% end %>
-                    </div>
+                    </span>
 
-                    <div class="col">
+                  <span style="float: right;">
                       <%= link_to 'Forgot password?', new_password_path(resource_name), class: 'form-control-text' %>
-                    </div>
-                  </div>
+                    </span>
                 </div>
-
-                <div class="form-group">
-                  <div class="actions">
-                    <%= f.submit "Sign in", class: "btn btn-primary btn-block font-weight-bold" %>
-                  </div>
-                </div>
-              <% end %>
-
-              <hr class="custom-horizontal">
-
-              <div class="signup-section">
-                <p class="text-dark">Not a member yet?
-                  <%= link_to 'Join Now', new_registration_path(resource_name) %>.
-                </p>
               </div>
+
+              <div class="input-group d-grid mb-3">
+                <%= f.submit "Sign in", class: "btn btn-primary fw-bolder" %>
+              </div>
+            <% end %>
+
+            <hr class="custom-horizontal">
+
+            <div class="signup-section">
+              <p class="text-dark">Not a member yet?
+                <%= link_to 'Join Now', new_registration_path(resource_name) %>.
+              </p>
             </div>
           </div>
         </div>

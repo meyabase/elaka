@@ -1,0 +1,79 @@
+<!--suppress ALL -->
+<div class="sticky-top" style="padding-top: 4.9em;">
+  <div class="card p-3 border-0 shadow-sm">
+
+    <%= link_to image_tag('logo512Black.png', alt: 'logo'), root_path,
+                class: 'logo btn menu-btn btn-outline-light text-left text-secondary'%>
+
+    <%= link_to root_path, class: "btn menu-btn btn-outline-light text-left text-secondary" do %>
+      <i class="bi bi-house-fill icon-btn" style="font-size: 1rem;"></i>
+      <strong class="menu-btn-text">Home</strong>
+    <% end %>
+
+    <%= link_to new_entry_path, class: "btn menu-btn btn-outline-primary text-left" do %>
+      <i class="bi bi-plus-circle-fill icon-btn" style="font-size: 1rem;"></i>
+      <strong class="menu-btn-text" style="padding-right: 5px">Post</strong>
+    <% end %>
+
+    <%= link_to search_path, class: "btn menu-btn btn-outline-light text-left text-secondary" do %>
+      <i class="bi bi-search icon-btn" style="font-size: 1rem;"></i>
+      <strong class="menu-btn-text">Search</strong>
+    <% end %>
+
+    <%= link_to trending_path, class: "btn menu-btn btn-outline-light text-left text-secondary" do %>
+      <i class="bi bi-sunrise-fill icon-btn" style="font-size: 1rem;"></i>
+      <strong class="menu-btn-text">Trending</strong>
+    <% end %>
+
+    <%= link_to reports_path, class: "btn menu-btn btn-outline-light text-left text-secondary" do %>
+      <i class="bi bi-flag-fill icon-btn" style="font-size: 1rem;"></i>
+      <strong class="menu-btn-text">Reports</strong>
+    <% end %>
+
+    <%= link_to users_path, class: "btn menu-btn btn-outline-light text-left text-secondary" do %>
+      <i class="bi bi-people-fill icon-btn" style="font-size: 1rem;"></i>
+      <strong class="menu-btn-text" style="padding-right: 5px">Users</strong>
+    <% end %>
+
+    <%= link_to about_path, class: "btn menu-btn btn-outline-light text-left text-secondary" do %>
+      <i class="bi bi-question-circle-fill icon-btn" style="font-size: 1rem;"></i>
+      <strong class="menu-btn-text">About?</strong>
+    <% end %>
+
+    <hr class="custom-horizontal">
+
+    <ul class="navbar-nav mb-2 mb-lg-0">
+
+      <% if user_signed_in? %>
+
+        <%= link_to profile_path(current_user), class: "btn menu-btn btn-outline-light text-left text-secondary" do %>
+          <strong class="menu-btn-text"><%= is_moderator(current_user) + "@" + current_user.username %></strong>
+        <% end %>
+
+        <button class="btn menu-btn btn-block btn-outline-light text-left text-secondary dropdown-toggle"
+                type="button" data-bs-toggle="collapse" data-bs-target=".menu-collapse"
+                aria-expanded="false" aria-controls="dashboard logout">
+          <strong class="menu-btn-text">Profile</strong>
+        </button>
+
+        <div class="collapse menu-collapse" style="margin-top: 0.4em;" id="dashboard">
+          <%= link_to edit_user_registration_path, class: "btn menu-btn btn-block btn-outline-light text-left text-secondary" do %>
+            <strong class="menu-btn-text">Edit Details</strong>
+          <% end %>
+        </div>
+
+        <div class="collapse menu-collapse" id="logout">
+          <%= link_to destroy_user_session_path, class: "btn menu-btn btn-block btn-outline-light text-left text-secondary" do %>
+            <strong class="menu-btn-text">Log out</strong>
+          <% end %>
+        </div>
+
+      <% else # user not signed it %>
+        <!-- Button to trigger sign in modal -->
+        <%= link_to 'Sign In', new_user_session_path,  class: "btn btn-primary navbar-btn font-weight-bold"  %>
+      <% end # if user is signed it %>
+
+    </ul>
+
+  </div>
+</div>

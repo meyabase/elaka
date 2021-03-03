@@ -1,0 +1,23 @@
+<% @entries.each do | entry | %>
+  <!--suppress CheckTagEmptyBody -->
+  <div class="card p-3 bg-transparent border-dark">
+
+    <%= render 'entries/entry', entry: entry %>
+
+    <br>
+
+    <% if entry.reports_count > 0 %>
+    <span class="text-secondary font-weight-bold">
+      <%= pluralize(entry.reports_count, 'report') %>
+    </span>
+      <hr class="text-secondary">
+
+      <% get_reports(entry).each do |report| %>
+        <%= render 'flags/content', report: report, entry: entry %>
+      <% end %>
+
+    <% end %>
+
+  </div>
+  <br>
+<% end %>

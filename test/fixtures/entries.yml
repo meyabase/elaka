@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  translation: 1
+  from: 
+  to: 
+  user: one
+  language: MyString
+  link: MyString
+
+two:
+  translation: 1
+  from: 
+  to: 
+  user: two
+  language: MyString
+  link: MyString

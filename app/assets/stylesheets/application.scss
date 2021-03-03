@@ -1,0 +1,490 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+@import '../../../node_modules/bootstrap/scss/bootstrap';
+@import 'profiles';
+
+// Body, Main
+body {
+  background-color: #202123 !important;
+  color: #212529;
+}
+
+.table-custom {
+  background-color: #202123;
+  border-color: #2d2f34;
+}
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: #202023;
+  color: #ababab;
+}
+
+.table-row {
+  font-weight: normal;
+  font-size: 0.9em;
+}
+
+.mobile-menu {
+  display: none;
+}
+
+@media (max-width: 991px) {
+  .mobile-menu {
+    display: block;
+    border-top: 1px solid #6c757d;
+    background-color: #202123;
+  }
+}
+
+.dropdown-mobile-btn {
+  border-bottom: 1px solid #242728 !important;
+}
+
+.mobile-menu-btn {
+  border-top: 0 !important;
+  border-left: 0 !important;
+  border-right: 0 !important;
+  border-radius: 0 !important;
+  background-color: transparent !important;
+  outline: none !important;
+  box-shadow: 0 0 0 0.0rem !important;
+}
+
+.mobile-menu-btn:hover {
+  border: 2px solid;
+}
+
+.mobile-menu-btn:focus:active {
+}
+
+.nav-tabs .mobile-menu-btn.active {
+  border-bottom: 2px solid #ffa200 !important;
+}
+
+.nav-tabs .mobile-menu-btn {
+  border-bottom: 1px solid #202123 !important;
+}
+
+
+.left-main-col .right-main-col {
+  // padding-top: 4.9em;
+}
+
+.main-col {
+  padding-top: 1.3em;
+  padding-bottom: 1.3em;
+}
+
+@media (max-width: 1000px) {
+  .main-col {
+    padding-left: 0.6em;
+    padding-right: 0.6em;
+  }
+}
+
+.sign-in-forms {
+  padding: 1em 7em;
+}
+
+@media (max-width: 991px) {
+  .sign-in-forms {
+    padding-left: 1em;
+    padding-right: 1em;
+  }
+}
+
+.card-body {
+  flex: 1 1 auto;
+  min-height: 1px;
+  padding: 0 5px 0 5px;
+  height: 100%;
+}
+
+.card-header {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+@media (max-width: 1000px) {
+  .container-lg, .container-md, .container-sm, .container {
+    max-width: 100%;
+  }
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+.mb-3 {
+  margin-bottom: 1rem !important;
+}
+
+.input-group {
+  position: relative;
+  display: flex;
+  width: 100%;
+}
+
+// Navigation or Header
+.navbar {
+}
+
+.logo img {
+  max-width: 30px;
+}
+
+.navbar-nav .nav-link:focus, .navbar-nav .nav-link:hover, .navbar-nav .dropdown-item:hover {
+}
+
+.navbar-nav .dropdown-menu, .navbar-nav .dropdown-item {
+}
+
+.navbar-toggler {
+  padding: .25rem .0rem;
+  font-size: 1.25rem;
+  line-height: 1;
+  background-color: transparent;
+  border: 0 solid transparent;
+  border-radius: .25rem;
+  transition: box-shadow .15s ease-in-out;
+  color: white !important;
+}
+
+.navbar-toggler:focus {
+  text-decoration: none;
+  outline: 0;
+  box-shadow: 0 0 0 0.0rem;
+  color: #ffb000;
+}
+
+// Fields Forms
+
+.field_with_errors {
+  @extend .has-error !optional;
+  .form-control {
+    color: #dc3545;
+  }
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  height: calc(2em + 0.75rem + 2px);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.session-form {
+  outline: none !important;
+  box-shadow: 0 0 0 0.0rem !important;
+}
+
+// Btn Buttons
+.btn {
+  padding: 0.7em;
+  border: 0;
+}
+
+.btn:hover {
+}
+
+.menu-btn {
+  border-radius: 30px;
+  background-color: transparent;
+  border: 0;
+}
+
+.menu-btn:hover {
+}
+
+.menu-btn-text {
+  font-size: 0.9em !important;
+}
+
+@media (max-width: 1109px) {
+  .menu-btn-text {
+    display: none;
+  }
+}
+
+.icon-btn {
+  padding-right: 1em;
+}
+
+.menu-btn-new {
+  border-radius: 30px;
+  border: 0;
+  margin-bottom: 8px;
+  width: 10em;
+}
+
+.user-icon {
+  display: none;
+}
+
+@media (max-width: 1109px) {
+  .user-icon {
+    display: inline;
+  }
+}
+
+// Entry Fields Forms
+
+// From
+.from-card {
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+  border-top: 0;
+  border-left: 0;
+  padding-bottom: 3px !important;
+}
+
+@media (min-width: 768px) {
+  .from-card {
+    border-bottom: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .from-card {
+    border-right: 0;
+    border-radius: 0;
+  }
+}
+
+.from-entry-form {
+  min-height: 100px !important;
+  resize: none;
+  background-color: #f7f7f782;
+  font-size: 14px;
+}
+
+.from-entry-form:focus {
+  border: 0 transparent !important;
+  box-shadow: none !important;
+}
+
+.from-count-btn {
+  line-height: 0.8em;
+  font-size: 0.7em;
+}
+
+@media (min-width: 768px) {
+  .from-card-large {
+    border-top: 0;
+    border-left: 0;
+    border-bottom: 0;
+    border-right: 1px solid !important;
+  }
+}
+
+.from-card-large {
+  border-top: 0;
+  border-left: 0;
+}
+
+// To
+
+.to-card {
+  padding-bottom: 3px !important;
+}
+
+.to-entry-form {
+  min-height: 100px !important;
+  resize: none;
+  background-color: #f7f7f782;
+  font-size: 14px;
+}
+
+.to-entry-form:focus {
+  border: 0 transparent !important;
+  box-shadow: none !important;
+}
+
+.to-count-btn {
+  line-height: 0.8em;
+  font-size: 0.7em;
+}
+
+hr {
+  border-top: 1px rgba(0, 0, 0, 0.1);
+}
+
+// Horizontal line in entries/new
+.custom-horizontal {
+  color: #d3d3d3;
+}
+
+// Password elements
+.toggle-password-btn:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.password-format-input {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.edit-btn {
+  line-height: 0.8em;
+  font-size: 0.7em;
+  padding: 0.3em;
+  border-color: #f3f3f3 !important;
+}
+
+.edit-btn:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.translation-source {
+  font-size: 0.75em;
+}
+
+.card-border-style {
+  border-color: #f3f3f3;
+}
+
+.entry-rows {
+  padding-top: 10px;
+}
+
+@media (max-width: 900px){
+  .entry-rows {
+    padding-top: 0;
+  }
+}
+
+.title-text {
+  font-size: small;
+}
+
+@media (max-width: 767px) {
+  .title-text {
+    font-size: 0.7em;
+  }
+}
+
+.username {
+  color: #8f8f8f;
+}
+
+.username:hover {
+  color: #777777;
+}
+
+// Likes and ratings
+
+.like {
+  border-radius: 7em 0 0 7em;
+  padding: 2px 12px 3px 12px;
+}
+
+.dislike {
+  border-radius: 0 7em 7em 0;
+  padding: 2px 12px 3px 12px;
+  margin-left: -0.2em;
+  border-left: 0.2px solid #efefef;
+}
+
+.like:focus, .dislike:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.0rem;
+}
+
+.button_to {
+  display: inline-block;
+}
+
+.custom-gray {
+  color: #ababab;
+}
+
+.custom-blue {
+  color: #007bff;
+}
+
+.custom-toast-header {
+  //display: -ms-flexbox;
+  //display: flex;
+  //-ms-flex-align: center;
+  //align-items: center;
+  padding: 0.25rem 0.75rem;
+  color: #6c757d;
+  background-color: rgba(255, 255, 255, 0.85);
+  background-clip: padding-box;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  border-top-left-radius: calc(0.25rem - 1px);
+  border-top-right-radius: calc(0.25rem - 1px);
+}
+
+.toast {
+  -ms-flex-preferred-size: 0;
+  flex-basis: 0;
+  max-width: 330px !important;
+  font-size: 0.875rem;
+  background-color: rgba(255, 255, 255, 0.85);
+  background-clip: padding-box;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  border-radius: 0.25rem;
+}
+
+.text-gray {
+  color: #CCCCCC;
+}
+
+.text-gray-link {
+  color: #CCCCCC;
+}
+
+.text-normal {
+  color: #CCCCCC;
+  font-size: 0.95em;
+  font-weight: 400;
+  letter-spacing: normal;
+}
+
+.text-yellow {
+  color: #ffa200;
+}
+
+.text-gray-link:hover, .text-gray-link:focus {
+  color: #a5a5a5;
+}
+
+.remove-webkit {
+  -webkit-appearance: none;
+}
+
+.pagination {
+  justify-content: center;
+}
+
+@media (max-width: 991px) {
+  .page-link {
+    font-size: 0.6em;
+  }
+}

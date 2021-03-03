@@ -1,0 +1,3 @@
+$("#trending-wrap").append("<%=j render 'pages/hot' %>")
+$("#trending-load-more").html("<%=j link_to_next_page @trends, 'load more', remote: true,
+                                   class: "text-secondary p-2 rounded btn-outline-dark text-decoration-none"%>")

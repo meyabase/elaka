@@ -1,0 +1,31 @@
+<!--suppress CheckTagEmptyBody -->
+<div class="row">
+  <div class="col-xs-12 ">
+    <nav>
+      <div class="nav p-0 nav-tabs nav-fill" id="nav-tab" role="tablist">
+        <%= link_to root_path, class: "remove-webkit btn nav-link text-secondary active profile-tab-btn", type: "button" do %>
+          <strong>Entries</strong>
+        <% end %>
+
+        <%= link_to root_path, class: "remove-webkit btn nav-link text-secondary profile-tab-btn", type: "button" do %>
+          <strong>Votes</strong>
+        <% end %>
+
+        <%= link_to root_path, class: "remove-webkit btn nav-link text-secondary profile-tab-btn", type: "button" do %>
+          <strong>Saved</strong>
+        <% end %>
+      </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent" style="padding-top: 1em">
+      <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+        <h5 class="text-secondary text-center">
+          This user doesn't exist
+        </h5>
+        <p class="text-secondary text-center" style="font-size: 0.8em">
+          Try <%= link_to "searching", users_path, class: "text-yellow text-decoration-none" %> for another.
+        </p>
+        <br>
+      </div>
+    </div>
+  </div>
+</div>

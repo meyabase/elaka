@@ -1,0 +1,19 @@
+<!--suppress CheckTagEmptyBody -->
+<h5 class="text-secondary">Translation</h5>
+<hr class="custom-horizontal">
+
+<%= render 'entries/entry', entry: @entry %>
+
+<br>
+
+<% if @entry.reports_count > 0 %>
+  <p class="text-secondary font-weight-bold">
+    <%= pluralize(@entry.reports_count, 'report') %>
+  </p>
+  <hr class="custom-horizontal">
+
+  <% @reports.each do |report| %>
+    <%= render 'flags/content', report: report %>
+  <% end %>
+
+<% end %>

@@ -1,0 +1,12 @@
+<!--suppress CheckTagEmptyBody -->
+<h5 class="text-secondary">Translation Feed</h5>
+<hr class="custom-horizontal">
+
+<div id="entries-wrap">
+  <%= render 'entries/index' %>
+</div>
+<div id="load-more-entries" class="text-center">
+  <%= link_to_next_page @entries, 'load more', remote: true,
+                        class: "text-secondary p-2 rounded btn-outline-dark text-decoration-none"%>
+</div>
+<br>

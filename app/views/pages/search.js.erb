@@ -1,0 +1,3 @@
+$("#search-wrap").append("<%=j render 'entries/index' %>")
+$("#search-load-more").html("<%=j link_to_next_page @entries, 'load more', remote: true,
+                                   class: "text-secondary p-2 rounded btn-outline-dark text-decoration-none"%>")

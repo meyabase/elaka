@@ -1,0 +1,55 @@
+<!--suppress CheckTagEmptyBody -->
+<div class="row">
+  <div class="col-xs-12 ">
+    <nav>
+      <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+        <%= link_to profile_path, class: "remove-webkit btn nav-link text-secondary profile-tab-btn", type: "button" do %>
+          <strong>Entries</strong>
+        <% end %>
+
+        <%= link_to votes_path, class: "remove-webkit btn nav-link text-secondary profile-tab-btn", type: "button" do %>
+          <strong>Votes</strong>
+        <% end %>
+
+        <%= link_to saved_path, class: "remove-webkit btn nav-link text-secondary active profile-tab-btn", type: "button" do %>
+          <strong>Saved</strong>
+        <% end %>
+
+        <% if @user.moderator? %>
+          <%= link_to verified_path, class: "remove-webkit btn nav-link text-secondary profile-tab-btn", type: "button" do %>
+            <strong>Verified</strong>
+          <% end %>
+        <% end %>
+      </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent" style="padding-top: 1em">
+      <div class="tab-pane fade show active" id="nav-saved" role="tabpanel" aria-labelledby="nav-saved-tab">
+        <p class="text-secondary text-left">
+          <%= link_to is_moderator(@user) + '@' + @user.username, profile_path(@user),
+                      class: 'text-decoration-none text-secondary' %>
+        </p>
+        <div id="entries-wrap">
+          <%= render 'entries/index' %>
+        </div>
+        <div id="load-more-entries" class="text-center">
+          <%= link_to_next_page @entries, 'load more', remote: true,
+                                class: "text-secondary p-2 rounded btn-outline-dark text-decoration-none"%>
+        </div>
+        <br>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+    var triggerTabList = [].slice.call(document.querySelectorAll('#myTab a'))
+    triggerTabList.forEach(function (triggerEl) {
+        var tabTrigger = new bootstrap.Tab(triggerEl)
+
+        triggerEl.addEventListener('click', function (event) {
+            event.preventDefault()
+            tabTrigger.show()
+        })
+    })
+</script>

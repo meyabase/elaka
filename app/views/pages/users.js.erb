@@ -1,0 +1,3 @@
+$("#users-wrap").append("<%=j render 'pages/users_more' %>");
+$("#users-load-more").html("<%=j link_to_next_page @users, 'load more', remote: true,
+                                   class: "text-secondary p-2 rounded btn-outline-dark text-decoration-none"%>");

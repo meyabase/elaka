@@ -1,0 +1,28 @@
+// Place all the styles related to the profiles controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+.profile-tab-btn {
+  border-top: 0 !important;
+  border-left: 0 !important;
+  border-right: 0 !important;
+  border-radius: 0 !important;
+  background-color: transparent !important;
+  outline: none !important;
+  box-shadow: 0 0 0 0.0rem !important;
+}
+
+.profile-tab-btn:hover {
+  border: 2px solid;
+}
+
+.profile-tab-btn:focus:active {
+}
+
+.nav-tabs .nav-link.active {
+  border-bottom: 2px solid #d3d3d3 !important;
+}
+
+.nav-tabs {
+  border-bottom: 1px solid #6b6b6b;
+}

@@ -1,0 +1,20 @@
+<!--suppress ALL -->
+<tr class="clickable-row" data-href="<%= profile_path(user) %>">
+  <th class="table-row" scope="row">
+    <%= is_moderator(user) + "@" + user.username %>
+  </th>
+  <td class="text-center table-row">
+    <%= user.entries_count %>
+  </td>
+  <td class="text-right table-row">
+    <%= user.created_at.strftime("%b %Y") %>
+  </td>
+</tr>
+
+<script>
+    $(document).ready(function () {
+        $('[data-href]').click(function () {
+            window.location = $(this).data("href");
+        });
+    });
+</script>

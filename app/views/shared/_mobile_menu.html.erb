@@ -1,0 +1,186 @@
+<!--suppress CheckTagEmptyBody -->
+<div class="fixed-bottom mobile-menu">
+  <div class="row">
+    <div class="col p-0">
+      <nav>
+        <div class="nav p-0 nav-tabs nav-fill">
+          <%= link_to root_path, class: "remove-webkit btn nav-link text-secondary mobile-menu-btn",
+                      type: "button", id: "menu-one", onclick: "changeActiveOne()" do %>
+            <i class="bi bi-house-door-fill text-yellow"></i>
+          <% end %>
+
+          <%= link_to trending_path, class: "remove-webkit btn nav-link text-secondary mobile-menu-btn",
+                      type: "button", id: "menu-two", onclick: "changeActiveTwo()" do %>
+            <i class="bi bi-sunrise-fill text-yellow"></i>
+          <% end %>
+
+          <%= link_to new_entry_path, class: "remove-webkit btn nav-link text-secondary mobile-menu-btn",
+                      type: "button", id: "menu-three", onclick: "changeActiveThree()" do %>
+            <i class="bi bi-plus-circle-fill text-yellow"></i>
+          <% end %>
+
+          <% if user_signed_in? and current_user.moderator? %>
+            <%= link_to reports_path, class: "remove-webkit btn nav-link text-secondary mobile-menu-btn",
+                        type: "button", id: "menu-four", onclick: "changeActiveFour()" do %>
+              <i class="bi bi-flag-fill text-yellow"></i>
+            <% end %>
+          <% end %>
+
+          <button class="mobile-menu-btn btn" type="button" data-bs-toggle="collapse" data-bs-target="#toggleMobileNav"
+                  aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation"
+                  id="menu-five" onclick="changeActiveFive()">
+            <i class="bi bi-layers-fill text-yellow"></i>
+          </button>
+
+          <div class="collapse navbar-collapse" id="toggleMobileNav">
+            <div class="navbar-nav" style="border-top: 1px solid #6c757d;">
+              <% if user_signed_in? %>
+                <%= link_to profile_path(current_user), type: "button",
+                            class: "remove-webkit btn dropdown-mobile-btn text-right text-secondary" do %>
+                  <span style="font-size: 1.1em;"><%= is_moderator(current_user) + "@" + current_user.username %></span>
+                <% end %>
+              <% end %>
+
+              <% if not user_signed_in? or not current_user.moderator? %>
+                <%= link_to reports_path, type: "button",
+                            class: "remove-webkit btn dropdown-mobile-btn text-right text-secondary" do %>
+                  <span>Reported Translations</span>
+                <% end %>
+              <% end %>
+
+              <%= link_to search_path, type: "button",
+                          class: "remove-webkit btn dropdown-mobile-btn text-right text-secondary" do %>
+                <span>Search Translations</span>
+              <% end %>
+
+              <%= link_to users_path, type: "button",
+                          class: "remove-webkit btn dropdown-mobile-btn text-right text-secondary" do %>
+                <span>Search Users</span>
+              <% end %>
+
+              <%= link_to about_path, type: "button",
+                          class: "remove-webkit btn dropdown-mobile-btn text-right text-secondary" do %>
+                <span>Why this?</span>
+              <% end %>
+
+              <% if user_signed_in? %>
+                <%= link_to edit_user_registration_path, type: "button",
+                            class: "remove-webkit btn dropdown-mobile-btn text-right text-secondary" do %>
+                  <span>Edit Profile</span>
+                <% end %>
+
+                <%= link_to destroy_user_session_path, type: "button",
+                            class: "remove-webkit btn dropdown-mobile-btn text-right text-secondary" do %>
+                  <span>Log Out</span>
+                <% end %>
+
+              <% else %>
+
+                <%= link_to new_user_session_path, type: "button", style: "background-color: #ffa200;",
+                            class: "remove-webkit btn font-weight-bold text-right text-secondary" do %>
+                  <span class="text-light">Sign In</span>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+
+      </div>
+      </nav>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Simulate bottom mobile menu
+  function changeActiveOne() {
+      let activeClass = "remove-webkit btn nav-link active text-secondary mobile-menu-btn"
+      let nonActiveClass = "remove-webkit btn nav-link text-secondary mobile-menu-btn"
+      $('#menu-one').removeClass().addClass(activeClass)
+      $('#menu-two').removeClass().addClass(nonActiveClass)
+      $('#menu-three').removeClass().addClass(nonActiveClass)
+      $('#menu-four').removeClass().addClass(nonActiveClass)
+      $('#menu-five').removeClass().addClass(nonActiveClass)
+      $('#menu-six').removeClass().addClass(nonActiveClass)
+      localStorage.setItem('menu', 'one')
+  }
+
+  function changeActiveTwo() {
+      let activeClass = "remove-webkit btn nav-link active text-secondary mobile-menu-btn"
+      let nonActiveClass = "remove-webkit btn nav-link text-secondary mobile-menu-btn"
+      $('#menu-one').removeClass().addClass(nonActiveClass)
+      $('#menu-two').removeClass().addClass(activeClass)
+      $('#menu-three').removeClass().addClass(nonActiveClass)
+      $('#menu-four').removeClass().addClass(nonActiveClass)
+      $('#menu-five').removeClass().addClass(nonActiveClass)
+      $('#menu-six').removeClass().addClass(nonActiveClass)
+      localStorage.setItem('menu', 'two')
+  }
+
+  function changeActiveThree() {
+      let activeClass = "remove-webkit btn nav-link active text-secondary mobile-menu-btn"
+      let nonActiveClass = "remove-webkit btn nav-link text-secondary mobile-menu-btn"
+      $('#menu-one').removeClass().addClass(nonActiveClass)
+      $('#menu-two').removeClass().addClass(nonActiveClass)
+      $('#menu-three').removeClass().addClass(activeClass)
+      $('#menu-four').removeClass().addClass(nonActiveClass)
+      $('#menu-five').removeClass().addClass(nonActiveClass)
+      $('#menu-six').removeClass().addClass(nonActiveClass)
+      localStorage.setItem('menu', 'three')
+  }
+
+  function changeActiveFour() {
+      let activeClass = "remove-webkit btn nav-link active text-secondary mobile-menu-btn"
+      let nonActiveClass = "remove-webkit btn nav-link text-secondary mobile-menu-btn"
+      $('#menu-one').removeClass().addClass(nonActiveClass)
+      $('#menu-two').removeClass().addClass(nonActiveClass)
+      $('#menu-three').removeClass().addClass(nonActiveClass)
+      $('#menu-four').removeClass().addClass(activeClass)
+      $('#menu-five').removeClass().addClass(nonActiveClass)
+      $('#menu-six').removeClass().addClass(nonActiveClass)
+      localStorage.setItem('menu', 'four')
+  }
+
+  function changeActiveFive() {
+      let activeClass = "remove-webkit btn nav-link active text-secondary mobile-menu-btn"
+      let nonActiveClass = "remove-webkit btn nav-link text-secondary mobile-menu-btn"
+      $('#menu-one').removeClass().addClass(nonActiveClass)
+      $('#menu-two').removeClass().addClass(nonActiveClass)
+      $('#menu-three').removeClass().addClass(nonActiveClass)
+      $('#menu-four').removeClass().addClass(nonActiveClass)
+      $('#menu-five').removeClass().addClass(activeClass)
+      $('#menu-six').removeClass().addClass(nonActiveClass)
+      localStorage.setItem('menu', 'five')
+  }
+
+  function changeActiveSix() {
+      let activeClass = "remove-webkit btn nav-link active text-secondary mobile-menu-btn"
+      let nonActiveClass = "remove-webkit btn nav-link text-secondary mobile-menu-btn"
+      $('#menu-one').removeClass().addClass(nonActiveClass)
+      $('#menu-two').removeClass().addClass(nonActiveClass)
+      $('#menu-three').removeClass().addClass(nonActiveClass)
+      $('#menu-four').removeClass().addClass(nonActiveClass)
+      $('#menu-five').removeClass().addClass(nonActiveClass)
+      $('#menu-six').removeClass().addClass(activeClass)
+      localStorage.setItem('menu', 'six')
+  }
+
+  let menuValue = localStorage.getItem('menu')
+  if (menuValue === 'one') {
+      changeActiveOne()
+  }
+  else if (menuValue === 'two') {
+      changeActiveTwo()
+  }
+  else if (menuValue === 'three') {
+      changeActiveThree()
+  }
+  else if (menuValue === 'four') {
+      changeActiveFour()
+  }
+  else if (menuValue === 'five') {
+      changeActiveFive()
+  }
+  else if (menuValue === 'six') {
+      changeActiveSix()
+  }
+</script>

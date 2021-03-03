@@ -1,0 +1,127 @@
+<!--suppress ALL -->
+<h5 class="text-secondary">Report translation</h5>
+<hr class="custom-horizontal">
+
+<%= render 'entries/entry', entry: @entry %>
+
+<br>
+
+<%= content_for :recaptcha_js do %>
+  <%= include_recaptcha_js %>
+<% end %>
+
+<%= form_for([@entry, @report], :authenticity_token => true) do |f| %>
+
+  <p class="text-gray">
+    The translation above will be moderated and reviewed by the community in due time.
+  </p>
+
+  <p class="font-weight-bold text-gray">Use this form to report translations that:</p>
+  <ul class="text-gray">
+    <li>Are incorrect</li>
+    <li>Are inside jokes with no context</li>
+    <li>Include words that don’t actually seem real</li>
+    <li>Include someone's full name or other personal information</li>
+    <li>Include hate speech, bullying, or any other statements meant to discriminate or incite violence against others</li>
+    <li>Go against any of our other content guidelines</li>
+  </ul>
+
+  <hr class="custom-horizontal">
+
+  <p class="font-weight-bold text-gray">Why should this translation be removed or reviewed?</p>
+
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="flexRadioDefault" onclick="checkBoxOne()" id="checkbox-1" checked>
+    <label class="form-check-label text-gray" id="checkbox-1-label" for="checkbox-1">
+      It's wrong.
+    </label>
+  </div>
+
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="flexRadioDefault" onclick="checkBoxTwo()" id="checkbox-2">
+    <label class="form-check-label text-gray" id="checkbox-2-label" for="checkbox-2">
+      It's an inside joke or definition that does not seem real.
+    </label>
+  </div>
+
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="flexRadioDefault" onclick="checkBoxThree()" id="checkbox-3">
+    <label class="form-check-label text-gray" id="checkbox-3-label" for="checkbox-3">
+      It includes hate speech, bullying, or other hurtful comments.
+    </label>
+  </div>
+
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="flexRadioDefault" onclick="checkBoxFour()" id="checkbox-4">
+    <label class="form-check-label text-gray" id="checkbox-4-label" for="checkbox-4">
+      Other
+    </label>
+  </div>
+
+  <br>
+
+  <%= f.text_area :content, class: 'form-control small border',
+                  id: "content", spellcheck: 'false' %>
+
+  <br>
+  <span>
+    <%= f.submit "Report Translation", style: "float: right;", class: "btn btn-primary font-weight-bold", id: "submit-report"%>
+  </span>
+
+  <%= recaptcha_execute('report') %>
+<% end %>
+
+<script>
+    // report translation checkbox functionalities
+    var checkBox = document.getElementById('checkbox-1')
+    var content = document.getElementById('content')
+    var label = document.getElementById('checkbox-1-label')
+    if (checkBox.checked == true) {
+        content.value = label.innerText
+    }
+
+    function checkBoxOne() {
+        var checkBox = document.getElementById('checkbox-1')
+        var content = document.getElementById('content')
+        var label = document.getElementById('checkbox-1-label')
+        if (checkBox.checked == true) {
+            content.value = label.innerText
+        }
+    }
+
+    function checkBoxTwo() {
+        var checkBox = document.getElementById('checkbox-2')
+        var content = document.getElementById('content')
+        var label = document.getElementById('checkbox-2-label')
+        if (checkBox.checked == true) {
+            content.value = label.innerText
+        }
+    }
+
+    function checkBoxThree() {
+        var checkBox = document.getElementById('checkbox-3')
+        var content = document.getElementById('content')
+        var label = document.getElementById('checkbox-3-label')
+        if (checkBox.checked == true) {
+            content.value = label.innerText
+        }
+    }
+
+    function checkBoxFour() {
+        var checkBox = document.getElementById('checkbox-4')
+        var content = document.getElementById('content')
+        var label = document.getElementById('checkbox-4-label')
+        if (checkBox.checked == true) {
+            content.value = label.innerText
+        }
+    }
+
+    document.getElementById('content').addEventListener('keyup', function () {
+        if (this.value.replace(/^\s+|\s+$/g, '').length === 0 ) {
+            document.getElementById('submit-report').disabled = true
+        }
+        else {
+            document.getElementById('submit-report').disabled = false
+        }
+    })
+</script>

@@ -1,0 +1,12 @@
+<!--suppress CheckTagEmptyBody -->
+<h5 class="text-secondary">Reported Translations</h5>
+<hr class="custom-horizontal">
+
+<div id="flags-wrap">
+  <%= render 'flags/index' %>
+</div>
+<div id="load-more-flags" class="text-center">
+  <%= link_to_next_page @entries, 'load more', remote: true,
+                        class: "text-secondary p-2 rounded btn-outline-dark text-decoration-none"%>
+</div>
+<br>

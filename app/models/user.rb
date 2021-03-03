@@ -7,8 +7,8 @@ class User < ApplicationRecord
   paginates_per 15
   has_paper_trail
 
-  #has_many :entries
-  #has_many :reports, dependent: :destroy
+  has_many :entries
+  has_many :reports, dependent: :destroy
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable

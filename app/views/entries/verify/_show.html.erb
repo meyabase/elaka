@@ -1,0 +1,10 @@
+<!--suppress ALL -->
+<% if entry.find_votes_for(:vote_scope => 'verify').size == 1 %>
+  <span data-bs-toggle="tooltip" data-bs-placement="top" title="Translation Verified" style="float: right;">
+      <i type="button" class="bi bi-patch-check-fill btn-sm m-0 text-decoration-none p-0 custom-blue remove-webkit"></i>
+    </span>
+<% else %>
+  <span data-bs-toggle="tooltip" data-bs-placement="top" title="Not Verified" style="float: right;">
+      <i type="button" class="bi bi-patch-check-fill btn-sm m-0 text-decoration-none p-0 custom-gray remove-webkit"></i>
+    </span>
+<% end %>

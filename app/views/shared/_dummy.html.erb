@@ -1,0 +1,270 @@
+<!-- This file is full of crappy, dummy & experimental snippets -->
+<!--suppress ALL -->
+<%= render 'pages/search/hots' %>
+
+<button class="input-group-text toggle-password-btn bg-white" onclick="removeHot()" type="submit">
+  <i class="bi bi-search" aria-hidden="true"></i>
+</button>
+
+<%= link_to new_review_path(entry),
+            class: "btn-sm m-0 btn-outline-secondary text-decoration-none text-center justify-content-center",
+            style: "background-color: #ababab; color: white; float: right; height: 2em; padding-top: 2px;" do %>
+  <small>
+    <i class="bi bi-patch-question-fill" data-bs-toggle="tooltip"
+       data-bs-placement="top" title="Verify Translation">  Verify</i>
+  </small>
+<% end %>
+
+<input class="form-check-input" type="checkbox" id="edit-verify-<%= entry.id %>"
+       style="width: 5em; height: 1.4em; margin-top: 0;"
+       onclick="submitEditReview(<%= entry.id%>)" <% checked %> >
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-7 my-auto">
+      <button class="btn btn-light btn-block dropdown-toggle text-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#editYourDetails" aria-expanded="false" aria-controls="editYourDetails">
+        Edit your details
+      </button>
+      <br>
+      <div class="collapse" id="editYourDetails">
+        <div class="card-group mb-0">
+          <div class="card p-4">
+            <div class="card-body">
+              <div class="d-flex flex-column">
+                <br>
+                <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+                  <%= form_group_tag(resource.errors[:username]) do %>
+                    <div class="field">
+                      <%= f.text_field :username, class: 'form-control', placeholder: 'username' %>
+                      <% resource.errors.full_messages_for(:username).each do |message| %>
+                        <small class="help-block text-danger"><%= message %></small>
+                      <% end %>
+                    </div>
+                  <% end %>
+
+                  <%= form_group_tag(resource.errors[:email]) do %>
+                    <div class="field">
+                      <%= f.text_field :email, class: 'form-control', placeholder: 'email', autocomplete: "email" %>
+                      <% resource.errors.full_messages_for(:email).each do |message| %>
+                        <small class="help-block text-danger"><%= message %></small>
+                      <% end %>
+                    </div>
+                  <% end %>
+
+                  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+                    <div>
+                      Currently waiting confirmation for: <%= resource.unconfirmed_email %>
+                    </div>
+                  <% end %>
+
+                  <%= form_group_tag(resource.errors[:current_password]) do %>
+                    <div class="field">
+                      <%= f.password_field :current_password, autocomplete: "new-password",
+                                           class: 'form-control', placeholder: 'Enter current password' %>
+                      <% resource.errors.full_messages_for(:current_password).each do |message| %>
+                        <small class="help-block text-danger"><%= message %></small>
+                        <br>
+                      <% end %>
+                      <small class="help-block text-secondary">
+                        We need your current password to confirm your changes
+                      </small>
+                    </div>
+                  <% end %>
+
+                  <button class="btn btn-outline-light btn-block dropdown-toggle text-secondary" type="button" data-bs-toggle="collapse" data-bs-target=".multi-collapse" aria-expanded="false" aria-controls="newPassword confirmNewPassword">
+                    Change current password
+                  </button>
+
+                  <div class="collapse multi-collapse" id="newPassword">
+                    <%= form_group_tag(resource.errors[:password]) do %>
+                      <div class="field">
+                        <small class="text-secondary">
+                          <% if @minimum_password_length %>
+                            <%= @minimum_password_length %> characters minimum.
+                          <% end %><br/>
+                        </small>
+                        <%= f.password_field :password, autocomplete: "new-password",
+                                             class: 'form-control', placeholder: 'New password' %>
+                        <% resource.errors.full_messages_for(:password).each do |message| %>
+                          <small class="help-block text-danger"><%= message %></small>
+                        <% end %>
+                      </div>
+                    <% end %>
+                  </div>
+
+                  <div class="collapse multi-collapse" id="confirmNewPassword">
+                    <%= form_group_tag(resource.errors[:password_confirmation]) do %>
+                      <div class="field">
+                        <small class="text-secondary">
+                          Leave blank if you don't want to change it
+                        </small>
+                        <%= f.password_field :password_confirmation, autocomplete: "new-password",
+                                             class: 'form-control', placeholder: 'confirm new password' %>
+                        <% resource.errors.full_messages_for(:password_confirmation).each do |message| %>
+                          <small class="help-block text-danger"><%= message %></small>
+                        <% end %>
+                      </div>
+                    <% end %>
+                  </div>
+                  <br>
+                  <div class="form-group">
+                    <div class="actions">
+                      <%= f.submit "Update Details", class: "btn btn-primary btn-block pull-right" %>
+                    </div>
+                  </div>
+                <% end %>
+                <hr>
+
+                <div class="col-md-6 text-center mx-auto">
+                  <h6>
+                    Unhappy?
+                  </h6>
+                </div>
+
+                <%= button_to "Delete Account", registration_path(resource_name),
+                              class: "btn btn-danger btn-block",
+                              data: { confirm: "Are you sure?" },
+                              method: :delete %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+    function updateUpvote(id) {
+        let upvote = document.getElementById('upvote-' + id)
+        let upcount = document.getElementById('upcount-' + id)
+        let downvote = document.getElementById('downvote-' + id)
+        let downcount = document.getElementById('downcount-' + id)
+
+        if (<%= user_signed_in? %> && <%= current_user.voted_up_on? entry %>) {
+            upvote.className = "bi bi-hand-thumbs-up";
+            upvote.style.color = "#ababab";
+            upcount.innerHTML = <%= votes_in_words(entry.get_upvotes.size) %> - 1;
+        }
+
+    else if (<%= user_signed_in? %> && <%= current_user.voted_down_on? entry %>) {
+            upvote.className = "bi bi-hand-thumbs-up-fill";
+            upvote.style.color = "#007bff";
+            upcount.innerHTML = <%= votes_in_words(entry.get_upvotes.size) %> + 1;
+
+            downvote.className = "bi bi-hand-thumbs-down";
+            downvote.style.color = "#ababab";
+            downcount.innerHTML = <%= votes_in_words(entry.get_downvotes.size) %> - 1;
+            console.log('here')
+        }
+
+    else {
+            upvote.className = "bi bi-hand-thumbs-up-fill";
+            upvote.style.color = "#007bff";
+            upcount.innerHTML = <%= votes_in_words(entry.get_upvotes.size) %> + 1;
+        }
+    }
+
+    function updateDownvote(id) {
+        let upvote = document.getElementById('upvote-' + id);
+        let upcount = document.getElementById('upcount-' + id);
+        let downvote = document.getElementById('downvote-' + id);
+        let downcount = document.getElementById('downcount-' + id);
+
+        if (<%= user_signed_in? %> && <%= current_user.voted_down_on? entry %>) {
+            downvote.className = "bi bi-hand-thumbs-down";
+            downvote.style.color = "#ababab";
+            downcount.innerHTML = <%= votes_in_words(entry.get_downvotes.size) %> - 1;
+        }
+
+    else if (<%= user_signed_in? %> && <%= current_user.voted_up_on? entry %>) {
+            upvote.className = "bi bi-hand-thumbs-up";
+            upvote.style.color = "#ababab";
+            upcount.innerHTML = <%= votes_in_words(entry.get_upvotes.size) %> - 1;
+
+            downvote.className = "bi bi-hand-thumbs-down-fill";
+            downvote.style.color = "#007bff";
+            downcount.innerHTML = <%= votes_in_words(entry.get_downvotes.size) %> + 1;
+        }
+
+    else {
+            downvote.className = "bi bi-hand-thumbs-down-fill";
+            downvote.style.color = "#007bff";
+            downcount.innerHTML = <%= votes_in_words(entry.get_downvotes.size) %> + 1;
+        }
+    }
+</script>
+
+<!--suppress ALL -->
+<% if user_signed_in? and current_user.voted_up_on? entry %>
+  <%= button_to unupvote_entry_path(entry), remote: true, method: :put,
+                class: "btn btn-light like",
+                id: "unupvote-button-#{ entry.id }" do %>
+    <i class="bi bi-hand-thumbs-up-fill" style="color: #007bff;" id="unupvote-icon-<%= entry.id  %>"></i>
+    <small id="upcount-<%= entry.id %>" style="color: #ababab;" >
+      <%= votes_in_words(entry.get_likes.size) %>
+    </small>
+  <% end %>
+
+<% elsif user_signed_in? and not current_user.voted_up_on? entry %>
+  <%= button_to upvote_entry_path(entry), remote: true, method: :put,
+                class: "btn btn-light like",
+                id: "upvote-button-#{ entry.id }" do %>
+    <i class="bi bi-hand-thumbs-up" style="color: #ababab;" id="upvote-icon-<%= entry.id  %>"></i>
+    <small id="upcount-<%= entry.id %>" style="color: #ababab;">
+      <%= votes_in_words(entry.get_likes.size) %>
+    </small>
+  <% end %>
+<% end %>
+
+<% if user_signed_in? and current_user.voted_down_on? entry %>
+  <%= button_to undownvote_entry_path(entry), remote: true, method: :put,
+                class: "btn btn-light dislike",
+                id: "undownvote-button-#{ entry.id }" do %>
+    <i class="bi bi-hand-thumbs-down-fill" style="color: #007bff;" id="undownvote-icon-<%= entry.id  %>"></i>
+    <small id="downcount-<%= entry.id %>" style="color: #ababab;" >
+      <%= votes_in_words(entry.get_dislikes.size) %>
+    </small>
+  <% end %>
+
+<% elsif user_signed_in? and not current_user.voted_down_on? entry %>
+  <%= button_to downvote_entry_path(entry), remote: true, method: :put,
+                class: "btn btn-light dislike",
+                id: "downvote-button-#{ entry.id }" do %>
+    <i class="bi bi-hand-thumbs-down" style="color: #ababab;" id="downvote-icon-<%= entry.id  %>"></i>
+    <small id="downcount-<%= entry.id %>" style="color: #ababab;">
+      <%= votes_in_words(entry.get_dislikes.size) %>
+    </small>
+  <% end %>
+<% end %>
+
+<!-- Links to buttons -->
+<%= link_to search_path, class: "btn-sm m-0 btn-outline-light text-decoration-none", style: "color: #ababab;" do %>
+  <i class="bi bi-bookmark-plus" data-bs-toggle="tooltip" data-bs-placement="top" title="Save to bookmarks"></i>
+<% end %>
+
+<%= link_to search_path, class: "btn-sm m-0 btn-outline-light text-decoration-none ", style: "color: #ababab;" do %>
+  <i class="bi bi-flag" data-bs-toggle="tooltip" data-bs-placement="top" title="Report translation"></i>
+<% end %>
+
+<%= link_to search_path, class: "btn-sm m-0 btn-outline-light text-decoration-none ", style: "color: #ababab;" do %>
+  <i class="bi bi-share" data-bs-toggle="tooltip" data-bs-placement="top" title="Copy link"></i>
+<% end %>
+
+
+<% if flash[:notice] %>
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <%= flash[:notice] %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% elsif flash[:error] %>
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <%= flash[:error] %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% elsif flash[:alert] %>
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <%= flash[:alert] %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% end %>

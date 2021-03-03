@@ -1,0 +1,29 @@
+<!--suppress ALL -->
+<% flash.each do |type, message| %>
+  <% which = { "notice" => "success", "error" => "danger", "alert" => "warning" } %>
+  <div class="position-fixed top-0 start-50 translate-middle-x p-3" id="toast-flash" style="z-index: 5;">
+    <div class="toast toast-flash align-items-center text-secondary bg-light border-0"
+         data-bs-delay="10000" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="custom-toast-header">
+        <strong class="text-<%= which[type] %>"><%= type.capitalize %></strong>
+        <button type="button" class="btn-close btn-close-secondary" style="float: right;" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        <%= message %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<script>
+    if ($(window).width() < 992) {
+        $('#toast-flash').removeClass().addClass("position-fixed top-0 start-50 translate-middle-x p-3");
+    }
+    else {
+        $('#toast-flash').removeClass().addClass("position-fixed top-0 end-0 p-3");
+    }
+
+    $(document).ready(function () {
+        $('.toast-flash').toast('show')
+    })
+</script>
