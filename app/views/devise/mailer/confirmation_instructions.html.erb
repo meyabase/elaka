@@ -1,0 +1,35 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+
+<div class="row">
+  <div class="col-md-9 bg-light">
+    <br>
+    <br>
+    <div class="row justify-content-center">
+      <div class="col-md-7">
+        <div class="card p-md-4 bg-white">
+          <h6 class="text-dark" style="font-size: 1.6em; font-weight: 900">
+            @<%= @user.username %>, please verify your email address.
+          </h6>
+          <br>
+          <p class="text-secondary">
+            You recently added
+            <%= mail_to @user.email, @user.email, class: "text-dark text-decoration-none" %>
+            as your email address for Elaka.
+            If this is correct, please verify your email.
+          </p>
+          <%= button_to 'Verify Email', user_confirmation_url(confirmation_token: @token),
+                        class: "btn btn-block btn-dark btn-lg" %>
+          <p class="text-secondary">
+            Learn more about who we are <%= link_to "here", about_url, class: "text-dark text-decoration-none" %>.
+          </p>
+        </div>
+        <br>
+        <p class="text-secondary" style="font-size: small;">
+          Elaka © 2021, Windhoek, Namibia.
+        </p>
+        <br>
+      </div>
+    </div>
+  </div>
+</div>

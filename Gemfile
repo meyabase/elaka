@@ -38,3 +38,13 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'devise'
+gem 'friendly_id', '~> 5.4.0'
+gem 'acts_as_votable'
+gem 'rails_admin'
+gem 'cancancan'
+gem 'kaminari'
+gem 'ransack', github: 'activerecord-hackery/ransack'
+gem 'paper_trail'
+gem 'paper_trail-association_tracking'
+gem "recaptcha"
