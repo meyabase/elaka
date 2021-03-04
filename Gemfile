@@ -48,4 +48,5 @@ gem 'ransack', github: 'activerecord-hackery/ransack'
 gem 'paper_trail'
 gem 'paper_trail-association_tracking'
 gem "recaptcha"
+gem 'jquery-rails'
 

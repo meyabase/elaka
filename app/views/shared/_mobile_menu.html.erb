@@ -100,7 +100,6 @@
       $('#menu-three').removeClass().addClass(nonActiveClass)
       $('#menu-four').removeClass().addClass(nonActiveClass)
       $('#menu-five').removeClass().addClass(nonActiveClass)
-      $('#menu-six').removeClass().addClass(nonActiveClass)
       localStorage.setItem('menu', 'one')
   }
 
@@ -112,7 +111,6 @@
       $('#menu-three').removeClass().addClass(nonActiveClass)
       $('#menu-four').removeClass().addClass(nonActiveClass)
       $('#menu-five').removeClass().addClass(nonActiveClass)
-      $('#menu-six').removeClass().addClass(nonActiveClass)
       localStorage.setItem('menu', 'two')
   }
 
@@ -124,7 +122,6 @@
       $('#menu-three').removeClass().addClass(activeClass)
       $('#menu-four').removeClass().addClass(nonActiveClass)
       $('#menu-five').removeClass().addClass(nonActiveClass)
-      $('#menu-six').removeClass().addClass(nonActiveClass)
       localStorage.setItem('menu', 'three')
   }
 
@@ -136,7 +133,6 @@
       $('#menu-three').removeClass().addClass(nonActiveClass)
       $('#menu-four').removeClass().addClass(activeClass)
       $('#menu-five').removeClass().addClass(nonActiveClass)
-      $('#menu-six').removeClass().addClass(nonActiveClass)
       localStorage.setItem('menu', 'four')
   }
 
@@ -148,23 +144,10 @@
       $('#menu-three').removeClass().addClass(nonActiveClass)
       $('#menu-four').removeClass().addClass(nonActiveClass)
       $('#menu-five').removeClass().addClass(activeClass)
-      $('#menu-six').removeClass().addClass(nonActiveClass)
       localStorage.setItem('menu', 'five')
   }
 
-  function changeActiveSix() {
-      let activeClass = "remove-webkit btn nav-link active text-secondary mobile-menu-btn"
-      let nonActiveClass = "remove-webkit btn nav-link text-secondary mobile-menu-btn"
-      $('#menu-one').removeClass().addClass(nonActiveClass)
-      $('#menu-two').removeClass().addClass(nonActiveClass)
-      $('#menu-three').removeClass().addClass(nonActiveClass)
-      $('#menu-four').removeClass().addClass(nonActiveClass)
-      $('#menu-five').removeClass().addClass(nonActiveClass)
-      $('#menu-six').removeClass().addClass(activeClass)
-      localStorage.setItem('menu', 'six')
-  }
-
-  let menuValue = localStorage.getItem('menu')
+  var menuValue = localStorage.getItem('menu')
   if (menuValue === 'one') {
       changeActiveOne()
   }
@@ -179,8 +162,5 @@
   }
   else if (menuValue === 'five') {
       changeActiveFive()
-  }
-  else if (menuValue === 'six') {
-      changeActiveSix()
   }
 </script>

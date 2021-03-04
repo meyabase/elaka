@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="Rails elaka: development" uuid="598cad42-6f03-4781-8226-3bb4d07f39c9">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="POSTGRES" exact-version="0" />
+      <schema-mapping />
+    </data-source>
+    <data-source name="Rails elaka: test" uuid="56c26d47-8728-4d57-bd3b-7fe207d53ad4">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="POSTGRES" exact-version="0" />
+      <schema-mapping />
+    </data-source>
+    <data-source name="Rails elaka: production" uuid="55d6c7f3-0437-4c96-8d66-2426a43ea180">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="POSTGRES" exact-version="0" />
+      <user-name>elaka</user-name>
+      <schema-mapping />
+    </data-source>
+  </component>
+</project>
