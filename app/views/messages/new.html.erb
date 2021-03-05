@@ -2,11 +2,8 @@
 <br>
 <br>
 
-<%= content_for :recaptcha_js do %>
-  <%= include_recaptcha_js %>
-<% end %>
-
 <%= form_for @message do |f| %>
+  <%= invisible_captcha %>
   <div class="row justify-content-center">
     <div class="my-auto">
       <div class="card-group mb-0">
@@ -53,8 +50,6 @@
       </div>
     </div>
   </div>
-
-  <%= recaptcha_execute('message') %>
 <% end %>
 
 <br>

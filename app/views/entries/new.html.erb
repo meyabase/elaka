@@ -2,12 +2,10 @@
 <h5 class="text-secondary">New Translation</h5>
 <hr class="custom-horizontal">
 
-<%= content_for :recaptcha_js do %>
-  <%= include_recaptcha_js %>
-<% end %>
-
 <div class="card p-3 border-0 shadow-sm">
   <%= form_for @entry do |f| %>
+    <%= invisible_captcha %>
+
     <div class="row align-content-center">
       <div class="col my-auto">
         <div class="card-group mb-0">
@@ -165,8 +163,6 @@
         </div>
       </div>
     </div>
-
-    <%= recaptcha_execute('entry') %>
   <% end %>
 </div>
 <br>

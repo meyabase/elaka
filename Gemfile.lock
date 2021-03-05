@@ -116,6 +116,8 @@ GEM
       domain_name (~> 0.5)
     i18n (1.8.9)
       concurrent-ruby (~> 1.0)
+    invisible_captcha (2.0.0)
+      rails (>= 5.0)
     jbuilder (2.11.2)
       activesupport (>= 5.0.0)
     jquery-rails (4.4.0)
@@ -309,6 +311,7 @@ DEPENDENCIES
   capybara (>= 3.26)
   devise
   friendly_id (~> 5.4.0)
+  invisible_captcha
   jbuilder (~> 2.7)
   jquery-rails
   kaminari

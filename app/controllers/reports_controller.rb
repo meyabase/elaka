@@ -2,6 +2,7 @@ class ReportsController < ApplicationController
   before_action :set_entry, :set_paper_trail_whodunnit, :authenticate_user!
   before_action :set_report, except: [:new, :create]
   skip_before_action :verify_authenticity_token, :only => [:create]
+  invisible_captcha only: [:create]
 
   def new
     @report = Report.new
@@ -9,11 +10,6 @@ class ReportsController < ApplicationController
 
   def create
     @report = @entry.reports.build(report_params)
-
-    unless verify_recaptcha?(params[:recaptcha_token], 'report')
-      flash.now[:error] = t('recaptcha.errors.verification_failed')
-      return render :new
-    end
 
     @report.user_id = current_user.id
     if @report.save

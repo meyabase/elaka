@@ -1,16 +1,13 @@
 class MessagesController < ApplicationController
+  invisible_captcha only: [:create]
+
+
   def new
     @message = Message.new
   end
 
   def create
     @message = Message.new message_params
-
-    unless verify_recaptcha?(params[:recaptcha_token], 'message')
-      flash.now[:error] = t('recaptcha.errors.verification_failed')
-      return render :new
-    end
-
     if @message.valid?
       MessageMailer.contact(@message).deliver_now
       redirect_to help_path

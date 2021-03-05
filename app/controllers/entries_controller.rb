@@ -4,7 +4,7 @@ class EntriesController < ApplicationController
   before_action :set_paper_trail_whodunnit, only: [:create, :destroy, :update]
   before_action :kalipi_sign_in, only: :create
   after_action :kalipi_sign_out, only: :create
-
+  invisible_captcha only: [:create]
 
   def new
     @entry = Entry.new
@@ -12,11 +12,6 @@ class EntriesController < ApplicationController
 
   def create
     @entry = current_user.entries.build(entry_params)
-
-    unless verify_recaptcha?(params[:recaptcha_token], 'entry')
-      flash.now[:error] = t('recaptcha.errors.verification_failed')
-      return render :new
-    end
 
     if @entry.valid?
       @entry.save

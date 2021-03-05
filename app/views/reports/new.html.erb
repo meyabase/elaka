@@ -6,11 +6,8 @@
 
 <br>
 
-<%= content_for :recaptcha_js do %>
-  <%= include_recaptcha_js %>
-<% end %>
-
 <%= form_for([@entry, @report], :authenticity_token => true) do |f| %>
+  <%= invisible_captcha %>
 
   <p class="text-gray">
     The translation above will be moderated and reviewed by the community in due time.
@@ -67,8 +64,6 @@
   <span>
     <%= f.submit "Report Translation", style: "float: right;", class: "btn btn-primary font-weight-bold", id: "submit-report"%>
   </span>
-
-  <%= recaptcha_execute('report') %>
 <% end %>
 
 <script>
