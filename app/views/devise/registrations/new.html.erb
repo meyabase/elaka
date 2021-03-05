@@ -1,12 +1,11 @@
-<br class="d-md-block">
-<br class="d-md-block">
+<br>
+<br>
 <div class="row justify-content-center">
   <div class="my-auto">
     <div class="card-group mb-0">
-      <div class="card shadow-sm border-0">
-        <div class="col-md-9 align-self-center">
-          <div class="card-body">
-          <div class="d-flex flex-column">
+      <div class="card sign-in-forms shadow-sm border-0">
+        <div class="card-body">
+          <div class="d-flex flex-column text-center">
             <br>
             <h5 class="text-secondary text-center">Join now and contribute</h5>
             <hr class="custom-horizontal">
@@ -23,7 +22,7 @@
 
               <%= form_group_tag(resource.errors[:email]) do %>
                 <div class="field">
-                  <%= f.text_field :email.downcase, class: 'form-control session-form', placeholder: 'email', autocomplete: "email" %>
+                  <%= f.email_field :email.downcase, class: 'form-control session-form', placeholder: 'email', autocomplete: "email" %>
                   <% resource.errors.full_messages_for(:email).each do |message| %>
                     <small class="help-block text-danger"><%= message %></small>
                   <% end %>
@@ -39,7 +38,7 @@
                   </small>
                   <div class="input-group">
                     <%= f.password_field :password, autocomplete: "new-password",
-                                       class: 'form-control password-format-input session-form', placeholder: 'password', id: 'password-format' %>
+                                         class: 'form-control password-format-input session-form', placeholder: 'password', id: 'password-format' %>
                     <button class="input-group-text toggle-password-btn bg-white" type="button" id="toggle-password-btn">
                       <i class="bi bi-eye-slash-fill" aria-hidden="true"></i>
                     </button>
@@ -54,7 +53,7 @@
                 <div class="field">
                   <div class="input-group">
                     <%= f.password_field :password_confirmation, autocomplete: "new-password",
-                                       class: 'form-control password-format-input session-form', placeholder: 'confirm password', id: 'password-format-conf' %>
+                                         class: 'form-control password-format-input session-form', placeholder: 'confirm password', id: 'password-format-conf' %>
                     <button class="input-group-text toggle-password-btn bg-white" type="button" id="toggle-password-btn-conf">
                       <i class="bi bi-eye-slash-fill" aria-hidden="true"></i>
                     </button>
@@ -75,17 +74,21 @@
             <hr class="custom-horizontal">
 
             <div class="signup-section">
-              <p class="text-dark text-center">Already a member?
+              <div class="text-dark text-center">Already a member?
                 <%= link_to 'Sign In', new_session_path(resource_name) %>.
-              </p>
+              </div>
+              <div class="text-center">
+                <%= link_to 'Need Help?', help_path %>
+              </div>
             </div>
           </div>
-        </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+<br>
+<br>
 
 <script>
     function togglePassword(btn, box) {

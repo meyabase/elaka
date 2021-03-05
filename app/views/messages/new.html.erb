@@ -1,0 +1,61 @@
+<!--suppress CheckTagEmptyBody -->
+<br>
+<br>
+
+<%= content_for :recaptcha_js do %>
+  <%= include_recaptcha_js %>
+<% end %>
+
+<%= form_for @message do |f| %>
+  <div class="row justify-content-center">
+    <div class="my-auto">
+      <div class="card-group mb-0">
+        <div class="card sign-in-forms shadow-sm border-0">
+          <div class="card-body">
+            <div class="d-flex flex-column text-center">
+              <br>
+              <h5 class="text-secondary text-center">Need help?</h5>
+              <hr class="custom-horizontal">
+
+              <div class="input-group mb-3">
+                <%= f.text_field :name, class: 'form-control session-form', placeholder: 'name'%>
+              </div>
+
+              <div class="input-group mb-3">
+                <%= f.email_field :email, class: 'form-control session-form', placeholder: 'email address'%>
+              </div>
+
+              <div class="input-group mb-3">
+                <%= f.text_field :subject, class: 'form-control session-form', placeholder: 'Subject'%>
+              </div>
+
+              <div class="input-group mb-3">
+                <%= f.text_area :content, class: 'form-control session-form', spellcheck: 'false',
+                                placeholder: "Tell us what's going on...", rows: "3" %>
+              </div>
+
+              <div class="input-group d-grid mb-3">
+                <%= f.submit "Tuma", class: "btn btn-primary btn-block fw-bolder" %>
+              </div>
+
+              <hr class="custom-horizontal">
+
+              <div class="footer-section">
+                <%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
+                  <p class="text-center">
+                    <%= link_to "Didn't receive confirmation email?", new_confirmation_path(resource_name), class: "text-center" %>
+                  </p>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%= recaptcha_execute('message') %>
+<% end %>
+
+<br>
+<br>

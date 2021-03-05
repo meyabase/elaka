@@ -140,15 +140,16 @@
           <div class="field">
             <div class="text-left">
               <% unless user_signed_in? %>
-                <div class="col">
+                <div class="col p-0">
                   <small class="text-secondary fst-italic">
-                    Default as <%= link_to '@kalipi', profile_path(username: :kalipi), class: 'text-decoration-none text-secondary' %>.
+                    Posting as <%= link_to '@kalipi', profile_path(username: :kalipi), class: 'text-decoration-none' %>.
                   </small>
                 </div>
-                <div class="col">
+                <div class="col p-0">
                   <small class="text-secondary fst-italic">
                     Not a member yet?
-                    <%= link_to 'Join Now!', new_registration_path(resource_name), class: 'text-decoration-none text-primary' %>
+                    <%= link_to 'Join Now', new_registration_path(resource_name), class: 'text-decoration-none text-primary' %>
+                    or <%= link_to 'Sign In', new_session_path(resource_name) %>
                   </small>
                 </div>
               <% else %>
@@ -168,6 +169,8 @@
     <%= recaptcha_execute('entry') %>
   <% end %>
 </div>
+<br>
+<br>
 
 <script>
     // Change translations when you click option in modal

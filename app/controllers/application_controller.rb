@@ -31,9 +31,7 @@ class ApplicationController < ActionController::Base
 
   # https://dev.to/morinoko/adding-recaptcha-v3-to-a-rails-app-without-a-gem-46jj
   def verify_recaptcha?(token, recaptcha_action)
-    secret_key = Rails.application.credentials.dig(:recaptcha_secret_key)
-
-    uri = URI.parse("https://www.google.com/recaptcha/api/siteverify?secret=#{secret_key}&response=#{token}")
+    uri = URI.parse("https://www.google.com/recaptcha/api/siteverify?secret=#{ ENV["RECAPTCHA_SECRET_KEY"] }&response=#{token}")
     response = Net::HTTP.get_response(uri)
     json = JSON.parse(response.body)
     json['success'] && json['score'] > RECAPTCHA_MINIMUM_SCORE && json['action'] == recaptcha_action

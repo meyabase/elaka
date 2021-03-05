@@ -1,16 +1,47 @@
-<h2>Resend confirmation instructions</h2>
+<br>
+<br>
+<div class="card">
+  <div class="col-md-9 align-self-center">
+    <div class="card-body">
+      <div class="d-flex flex-column">
+        <br>
+        <h5 class="text-secondary text-center">Resend confirmation instructions</h5>
+        <hr class="custom-horizontal">
+        <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name)) do |f| %>
+          <div class="form-group">
+            <div class="field">
+              <%= f.email_field :email, class: 'form-control session-form', placeholder: 'email',
+                               autocomplete: "email", autofocus: true,
+                                value: (resource.pending_reconfirmation? ?
+                                          resource.unconfirmed_email : resource.email) %>
+              <% resource.errors.full_messages_for(:email).each do |message| %>
+                <small class="help-block text-danger"><%= message %></small>
+              <% end %>
+            </div>
+          </div>
 
-<%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+          <div class="form-group">
+            <div class="actions">
+              <%= f.submit "Resend Confirmation", class: "btn btn-primary btn-block" %>
+            </div>
+          </div>
+        <% end %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %>
+        <hr class="custom-horizontal">
+
+        <div class="signup-section">
+          <div class="text-dark text-center">
+            <%= link_to 'Sign In', new_session_path(resource_name) %>
+            or <%= link_to 'Join Now', new_registration_path(resource_name) %>
+          </div>
+
+          <p class="text-center">
+            <%= link_to 'Need Help?', help_path %>
+            <%= link_to 'Forgot password?', new_password_path(resource_name), class: 'form-control-text' %>
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
+</div>
 
-  <div class="actions">
-    <%= f.submit "Resend confirmation instructions" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>

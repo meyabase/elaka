@@ -49,4 +49,5 @@ gem 'paper_trail'
 gem 'paper_trail-association_tracking'
 gem "recaptcha"
 gem 'jquery-rails'
+gem 'mailgun-ruby', '~>1.2.3'
 
