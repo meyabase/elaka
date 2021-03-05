@@ -13,7 +13,7 @@ class MessagesController < ApplicationController
 
     if @message.valid?
       MessageMailer.contact(@message).deliver_now
-      redirect_to new_message_url
+      redirect_to help_path
       flash[:notice] = "We have received your message and will be in touch soon!"
     else
       flash[:error] = "There was an error sending your message. Please try again."

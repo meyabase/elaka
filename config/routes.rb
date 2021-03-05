@@ -26,7 +26,7 @@ Rails.application.routes.draw do
   end
 
   match 'help', to: 'messages#new', :via => 'get'
-  resources :messages
+  resources :messages, only: [:create]
 
   root 'entries#index'
   match 'reports', to: 'flags#index', :via => 'get'
