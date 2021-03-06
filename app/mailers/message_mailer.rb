@@ -3,7 +3,7 @@ class MessageMailer < ApplicationMailer
 
   def contact(message)
     mg_client = Mailgun::Client.new ENV["MAILGUN_API_KEY"]
-    message_params = {:from => message.email,
+    message_params = {:from => "Axel <#{ message.email }>",
                       :to => ENV["DEFAULT_EMAIL"],
                       :subject => 'Elaka Form: ' + message.subject ,
                       :text => message.content}
