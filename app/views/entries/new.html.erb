@@ -1,6 +1,5 @@
 <!--suppress CheckTagEmptyBody -->
 <br>
-
 <div class="card p-3 border-0 shadow-sm">
   <%= form_for @entry do |f| %>
     <%= invisible_captcha %>
@@ -125,7 +124,7 @@
         <div class="form-group">
           <div class="field">
             <div class="text-center">
-              <%= f.submit "Post Translation", class: "btn btn-primary btn-block font-weight-bold",
+              <%= f.submit "Post Translation", class: "btn btn-sm btn-primary btn-block font-weight-bold",
                            id: 'submit-btn'%>
             </div>
           </div>
@@ -137,18 +136,14 @@
           <div class="field">
             <div class="text-left">
               <% unless user_signed_in? %>
-                <div class="col p-0">
-                  <small class="text-secondary fst-italic">
-                    Posting as <%= link_to '@kalipi', profile_path(username: :kalipi), class: 'text-decoration-none' %>.
-                  </small>
-                </div>
-                <div class="col p-0">
-                  <small class="text-secondary fst-italic">
-                    Not a member yet?
-                    <%= link_to 'Join Now', new_registration_path(resource_name), class: 'text-decoration-none text-primary' %>
-                    or <%= link_to 'Sign In', new_session_path(resource_name) %>
-                  </small>
-                </div>
+                <small class="text-secondary fst-italic">
+                  Posting as <%= link_to '@kalipi', profile_path(username: :kalipi), class: 'text-decoration-none' %>.
+                </small>
+                <small class="text-secondary fst-italic">
+                  Not a member yet?
+                  <%= link_to 'Join Now', new_registration_path(resource_name), class: 'text-decoration-none text-primary' %>
+                  or <%= link_to 'Sign In', new_session_path(resource_name) %>
+                </small>
               <% else %>
                 <div class="col">
                   <small class="text-secondary fst-italic">

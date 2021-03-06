@@ -58,14 +58,14 @@
                 <span>Search Users</span>
               <% end %>
 
-              <%= link_to about_path, type: "button",
-                          class: "remove-webkit btn dropdown-mobile-btn text-right text-secondary" do %>
-                <span>Why elaka?</span>
-              <% end %>
-
               <%= link_to help_path, type: "button",
                           class: "remove-webkit btn dropdown-mobile-btn text-right text-secondary" do %>
                 <span>Need help?</span>
+              <% end %>
+
+              <%= link_to about_path, type: "button",
+                          class: "remove-webkit btn dropdown-mobile-btn text-right text-secondary" do %>
+                <span>About</span>
               <% end %>
 
               <% if user_signed_in? %>

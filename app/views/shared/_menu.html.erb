@@ -1,5 +1,6 @@
 <!--suppress ALL -->
-<div class="sticky-top" style="padding-top: 2.8em;">
+<br>
+<div class="sticky-top">
   <div class="card p-3 border-0 shadow-sm">
 
     <%= link_to image_tag('logo512Black.png', alt: 'logo'), root_path,
@@ -75,7 +76,7 @@
 
       <% else # user not signed it %>
         <!-- Button to trigger sign in modal -->
-        <%= link_to 'Sign In', new_user_session_path,  class: "btn btn-primary navbar-btn font-weight-bold"  %>
+        <%= link_to 'Sign In', new_user_session_path,  class: "btn btn-sm btn-primary navbar-btn font-weight-bold"  %>
       <% end # if user is signed it %>
 
     </ul>
