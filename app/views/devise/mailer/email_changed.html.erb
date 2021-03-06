@@ -13,13 +13,13 @@
           </h6>
           <br>
           <p class="text-secondary">
-            <% if @resource.try(:unconfirmed_email?) %>
+            <% if @user.try(:unconfirmed_email?) %>
               We're contacting you to notify you that your email is being changed to
-              <%= mail_to @resource.unconfirmed_email, @resource.unconfirmed_email,
+              <%= mail_to @user.unconfirmed_email, @user.unconfirmed_email,
                           class: "text-dark text-decoration-none" %>.
             <% else %>
               We're contacting you to notify you that your email has been changed to
-              <%= mail_to @resource.email, @resource.email,
+              <%= mail_to @user.email, @user.email,
                           class: "text-dark text-decoration-none" %>.
             <% end %>
           </p>

@@ -1,14 +1,51 @@
-# https://github.com/plataformatec/devise/wiki/How-To:-Use-custom-mailer
-# https://stackoverflow.com/questions/17002994/how-do-i-set-a-custom-email-subject-in-a-custom-devise-email
-# Not Working lol. Just edit the config/locales/devise.en.yml
 class DeviseMailer < Devise::Mailer
   helper :application
   include Devise::Controllers::UrlHelpers
-  default template_path: 'devise/mailer'
+  layout 'mailer'
+  require 'mailgun-ruby'
 
-  #def confirmation_instructions(record, token, opts={})
-  # opts[:subject] = "Verify your Elaka email address"
-  # attachments.inline['logo512Black.png'] = File.read("app/assets/images/logo512Black.png")
-  # super
-  #end
+  def confirmation_instructions(record, token, opts={})
+    @user = record
+    @token = token
+    mg_client = Mailgun::Client.new ENV["MAILGUN_API_KEY"]
+    message_params = {:from => ENV["DEFAULT_EMAIL"], :to => record.email,
+                      :subject => "Verify your Elaka email address" }
+    mg_client.send_message ENV["MAILGUN_DOMAIN"], message_params
+  end
+
+  reset_password_instructions
+
+  def reset_password_instructions(record, token, opt={})
+    @user = record
+    @token = token
+    mg_client = Mailgun::Client.new ENV["MAILGUN_API_KEY"]
+    message_params = {:from => ENV["DEFAULT_EMAIL"], :to => @user.email,
+                      :subject => "Reset your Elaka password" }
+    mg_client.send_message ENV["MAILGUN_DOMAIN"], message_params
+  end
+
+  def unlock_instructions(record, token, opt={})
+    @user = record
+    @token = token
+    mg_client = Mailgun::Client.new ENV["MAILGUN_API_KEY"]
+    message_params = {:from => ENV["DEFAULT_EMAIL"], :to => @user.email,
+                      :subject => "Unlock your Elaka account" }
+    mg_client.send_message ENV["MAILGUN_DOMAIN"], message_params
+  end
+
+  def email_changed(record, opt={})
+    @user = record
+    mg_client = Mailgun::Client.new ENV["MAILGUN_API_KEY"]
+    message_params = {:from => ENV["DEFAULT_EMAIL"], :to => @user.email,
+                      :subject => "Your Elaka email changed" }
+    mg_client.send_message ENV["MAILGUN_DOMAIN"], message_params
+  end
+
+  def password_change(record, opt={})
+    @user = record
+    mg_client = Mailgun::Client.new ENV["MAILGUN_API_KEY"]
+    message_params = {:from => ENV["DEFAULT_EMAIL"], :to => @user.email,
+                      :subject => "Your Elaka password changed" }
+    mg_client.send_message ENV["MAILGUN_DOMAIN"], message_params
+  end
 end
