@@ -12,7 +12,7 @@ class DeviseMailer < Devise::Mailer
     premailer = Premailer.new(template, :with_html_string => true, :warn_level => Premailer::Warnings::SAFE)
     message_params = {:from => "Elaka #{ ENV["DEFAULT_EMAIL"] }", :to => record.email,
                       :subject => "Verify your Elaka email address",
-                      :html => template }
+                      :body_html => (premailer.to_inline_css).to_str }
     mg_client.send_message ENV["MAILGUN_DOMAIN"], message_params
   end
 
