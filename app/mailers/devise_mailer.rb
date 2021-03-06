@@ -8,9 +8,10 @@ class DeviseMailer < Devise::Mailer
     @user = record
     @token = token
     mg_client = Mailgun::Client.new ENV["MAILGUN_API_KEY"]
+    template = render_to_string(template: "devise/mailer/confirmation_instructions")
     message_params = {:from => ENV["DEFAULT_EMAIL"], :to => record.email,
                       :subject => "Verify your Elaka email address",
-                      :text => "Dummy Content" }
+                      :text => "heya" }
     mg_client.send_message ENV["MAILGUN_DOMAIN"], message_params
   end
 

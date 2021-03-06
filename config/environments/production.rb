@@ -123,4 +123,6 @@ Rails.application.configure do
     api_key: ENV["MAILGUN_API_KEY"],
     domain: ENV["MAILGUN_DOMAIN"]
   }
+
+  # config.action_mailer.default_url_options = { :host => 'www.elaka.io' }
 end
