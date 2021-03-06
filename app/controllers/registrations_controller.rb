@@ -5,7 +5,11 @@ class RegistrationsController < Devise::RegistrationsController
   before_action :release_entries, only: :destroy
 
   def release_entries
-    kalipi = User.find_by(username: 'kalipi')
-    Entry.where(user_id: current_user.id).update_all(:user_id => kalipi.id)
+    if current_user.username != 'kalipi'
+      kalipi = User.find_by(username: 'kalipi')
+      Entry.where(user_id: current_user.id).update_all(:user_id => kalipi.id)
+    else
+      flash[:error] = "Cannot remove default user! Contact SuperUser!"
+    end
   end
 end

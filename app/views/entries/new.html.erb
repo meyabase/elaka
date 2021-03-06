@@ -1,6 +1,5 @@
 <!--suppress CheckTagEmptyBody -->
-<h5 class="text-secondary">New Translation</h5>
-<hr class="custom-horizontal">
+<br>
 
 <div class="card p-3 border-0 shadow-sm">
   <%= form_for @entry do |f| %>
@@ -104,7 +103,7 @@
                 <div class="col-md-6 p-0">
                   <div class="card to-card card-border-style border-0 p-2">
                     <%= f.text_area :to, class: 'form-control small to-entry-form border-0',
-                                    id: 'to-text', spellcheck: 'false', type: 'search' %>
+                                    id: 'to-text', spellcheck: 'false', autofocus: 'autofocus' %>
                     <div class="text-right fs-6 p-0 m-0">
                       <button type="button" class="btn to-count-btn" disabled>
                         <span id="to-count">0 / 50</span>
