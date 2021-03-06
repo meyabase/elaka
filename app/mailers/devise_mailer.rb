@@ -11,7 +11,7 @@ class DeviseMailer < Devise::Mailer
     template = render_to_string(template: "devise/mailer/confirmation_instructions")
     message_params = {:from => "Elaka #{ ENV["DEFAULT_EMAIL"] }", :to => record.email,
                       :subject => "Verify your Elaka email address",
-                      :text => "heya" }
+                      :text => template }
     mg_client.send_message ENV["MAILGUN_DOMAIN"], message_params
   end
 
