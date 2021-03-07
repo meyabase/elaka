@@ -12,7 +12,7 @@
             <%= form_for(resource, as: resource_name, url: user_registration_path(resource_name)) do |f| %>
               <%= form_group_tag(resource.errors[:username]) do %>
                 <div class="field">
-                  <%= f.text_field :username.downcase, class: 'form-control session-form', placeholder: 'username' %>
+                  <%= f.text_field :username.downcase, class: 'form-control session-form', placeholder: 'username', id: "username" %>
                   <% resource.errors.full_messages_for(:username).each do |message| %>
                     <small class="help-block text-danger"><%= message %></small>
                   <% end %>
@@ -65,7 +65,7 @@
 
               <div class="form-group">
                 <div class="actions">
-                  <%= f.submit "Sign up", class: "btn btn-sm btn-primary btn-block font-weight-bold" %>
+                  <%= f.submit "Sign up", class: "btn btn-sm btn-primary btn-block font-weight-bold", id: "submit" %>
                 </div>
               </div>
             <% end %>
@@ -111,4 +111,10 @@
     }
     togglePassword('toggle-password-btn', 'password-format');
     togglePassword('toggle-password-btn-conf', 'password-format-conf');
+
+    document.getElementById('submit').addEventListener('click', function () {
+        let username = document.getElementById('username')
+        username.value = username.value.replace(/\s+/g,'')
+        console.log(username.value)
+    })
 </script>

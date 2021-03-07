@@ -12,7 +12,7 @@
 
             <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
               <div class="input-group mb-3">
-                <%= f.text_field :login, class: 'form-control session-form', placeholder: 'username or email'%>
+                <%= f.text_field :login, class: 'form-control session-form', placeholder: 'username or email', id: "username"%>
               </div>
 
               <div class="input-group mb-3">
@@ -39,7 +39,7 @@
               </div>
 
               <div class="input-group d-grid mb-3">
-                <%= f.submit "Sign in", class: "btn btn-sm btn-primary fw-bolder" %>
+                <%= f.submit "Sign in", class: "btn btn-sm btn-primary fw-bolder", id: "submit" %>
               </div>
             <% end %>
 
@@ -83,4 +83,10 @@
       })
   }
   togglePassword('toggle-password-btn', 'password-format');
+
+  document.getElementById('submit').addEventListener('click', function () {
+      let username = document.getElementById('username')
+      username.value = username.value.replace(/\s+/g,'')
+      console.log(username.value)
+  })
 </script>
