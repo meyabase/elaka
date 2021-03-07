@@ -1,5 +1,6 @@
 class ConfirmationsController < Devise::ConfirmationsController
-  protect_from_forgery with: :exception, prepend: true
+  skip_before_filter :verify_authenticity_token
+  #protect_from_forgery
 
   private
   def after_confirmation_path_for(resource_name, resource)
