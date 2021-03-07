@@ -1,26 +1,20 @@
 class DeviseMailer < Devise::Mailer
   helper :application
   include Devise::Controllers::UrlHelpers
-  default template_path: 'devise/mailer'
-  #require 'mailgun-ruby'
+  layout 'mailer'
+  require 'mailgun-ruby'
 
   def confirmation_instructions(record, token, opts={})
     @user = record
-    opts[:to] = @user.email
-    opts[:from] = "Elaka <#{ ENV["DEFAULT_EMAIL"] }>"
+    @token = token
+    mg_client = Mailgun::Client.new ENV["MAILGUN_API_KEY"]
+    template = "devise/mailer/confirmation_instructions"
+    #premailer = Premailer.new(template, :with_html_string => true, :warn_level => Premailer::Warnings::SAFE)
+    message_params = {:from => "Elaka <#{ ENV["DEFAULT_EMAIL"] }>", :to => record.email,
+                      :subject => "Verify your Elaka email address",
+                      :html => template }
+    mg_client.send_message ENV["MAILGUN_DOMAIN"], message_params
   end
-
-  #def confirmation_instructions(record, token, opts={})
-  #  @user = record
-  #  @token = token
-  # mg_client = Mailgun::Client.new ENV["MAILGUN_API_KEY"]
-  # template = render_to_string(template: "devise/mailer/confirmation_instructions")
-  # premailer = Premailer.new(template, :with_html_string => true, :warn_level => Premailer::Warnings::SAFE)
-  # message_params = {:from => "Elaka #{ ENV["DEFAULT_EMAIL"] }", :to => record.email,
-  #                   :subject => "Verify your Elaka email address",
-  #                   :html => (premailer.to_inline_css).to_str }
-  # mg_client.send_message ENV["MAILGUN_DOMAIN"], message_params
-  #end
 
   def reset_password_instructions(record, token, opt={})
     @user = record

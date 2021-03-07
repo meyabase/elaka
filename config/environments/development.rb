@@ -74,10 +74,19 @@ Rails.application.configure do
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
 
-  config.action_mailer.delivery_method = :mailgun
-  config.action_mailer.mailgun_settings = {
-    api_key: ENV["MAILGUN_API_KEY"],
-    domain: ENV["MAILGUN_DOMAIN"]
+  #config.action_mailer.delivery_method = :mailgun
+  #config.action_mailer.mailgun_settings = {
+  # api_key: ENV["MAILGUN_API_KEY"],
+  # domain: ENV["MAILGUN_DOMAIN"]
+  #}
+
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :port => "587",
+    :address => "smtp.mailgun.org",
+    :user_name => "postmaster@sandbox2aad5223b5c04a68932661cbb6a1ef20.mailgun.org",
+    :password  => "f70a2efd69e6a8767b3afc8a3dcab1b7-e49cc42c-e61acf3a",
+    :domain => "sandbox2aad5223b5c04a68932661cbb6a1ef20.mailgun.org"
   }
 
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
