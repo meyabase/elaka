@@ -1,5 +1,6 @@
 class ConfirmationsController < Devise::ConfirmationsController
   skip_before_action :verify_authenticity_token
+  after_action :after_confirmation_path_for
   #protect_from_forgery
 
   private
