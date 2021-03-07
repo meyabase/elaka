@@ -9,7 +9,6 @@ class DeviseMailer < Devise::Mailer
     @token = token
     mg_client = Mailgun::Client.new ENV["MAILGUN_API_KEY"]
     output = render_to_string template: "devise/mailer/confirmation_instructions"
-    #premailer = Premailer.new(template, :with_html_string => true, :warn_level => Premailer::Warnings::SAFE)
     message_params = {:from => "Elaka <#{ ENV["DEFAULT_EMAIL"] }>", :to => record.email,
                       :subject => "Verify your Elaka email address",
                       :html => output.to_str }
