@@ -48,32 +48,32 @@
             </div>
           </div>
 
-          <div class="card-body card-border-style p-0 small">
+          <div class="card-body card-border-style p-0" style="font-size: 0.9em;">
             <div class="row gx-5 mx-auto">
 
               <% if entry.from.split(' ').size > 15 || entry.to.split(' ').size > 15 %>
                 <div class="col-md-6 p-0 bg-light" id="from-column">
                   <div class="card bg-transparent p-3 from-card-large rounded-0 border-right-0" style="border-color: #f3f3f3 !important;">
-                    <span><%= link_to entry.from, entry_path(entry), class: 'text-dark text-decoration-none' %></span>
+                    <span><%= link_to entry.from, entry_path(entry), class: 'text-secondary text-decoration-none' %></span>
                   </div>
                 </div>
 
                 <div class="col-md-6 p-0 bg-light" id="to-column">
                   <div class="card card-border-style bg-transparent border-0 p-3">
-                    <span><%= link_to entry.to, entry_path(entry), class: 'text-dark text-decoration-none' %></span>
+                    <span><%= link_to entry.to, entry_path(entry), class: 'text-secondary text-decoration-none' %></span>
                   </div>
                 </div>
               <% else %>
                 <div class="col p-0 bg-light" id="from-column">
                   <div class="card bg-transparent p-3 border-right
                               border-bottom-0 border-left-0 border-top-0 rounded-0" style="border-color: #f3f3f3 !important;">
-                    <span><%= link_to entry.from, entry_path(entry), class: 'text-dark text-decoration-none' %></span>
+                    <span><%= link_to entry.from, entry_path(entry), class: 'text-secondary text-decoration-none' %></span>
                   </div>
                 </div>
 
                 <div class="col p-0 bg-light" id="to-column">
                   <div class="card card-border-style bg-transparent border-0 p-3">
-                    <span><%= link_to entry.to, entry_path(entry), class: 'text-dark text-decoration-none' %></span>
+                    <span><%= link_to entry.to, entry_path(entry), class: 'text-secondary text-decoration-none' %></span>
                   </div>
                 </div>
               <% end %>
