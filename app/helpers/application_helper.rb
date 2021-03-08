@@ -18,7 +18,8 @@ module ApplicationHelper
     end
   end
 
-  def get_time(user_zone, created_at)
+  def get_time(created_at)
+    user_zone = "Asia/Shanghai"
     user_now = Time.find_zone(user_zone).now
     created_at_local = created_at.in_time_zone(user_zone)
 

@@ -94,7 +94,7 @@
         <span style="font-size: 0.8em; color: #8f8f8f;">
           &nbsp;•&nbsp;
           <span id="time-<%= entry.id %>">
-            <%= get_time("Asia/Shanghai", entry.created_at) %>
+            <%= get_time(entry.created_at) %>
           </span>
         </span>
 
@@ -249,9 +249,8 @@
 <script>
 
     $(document).ready(function() {
-        let time = (<%= get_time("", entry.created_at) %>)
-        let displayTime = document.getElementById("time-<%= entry.id %>")
         let timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
+
     });
 
     function getTimeZone() {
