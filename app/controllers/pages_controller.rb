@@ -18,6 +18,8 @@ class PagesController < ApplicationController
   end
 
   def about
+    @general = User.where(moderator: false).order(Arel.sql('RANDOM()')).first
+    @moderator = User.where(moderator: true).order(Arel.sql('RANDOM()')).first
   end
 
   def privacy

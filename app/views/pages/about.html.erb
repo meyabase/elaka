@@ -49,13 +49,40 @@
 <h2 class="text-yellow">Goals</h2>
 <hr class="custom-horizontal">
 
-<p class="text-gray">Effective Communication • Transmission of Knowledge • Cultural Heritage • Accelerated Education • More
+<p class="text-gray">Contribute to Effective Communication • Aid in the
+  Transmission of Knowledge • Preserve Cultural Heritage • Accelerate Education • More
 </p>
 
 <h2 class="text-yellow">Open Source</h2>
 <hr class="custom-horizontal">
 
-<p class="text-gray">All data submited on Elaka is free to reproduce and use in any desired (positive) manner. That's it!
+<p class="text-gray">All data submited on Elaka is free to reproduce and use in
+  any desired (positive) manner. That's it!
+</p>
+
+<h2 class="text-yellow">Setup</h2>
+<hr class="custom-horizontal">
+
+<p class="text-gray">General Users: e.g.
+  <% if @general %>
+    <%= link_to '@' + @general.username, profile_path(@general),
+                class: 'text-decoration-none text-secondary' %>
+  <% end %>
+</p>
+
+<p class="text-gray">
+  Can create, vote, save and report translations. Created translations cannot
+  be edited or deleted. In case you made an error, just create another translation.
+</p>
+
+<p class="text-gray">Moderators: e.g.
+  <% if @moderator %>
+    <%= link_to is_moderator(@moderator) + '@' + @moderator.username, profile_path(@moderator),
+                class: 'text-decoration-none text-secondary' %>
+  <% end %>
+</p>
+<p class="text-gray">In addition to general user functionality, they can edit, delete and verify the correctness
+  of translations. They can also review and remove reports/flags on translations.
 </p>
 
 <h2 class="text-yellow">Contribute?</h2>
