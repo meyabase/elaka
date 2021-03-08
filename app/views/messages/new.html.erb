@@ -32,14 +32,16 @@
                 <%= f.submit "Tuma", class: "btn btn-primary btn-sm btn-block fw-bolder" %>
               </div>
 
-              <hr class="custom-horizontal">
-
               <div class="footer-section">
-                <%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
-                  <p class="text-center">
-                    <%= link_to "Didn't receive confirmation email?", new_confirmation_path(resource_name), class: "text-center" %>
-                  </p>
-                <% end %>
+                <% unless user_signed_in? %>
+                  <hr class="custom-horizontal">
+
+                  <%- if devise_mapping.confirmable? && controller_name != 'confirmations'  %>
+                    <p class="text-center">
+                      <%=  link_to "Didn't receive confirmation email?", new_confirmation_path(resource_name), class: "text-center"  %>
+                    </p>
+                  <%  end  %>
+                <%  end %>
               </div>
             </div>
           </div>

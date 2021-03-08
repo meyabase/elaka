@@ -1,0 +1,7 @@
+<!--suppress ALL -->
+<span id="unsave-form-<%= @entry.id %>">
+  <%= link_to unsave_entry_entry_path(@entry), class: "btn-sm m-0 btn-outline-light text-decoration-none",
+              remote: true, method: :put, style: "color: #ababab;" do %>
+  <i class="bi bi-bookmark-plus-fill custom-blue"></i>
+<% end %>
+</span>

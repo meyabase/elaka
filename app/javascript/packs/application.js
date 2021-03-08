@@ -15,6 +15,8 @@ ActiveStorage.start()
 
 //= require jquery3
 //= require jquery_ujs
+//= require rails-timeago
+//= require rails-timeago-all
 //= require popper
 //= require bootstrap-sprockets
 //= require bootstrap-select

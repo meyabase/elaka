@@ -65,11 +65,11 @@ class EntriesController < ApplicationController
     @entry.undisliked_by current_user, :vote_scope => 'vote'
   end
 
-  def saved
+  def save_entry
     @entry.liked_by current_user, :vote_scope => 'saved'
   end
 
-  def unsaved
+  def unsave_entry
     @entry.unliked_by current_user, :vote_scope => 'saved'
   end
 

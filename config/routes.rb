@@ -18,8 +18,8 @@ Rails.application.routes.draw do
       put 'unupvote'
       put 'downvote'
       put 'undownvote'
-      put 'saved'
-      put 'unsaved'
+      put 'save_entry'
+      put 'unsave_entry'
       put 'verify'
       put 'unverify'
     end

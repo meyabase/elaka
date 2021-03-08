@@ -1,0 +1,8 @@
+<!--suppress ALL -->
+<%= button_to undownvote_entry_path(entry), remote: true, method: :put,
+              class: "btn btn-light dislike" do %>
+  <i class="bi bi-hand-thumbs-down-fill custom-blue" id="undownvote-icon-<%= entry.id  %>"></i>
+  <small class="custom-blue" id="undowncount-<%= entry.id %>" >
+    <%= trim_zero(entry.get_dislikes(:vote_scope => 'vote').size) %>
+  </small>
+<% end %>

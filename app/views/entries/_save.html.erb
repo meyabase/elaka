@@ -1,50 +1,25 @@
 <!--suppress ALL -->
-<span id="saved-form-<%= entry.id %>" hidden>
-  <%= button_to saved_entry_path(entry), class: "dropdown-item text-secondary m-0",
-                remote: true, method: :put,
-                id: "saved-entry-#{ entry.id }",
-                onclick: "savedEntry(#{ entry.id })" do %>
-  <i class="bi bi-bookmark-plus" style="padding-right: 0.5em;"></i>
-  <small>Save translation</small>
+<% if defined? entry %>
+  <% @entry = entry %>
 <% end %>
-</span>
 
-<span id="unsaved-form-<%= entry.id %>" hidden>
-  <%= button_to unsaved_entry_path(entry), class: "dropdown-item text-secondary m-0",
-                remote: true, method: :put,
-                id: "unsaved-entry-#{ entry.id }",
-                onclick: "unsavedEntry(#{ entry.id })" do %>
-  <i class="bi bi-bookmark-plus-fill custom-blue" style="padding-right: 0.5em;"></i>
-  <small class="custom-blue">Translation saved</small>
-<% end %>
+<span id="save-container-<%= @entry.id %>">
+  <% unless user_signed_in? %>
+    <%=  render 'entries/save_entry', entry: @entry %>
+  <% else %>
+    <% if current_user.voted_up_on? @entry, :vote_scope => 'saved' %>
+      <%= render 'entries/unsave_entry', entry: @entry %>
+    <% else current_user.voted_up_on? @entry, :vote_scope => 'saved' %>
+      <%=  render 'entries/save_entry', entry: @entry %>
+    <% end %>
+  <% end %>
 </span>
 
 <script>
-    if (<%= not user_signed_in? %>) {
-        document.getElementById('saved-form-<%= entry.id %>').hidden = false
-        document.getElementById('unsaved-form-<%= entry.id %>').hidden = true
-    }
-    else if (<%= user_signed_in? and (current_user.voted_up_on? entry, :vote_scope => 'saved') %>) {
-        document.getElementById('saved-form-<%= entry.id %>').hidden = true
-        document.getElementById('unsaved-form-<%= entry.id %>').hidden = false
-    }
-    else if (<%= user_signed_in? and not (current_user.voted_up_on? entry, :vote_scope => 'saved') %>) {
-        document.getElementById('saved-form-<%= entry.id %>').hidden = false
-        document.getElementById('unsaved-form-<%= entry.id %>').hidden = true
-    }
-
-    function savedEntry(id) {
-        // if user not signed in, redirect to login page
-        if (<%= user_signed_in? %>) {
-            document.getElementById('saved-form-' + id).hidden = true
-            document.getElementById('unsaved-form-' + id).hidden = false
-        } else {
+    // if user not signed in, redirect to login page
+    function goToSignIn() {
+        if (<%= not user_signed_in? %>) {
             window.location.pathname = "<%= new_user_session_path %>"
         }
-    }
-
-    function unsavedEntry(id) {
-        document.getElementById('saved-form-' + id).hidden = true
-        document.getElementById('unsaved-form-' + id).hidden = false
     }
 </script>

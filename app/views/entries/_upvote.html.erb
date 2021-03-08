@@ -1,0 +1,7 @@
+<!--suppress ALL -->
+<%= button_to upvote_entry_path(entry), remote: true, method: :put, class: "btn btn-light like" do %>
+  <i class="bi bi-hand-thumbs-up custom-gray" id="upvote-icon-<%= entry.id  %>"></i>
+  <small class="custom-gray" id="upcount-<%= entry.id %>">
+    <%= trim_zero(entry.get_likes(:vote_scope => 'vote').size) %>
+  </small>
+<% end %>

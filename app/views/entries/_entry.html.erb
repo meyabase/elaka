@@ -54,26 +54,26 @@
               <% if entry.from.split(' ').size > 15 || entry.to.split(' ').size > 15 %>
                 <div class="col-md-6 p-0 bg-light" id="from-column">
                   <div class="card bg-transparent p-3 from-card-large rounded-0 border-right-0" style="border-color: #f3f3f3 !important;">
-                    <span><%= link_to entry.from, entry_path(entry), class: 'text-secondary text-decoration-none' %></span>
+                    <span><%= link_to entry.from, entry_path(entry), class: 'text-dark text-decoration-none' %></span>
                   </div>
                 </div>
 
                 <div class="col-md-6 p-0 bg-light" id="to-column">
                   <div class="card card-border-style bg-transparent border-0 p-3">
-                    <span><%= link_to entry.to, entry_path(entry), class: 'text-secondary text-decoration-none' %></span>
+                    <span><%= link_to entry.to, entry_path(entry), class: 'text-dark text-decoration-none' %></span>
                   </div>
                 </div>
               <% else %>
                 <div class="col p-0 bg-light" id="from-column">
                   <div class="card bg-transparent p-3 border-right
                               border-bottom-0 border-left-0 border-top-0 rounded-0" style="border-color: #f3f3f3 !important;">
-                    <span><%= link_to entry.from, entry_path(entry), class: 'text-secondary text-decoration-none' %></span>
+                    <span><%= link_to entry.from, entry_path(entry), class: 'text-dark text-decoration-none' %></span>
                   </div>
                 </div>
 
                 <div class="col p-0 bg-light" id="to-column">
                   <div class="card card-border-style bg-transparent border-0 p-3">
-                    <span><%= link_to entry.to, entry_path(entry), class: 'text-secondary text-decoration-none' %></span>
+                    <span><%= link_to entry.to, entry_path(entry), class: 'text-dark text-decoration-none' %></span>
                   </div>
                 </div>
               <% end %>
@@ -88,12 +88,15 @@
   <div class="row m-0 entry-rows align-items-center">
     <div class="col-sm p-0">
       <div class="translation-source text-decoration-none d-inline" style="color: #ababab">
-          <span>
-            <%= link_to is_moderator(entry.user) + '@' + entry.user.username, profile_path(entry.user), class: 'text-decoration-none username' %>
+        <span>
+          <%= link_to is_moderator(entry.user) + '@' + entry.user.username, profile_path(entry.user), class: 'text-decoration-none username' %>
+        </span>
+        <span style="font-size: 0.8em; color: #8f8f8f;">
+          &nbsp;•&nbsp;
+          <span id="time-<%= entry.id %>">
+            <%= get_time("Asia/Shanghai", entry.created_at) %>
           </span>
-        <span style="font-size: 0.8em">
-            &nbsp;•&nbsp;&nbsp;<%= time_ago_in_words(entry.created_at) %>
-          </span>
+        </span>
 
         <!-- translation verification -->
         <span style="float: right; height: fit-content; width: fit-content">
@@ -120,10 +123,6 @@
           </a>
 
           <ul class="dropdown-menu" aria-labelledby="more-menu-<%= entry.id %>">
-
-            <li>
-              <%= render 'entries/save', entry: entry %>
-            </li>
 
             <li>
               <%= link_to new_entry_report_path(entry), class: "dropdown-item", target: :_blank do %>
@@ -207,12 +206,10 @@
           </div>
         <% end %>
 
+        <%= render 'entries/save', entry: entry %>
+
         <div class="d-inline-block" style="float: right; background-color: #f8f9fa; border-radius: 7em" id="vote-<%= entry.id %>">
-          <% if user_signed_in? %>
-            <%= render 'entries/votes/signed_in', entry: entry %>
-          <% else %>
-            <%= render 'entries/votes/not_signed_in', entry: entry %>
-          <% end %>
+          <%= render 'entries/vote', entry: entry %>
         </div>
 
       </div>
@@ -250,6 +247,18 @@
 </div>
 
 <script>
+
+    $(document).ready(function() {
+        let time = (<%= get_time("", entry.created_at) %>)
+        let displayTime = document.getElementById("time-<%= entry.id %>")
+        let timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
+    });
+
+    function getTimeZone() {
+        console.log(Intl.DateTimeFormat().resolvedOptions().timeZone)
+        return Intl.DateTimeFormat().resolvedOptions().timeZone
+    }
+
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl)

@@ -1,0 +1,16 @@
+<!--suppress ALL -->
+<% unless user_signed_in? %>
+  <%= render 'entries/vote_not_signed_in', entry: @entry %>
+<% else %>
+
+  <% if current_user.voted_up_on? @entry, :vote_scope => 'vote' %>
+    <%= render 'entries/unupvote', entry: @entry %>
+    <%= render 'entries/downvote', entry: @entry %>
+  <% elsif current_user.voted_down_on? @entry, :vote_scope => 'vote' %>
+    <%= render 'entries/upvote', entry: @entry %>
+    <%= render 'entries/undownvote', entry: @entry %>
+  <% else %>
+    <%= render 'entries/upvote', entry: @entry %>
+    <%= render 'entries/downvote', entry: @entry %>
+  <% end %>
+<% end %>
