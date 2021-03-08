@@ -2,8 +2,9 @@
 <div class="col p-0" style="margin-bottom: 0.5em;" id="report-column-<%= report.id %>">
   <span class="text-gray">
     <%= link_to is_moderator(get_user(report.user_id)) + '@' + get_user(report.user_id).username,
-                profile_path(get_user(report.user_id)), class: 'text-decoration-none username', style: "font-size: 0.9em;" %>
+                profile_path(get_user(report.user_id)), class: 'text-decoration-none text-secondary', style: "font-size: 0.9em;" %>
     <span style="font-size: 0.77em;"><%= report.content %></span>
+    <span class="text-secondary" style="font-size: 0.77em;">&nbsp;•&nbsp;<%= get_time(report.created_at) %></span>
 
     <% if user_signed_in? and current_user.moderator? %>
       <!-- Delete report trigger modal -->

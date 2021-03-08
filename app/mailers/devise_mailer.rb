@@ -9,7 +9,7 @@ class DeviseMailer < Devise::Mailer
     @token = token
     mg_client = Mailgun::Client.new ENV["MAILGUN_API_KEY"]
     output = render_to_string template: "devise/mailer/confirmation_instructions"
-    message_params = {:from => "Elaka <#{ ENV["DEFAULT_EMAIL"] }>", :to => @user.email,
+    message_params = {:from => "Elaka <#{ ENV["DUMMY_SENDER_EMAIL"] }>", :to => @user.email,
                       :subject => "Verify your Elaka email address",
                       :html => output.to_str }
     mg_client.send_message ENV["MAILGUN_DOMAIN"], message_params
@@ -20,7 +20,7 @@ class DeviseMailer < Devise::Mailer
     @token = token
     mg_client = Mailgun::Client.new ENV["MAILGUN_API_KEY"]
     output = render_to_string template: "devise/mailer/reset_password_instructions"
-    message_params = {:from => "Elaka <#{ ENV["DEFAULT_EMAIL"] }>", :to => @user.email,
+    message_params = {:from => "Elaka <#{ ENV["DUMMY_SENDER_EMAIL"] }>", :to => @user.email,
                       :subject => "Reset your Elaka password",
                       :html => output.to_str }
     mg_client.send_message ENV["MAILGUN_DOMAIN"], message_params
@@ -31,7 +31,7 @@ class DeviseMailer < Devise::Mailer
     @token = token
     mg_client = Mailgun::Client.new ENV["MAILGUN_API_KEY"]
     output = render_to_string template: "devise/mailer/unlock_instructions"
-    message_params = {:from => "Elaka <#{ ENV["DEFAULT_EMAIL"] }>", :to => @user.email,
+    message_params = {:from => "Elaka <#{ ENV["DUMMY_SENDER_EMAIL"] }>", :to => @user.email,
                       :subject => "Unlock your Elaka account",
                       :html => output.to_str }
     mg_client.send_message ENV["MAILGUN_DOMAIN"], message_params
@@ -41,7 +41,7 @@ class DeviseMailer < Devise::Mailer
     @user = record
     mg_client = Mailgun::Client.new ENV["MAILGUN_API_KEY"]
     output = render_to_string template: "devise/mailer/email_changed"
-    message_params = {:from => "Elaka <#{ ENV["DEFAULT_EMAIL"] }>", :to => @user.email,
+    message_params = {:from => "Elaka <#{ ENV["DUMMY_SENDER_EMAIL"] }>", :to => @user.email,
                       :subject => "Your Elaka email changed",
                       :html => output.to_str }
     mg_client.send_message ENV["MAILGUN_DOMAIN"], message_params
@@ -51,7 +51,7 @@ class DeviseMailer < Devise::Mailer
     @user = record
     mg_client = Mailgun::Client.new ENV["MAILGUN_API_KEY"]
     output = render_to_string template: "devise/mailer/password_change"
-    message_params = {:from => "Elaka <#{ ENV["DEFAULT_EMAIL"] }>", :to => @user.email,
+    message_params = {:from => "Elaka <#{ ENV["DUMMY_SENDER_EMAIL"] }>", :to => @user.email,
                       :subject => "Your Elaka password changed",
                       :html => output.to_str }
     mg_client.send_message ENV["MAILGUN_DOMAIN"], message_params

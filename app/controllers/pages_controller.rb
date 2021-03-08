@@ -7,8 +7,6 @@ class PagesController < ApplicationController
   end
 
   def trending
-    @search = Entry.ransack(params[:q])
-
     @trends = Entry.where(created_at: 24.hours.ago..Time.now)
     @trends = @trends.order(cached_scoped_vote_votes_up: :desc).page params[:page]
   end

@@ -82,15 +82,20 @@
 <br>
 <hr class="custom-horizontal">
 <span class="text-gray">
+  Need <%= link_to "help", help_path, class: "text-yellow" %>? |
+  Reach <span class="text-yellow">osho@elaka.io</span>
+</span>
+
+<hr class="custom-horizontal">
+
+<span class="text-gray">
   <%= link_to "Terms", terms_path, class: "text-yellow text-decoration-none" %>,
   <%= link_to "Privacy", privacy_path, class: "text-yellow text-decoration-none" %>
   <span class="text-gray" style="font-size: small">© 2021</span>
-  | Need <%= link_to "help", help_path, class: "text-yellow" %>?
 </span>
 <br>
 <br>
 <br>
-
 <script>
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {

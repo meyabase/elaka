@@ -1,18 +1,5 @@
 <!--suppress ALL -->
 <br>
-<%= search_form_for @search do |f|%>
-  <div class="form-group">
-    <div class="field">
-      <div class="input-group">
-        <%= f.search_field :from_or_to_cont, class: "form-control border-0 session-form password-format-input",
-                           placeholder: "konga / search" %>
-        <button class="input-group-text border-0 toggle-password-btn bg-white" id="search-button" type="submit">
-          <i class="bi bi-search" aria-hidden="true"></i>
-        </button>
-      </div>
-    </div>
-  </div>
-<% end %>
 
 <h5 class="text-secondary" style="padding-bottom: 0.2em;">&#x1F525; Trending</h5>
 
@@ -27,4 +14,5 @@
   <%= link_to_next_page @trends, 'load more', remote: true,
                         class: "text-secondary p-2 rounded btn-outline-dark text-decoration-none"%>
 </div>
+<br>
 <br>
