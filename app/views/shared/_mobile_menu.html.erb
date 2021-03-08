@@ -39,6 +39,13 @@
                             class: "remove-webkit btn dropdown-mobile-btn text-right text-secondary" do %>
                   <span style="font-size: 1.1em;"><%= is_moderator(current_user) + "@" + current_user.username %></span>
                 <% end %>
+
+                <% if current_user.supervisor? or current_user.superuser? %>
+                  <%= link_to rails_admin_path, type: "button", target: :_blank,
+                              class: "remove-webkit btn dropdown-mobile-btn text-right text-secondary" do %>
+                    <span>Admin Dashboard</span>
+                  <% end %>
+                <% end %>
               <% end %>
 
               <% if not user_signed_in? or not current_user.moderator? %>

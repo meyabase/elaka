@@ -46,6 +46,14 @@
       <strong class="menu-btn-text">Help?</strong>
     <% end %>
 
+    <% if user_signed_in? and (current_user.supervisor? or current_user.superuser?) %>
+      <%= link_to rails_admin_path, target: :_blank,
+                  class: "btn menu-btn btn-outline-light text-left text-secondary" do %>
+        <i class="bi bi-grid-fill icon-btn" style="font-size: 1rem;"></i>
+        <strong class="menu-btn-text">Admin</strong>
+      <% end %>
+    <% end %>
+
     <hr class="custom-horizontal">
 
     <ul class="navbar-nav mb-2 mb-lg-0">
