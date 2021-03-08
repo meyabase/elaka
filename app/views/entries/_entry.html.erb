@@ -87,11 +87,11 @@
 
   <div class="row m-0 entry-rows align-items-center">
     <div class="col-sm p-0">
-      <div class="translation-source text-decoration-none d-inline" style="color: #ababab">
+      <div class="translation-source text-decoration-none d-inline" style="color: #ababab;">
         <span>
-          <%= link_to is_moderator(entry.user) + '@' + entry.user.username, profile_path(entry.user), class: 'text-decoration-none username' %>
+          <%= link_to is_moderator(entry.user) + '@' + entry.user.username, profile_path(entry.user), class: 'text-decoration-none username', style: "font-size: 1em;" %>
         </span>
-        <span style="font-size: 0.8em; color: #8f8f8f;">
+        <span style="font-size: 0.9em; color: #8f8f8f;">
           &nbsp;•&nbsp;
           <span id="time-<%= entry.id %>">
             <%= get_time(entry.created_at) %>
