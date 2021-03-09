@@ -19,15 +19,6 @@ class ProfilesController < ApplicationController
     @entries = (@user.get_voted Entry, :vote_scope => 'verify').page params[:page]
   end
 
-  # also same method in entries_controller.rb
-  def get_verified(entry)
-    @vote = (entry.get_likes :vote_scope => 'verify').first
-    if @vote
-      @user = User.find_by(id: @vote.voter_id)
-    end
-  end
-  helper_method :get_verified
-
   private
 
   def set_user

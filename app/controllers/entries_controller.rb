@@ -82,24 +82,6 @@ class EntriesController < ApplicationController
     @entry.unliked_by current_user, :vote_scope => 'verify'
   end
 
-  # See flags_controller.rb to get user and entry for reports
-  def get_user(user_id)
-    @user = User.find_by(id: user_id)
-  end
-
-  def get_entry(entry_id)
-    @entry = Entry.find_by(id: entry_id)
-  end
-
-  # also same method in profiles_controller.rb
-  def get_verified(entry)
-    @vote = (entry.get_likes :vote_scope => 'verify').first
-    if @vote
-      @user = User.find_by(id: @vote.voter_id)
-    end
-  end
-  helper_method :get_verified, :get_user, :get_entry
-
   private
 
   def set_entry

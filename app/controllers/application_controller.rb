@@ -3,6 +3,23 @@ class ApplicationController < ActionController::Base
   RECAPTCHA_MINIMUM_SCORE = 0.5
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+  def get_reports(entry)
+    @reports = entry.reports
+  end
+
+  def get_user(user_id)
+    @user = User.find_by(id: user_id)
+  end
+
+  def get_verified(entry)
+    @vote = (entry.get_likes :vote_scope => 'verify').first
+    if @vote
+      @user = User.find_by(id: @vote.voter_id)
+    end
+  end
+
+  helper_method :get_reports, :get_user, :get_verified
+
   protected
 
   def configure_permitted_parameters

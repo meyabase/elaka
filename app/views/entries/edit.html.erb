@@ -55,9 +55,9 @@
                 <%= f.text_field :language, id: 'language', value: 'a', hidden: 'hidden' %>
 
                 <!-- Translation Modal -->
-                <div class="modal fade" id="translationTypeModal" tabindex="-1" aria-labelledby="translationTypeModal" aria-hidden="true">
+                <div class="modal fade p-0" id="translationTypeModal" tabindex="-1" aria-labelledby="translationTypeModal" aria-hidden="true">
                   <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
+                    <div class="modal-content p-2">
                       <div class="modal-header">
                         <h5 class="modal-title" id="translationTypeModal">Select Translation</h5>
                         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
@@ -66,25 +66,29 @@
                       </div>
                       <div class="modal-body">
                         <div>
-                          <button class="btn menu-btn btn-block btn-outline-light border text-dark" id="one" type="button">
+                          <button class="btn menu-btn btn-block btn-outline-light border text-dark" id="one"
+                                  style="margin-bottom: 0.2em;" type="button">
                             English to <span class="text-success">Oshindonga</span>
                           </button>
                         </div>
 
                         <div>
-                          <button class="btn menu-btn btn-block btn-outline-light border text-dark" id="two" type="button">
+                          <button class="btn menu-btn btn-block btn-outline-light border text-dark" id="two"
+                                  style="margin-bottom: 0.2em;" type="button">
                             <span class="text-success">Oshindonga</span> to English
                           </button>
                         </div>
 
                         <div>
-                          <button class="btn menu-btn btn-block btn-outline-light border text-dark" id="three" type="button">
+                          <button class="btn menu-btn btn-block btn-outline-light border text-dark" id="three"
+                                  style="margin-bottom: 0.2em;" type="button">
                             English to <span class="text-danger">Oshikwanyama</span>
                           </button>
                         </div>
 
                         <div>
-                          <button class="btn menu-btn btn-block btn-outline-light border text-dark" id="four" type="button">
+                          <button class="btn menu-btn btn-block btn-outline-light border text-dark" id="four"
+                                  style="margin-bottom: 0.2em;" type="button">
                             <span class="text-danger">Oshikwanyama</span> to English
                           </button>
                         </div>
@@ -151,7 +155,8 @@
             <div class="text-center">
               <div class="col">
                 <small class="text-secondary fst-italic">
-                  Updating as <%= link_to '@' + current_user.username, profile_path(current_user), class: 'text-dark' %>
+                  Updating as <%= link_to '@' + current_user.username, profile_path(current_user), class: 'text-decoration-none username' %>
+                  <%= is_moderator(current_user) %>
                 </small>
               </div>
             </div>
@@ -163,6 +168,11 @@
 </div>
 
 <script>
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+
     // Change translations when you click option in modal
     // 'type' is the translation option which is also the localStorage 'value'
     function translation(key, type, fromLanguage, toLanguage, language) {
@@ -192,7 +202,7 @@
     }
 
     // Re-set to local storage again
-    let value = localStorage.getItem('translation')  // currently stored 'value'
+    var value = localStorage.getItem('translation')  // currently stored 'value'
     if (value === 'one')
         setTranslation(1, 'one', 'English', 'Oshindonga', 'a');
     if (value === 'two')
@@ -204,7 +214,7 @@
 
     // Swap translations on click
     document.getElementById('swap-translation').addEventListener('click', function () {
-        let value = localStorage.getItem('translation')  // currently stored 'value'
+        var value = localStorage.getItem('translation')  // currently stored 'value'
 
         if (value === 'one')
             setTranslation(2, 'two', 'Oshindonga', 'English', 'a');
@@ -265,9 +275,9 @@
         }
 
         // to textarea validations
-        let toText = document.getElementById('to-text');
-        let toWords = toText.value.replace(/\s{2,}/g, ' ');
-        let toCount
+        var toText = document.getElementById('to-text');
+        var toWords = toText.value.replace(/\s{2,}/g, ' ');
+        var toCount
         if (toWords === ' ' || toWords === '')
             toCount = 0;
         else
