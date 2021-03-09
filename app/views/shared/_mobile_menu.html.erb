@@ -37,7 +37,10 @@
               <% if user_signed_in? %>
                 <%= link_to profile_path(current_user), type: "button",
                             class: "remove-webkit btn dropdown-mobile-btn text-right text-secondary" do %>
-                  <span style="font-size: 1.1em;"><%= is_moderator(current_user) + "@" + current_user.username %></span>
+                  <span style="font-size: 1.1em;">
+                    <%= "@" + current_user.username %>
+                    <%= is_moderator(current_user) %>
+                  </span>
                 <% end %>
 
                 <% if current_user.supervisor? or current_user.superuser? %>

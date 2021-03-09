@@ -61,7 +61,10 @@
       <% if user_signed_in? %>
 
         <%= link_to profile_path(current_user), class: "btn menu-btn btn-outline-light text-left text-secondary" do %>
-          <strong class="menu-btn-text"><%= is_moderator(current_user) + "@" + current_user.username %></strong>
+          <strong class="menu-btn-text">
+            <%= "@" + current_user.username %>
+            <%= is_moderator(current_user) %>
+          </strong>
         <% end %>
 
         <button class="btn menu-btn btn-block btn-outline-light text-left text-secondary dropdown-toggle"
