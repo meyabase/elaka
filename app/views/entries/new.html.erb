@@ -199,7 +199,7 @@
     }
 
     // Re-set to local storage again
-    let transValue = localStorage.getItem('translation')  // currently stored 'value'
+    var transValue = localStorage.getItem('translation')  // currently stored 'value'
     if (transValue === 'one')
         setTranslation(1, 'one', 'English', 'Oshindonga', 'a');
     if (transValue === 'two')
@@ -211,7 +211,7 @@
 
     // Swap translations on click
     document.getElementById('swap-translation').addEventListener('click', function () {
-        let transValue = localStorage.getItem('translation')  // currently stored 'value'
+        var transValue = localStorage.getItem('translation')  // currently stored 'value'
 
         if (transValue === 'one')
             setTranslation(2, 'two', 'Oshindonga', 'English', 'a');
@@ -244,18 +244,18 @@
     // twice but well, just two iterations so all good for now
 
     // Validate word limit, allowed characters and so on
-    let format = /^[a-zA-Z,.!?'‘`’\-\s]*$/
+    var format = /^[a-zA-Z,.!?'‘`’\-\s]*$/
     function validate() {
         // from textarea validations
-        let fromText = document.getElementById('from-text');
-        let fromWords = fromText.value.replace(/\s{2,}/g, ' ');
-        let fromCount;
+        var fromText = document.getElementById('from-text');
+        var fromWords = fromText.value.replace(/\s{2,}/g, ' ');
+        var fromCount;
         if (fromWords === ' ' || fromWords === '')
             fromCount = 0;
         else
             fromCount = fromWords.trim().split(' ').length;
 
-        let fromCountLabel = document.getElementById('from-count');
+        var fromCountLabel = document.getElementById('from-count');
         fromCountLabel.innerHTML = fromCount + " / 50";
         fromCountLabel.style.color="#495057";
 
@@ -272,15 +272,15 @@
         }
 
         // to textarea validations
-        let toText = document.getElementById('to-text');
-        let toWords = toText.value.replace(/\s{2,}/g, ' ');
-        let toCount;
+        var toText = document.getElementById('to-text');
+        var toWords = toText.value.replace(/\s{2,}/g, ' ');
+        var toCount;
         if (toWords === ' ' || toWords === '')
             toCount = 0;
         else
             toCount = toWords.trim().split(' ').length;
 
-        let toCountLabel = document.getElementById('to-count');
+        var toCountLabel = document.getElementById('to-count');
         toCountLabel.innerHTML = toCount + " / 50";
         toCountLabel.style.color="#495057";
 
