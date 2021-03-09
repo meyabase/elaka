@@ -29,8 +29,9 @@
         <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
           <p class="text-secondary">
             <%= @user.entries_count %> created |
-            <%= link_to is_moderator(@user) + '@' + @user.username, profile_path(@user),
+            <%= link_to '@' + @user.username, profile_path(@user),
                         class: 'text-decoration-none text-secondary' %>
+            <%= is_moderator(@user) %>
           </p>
           <div id="entries-wrap">
             <%= render 'entries/index' %>
@@ -48,6 +49,11 @@
 <br>
 
 <script>
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+
     var triggerTabList = [].slice.call(document.querySelectorAll('#myTab a'))
     triggerTabList.forEach(function (triggerEl) {
         var tabTrigger = new bootstrap.Tab(triggerEl)

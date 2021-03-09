@@ -25,8 +25,9 @@
     <div class="tab-content" id="nav-tabContent" style="padding-top: 1em">
       <div class="tab-pane fade show active" id="nav-reviewed" role="tabpanel" aria-labelledby="nav-reviewed-tab">
         <p class="text-secondary text-left">
-          <%= link_to is_moderator(@user) + '@' + @user.username, profile_path(@user),
+          <%= link_to '@' + @user.username, profile_path(@user),
                       class: 'text-decoration-none text-secondary' %>
+          <%= is_moderator(@user) %>
         </p>
         <div id="entries-wrap">
           <%= render 'entries/index' %>
@@ -43,6 +44,11 @@
 <br>
 
 <script>
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+
     var triggerTabList = [].slice.call(document.querySelectorAll('#myTab a'))
     triggerTabList.forEach(function (triggerEl) {
         var tabTrigger = new bootstrap.Tab(triggerEl)

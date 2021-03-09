@@ -10,8 +10,11 @@ module ApplicationHelper
 
   # Mark all moderators across site
   def is_moderator(user)
-    if user.moderator
-      mark = '<i class="bi bi-check" style="color: #00e700;"></i>'
+    if user&.moderator
+      mark = '<span data-bs-toggle="tooltip" type="button" data-bs-placement="top"
+                    title="Indicates a moderator. Moderators verify if translations are correct or not.">
+                  <i class="bi bi-check" style="color: #00e700;"></i>
+              </span>'
       mark.html_safe
     else
       ''

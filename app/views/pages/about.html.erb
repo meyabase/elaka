@@ -77,8 +77,9 @@
 
 <p class="text-gray">Moderators: e.g.
   <% if @moderator %>
-    <%= link_to is_moderator(@moderator) + '@' + @moderator.username, profile_path(@moderator),
+    <%= link_to '@' + @moderator.username, profile_path(@moderator),
                 class: 'text-decoration-none text-secondary' %>
+    <%= is_moderator(@moderator) %>
   <% end %>
 </p>
 <p class="text-gray">In addition to general user functionality, they can edit, delete and verify the correctness

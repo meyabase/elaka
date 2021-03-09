@@ -137,7 +137,8 @@
             <div class="text-left">
               <% unless user_signed_in? %>
                 <small class="text-secondary">
-                  Posting as <%= link_to '@kalipi', profile_path(username: :kalipi), class: 'text-decoration-none' %>.
+                  Posting as <%= link_to '@' + @kalipi.username, profile_path(@kalipi), class: 'text-decoration-none username' %>
+                  <%= is_moderator(@kalipi) %>.
                 </small>
                 <small class="text-secondary">
                   Not a member yet?
@@ -148,7 +149,8 @@
                 <div class="col">
                   <small class="text-secondary">
                     Posting as <%= link_to '@' + current_user.username, profile_path(current_user.username),
-                                           class: 'text-decoration-none text-dark' %>
+                                           class: 'text-decoration-none username' %>
+                    <%= is_moderator(current_user) %>
                   </small>
                 </div>
               <% end %>
@@ -163,6 +165,11 @@
 <br>
 
 <script>
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+
     // Change translations when you click option in modal
     // 'type' is the translation option which is also the localStorage 'value'
     function translation(key, type, fromLanguage, toLanguage, language) {

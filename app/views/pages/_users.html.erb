@@ -1,7 +1,8 @@
 <!--suppress ALL -->
 <tr class="clickable-row" data-href="<%= profile_path(user) %>">
   <th class="table-row" scope="row">
-    <%= is_moderator(user) + "@" + user.username %>
+    <%= "@" + user.username %>
+    <%= is_moderator(user) %>
   </th>
   <td class="text-center table-row">
     <%= user.entries_count %>

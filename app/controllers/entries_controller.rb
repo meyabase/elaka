@@ -8,6 +8,7 @@ class EntriesController < ApplicationController
 
   def new
     @entry = Entry.new
+    @kalipi = User.find_by(username: "kalipi")
   end
 
   def create

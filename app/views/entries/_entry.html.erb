@@ -89,7 +89,8 @@
     <div class="col-sm p-0">
       <div class="translation-source text-decoration-none d-inline" style="color: #ababab;">
         <span>
-          <%= link_to is_moderator(entry.user) + '@' + entry.user.username, profile_path(entry.user), class: 'text-decoration-none username', style: "font-size: 1em;" %>
+          <%= link_to '@' + entry.user.username, profile_path(entry.user), class: 'text-decoration-none username', style: "font-size: 1em;" %>
+          <%= is_moderator(entry.user) %>
         </span>
         <span style="font-size: 0.9em; color: #8f8f8f;">
           &nbsp;•&nbsp;
@@ -224,7 +225,8 @@
         <div class="col-sm p-0">
           <div class="translation-source text-decoration-none d-inline username">
             Verified by
-            <%=  link_to is_moderator(get_verified(entry)) + "@#{ get_verified(entry).username }", profile_path(get_verified(entry)), class: "username text-decoration-none"  %>
+            <%=  link_to "@" + get_verified(entry).username, profile_path(get_verified(entry)), class: "username text-decoration-none"  %>
+            <%= is_moderator(get_verified(entry)) %>
           </div>
         </div>
       </div>
