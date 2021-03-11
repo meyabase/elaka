@@ -49,7 +49,7 @@ class ApplicationController < ActionController::Base
   private
 
   def require_username
-    if user_signed_in? and current_user.username.blank?
+    if user_signed_in? and current_user.username == ""
       flash[:alert] = "Set up username to continue"
       redirect_to edit_user_registration_path
     end
