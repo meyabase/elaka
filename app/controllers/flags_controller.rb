@@ -1,6 +1,7 @@
 class FlagsController < ApplicationController
   before_action :set_report, only: [:destroy]
   before_action :set_paper_trail_whodunnit, only: [:destroy]
+  before_action :require_username
 
   def index
     @entries = Entry.where('reports_count > ?', 0).order(created_at: :desc).page params[:page]

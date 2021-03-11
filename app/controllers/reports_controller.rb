@@ -3,6 +3,7 @@ class ReportsController < ApplicationController
   before_action :set_report, except: [:new, :create]
   skip_before_action :verify_authenticity_token, :only => [:create]
   invisible_captcha only: [:create]
+  before_action :require_username
 
   def new
     @report = Report.new

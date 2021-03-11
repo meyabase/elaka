@@ -10,15 +10,6 @@
             <hr class="custom-horizontal">
 
             <%= form_for(resource, as: resource_name, url: user_registration_path(resource_name)) do |f| %>
-              <%= form_group_tag(resource.errors[:username]) do %>
-                <div class="field">
-                  <%= f.text_field :username.downcase, class: 'form-control session-form', placeholder: 'username', id: "username" %>
-                  <% resource.errors.full_messages_for(:username).each do |message| %>
-                    <small class="help-block text-danger"><%= message %></small>
-                  <% end %>
-                </div>
-              <% end %>
-
               <%= form_group_tag(resource.errors[:email]) do %>
                 <div class="field">
                   <%= f.email_field :email.downcase, class: 'form-control session-form', placeholder: 'email', autocomplete: "email" %>

@@ -1,6 +1,5 @@
 class ConfirmationsController < Devise::ConfirmationsController
   skip_before_action :verify_authenticity_token
-  #protect_from_forgery
 
   def show
     super do
@@ -11,6 +10,6 @@ class ConfirmationsController < Devise::ConfirmationsController
   private
 
   def after_confirmation_path_for(resource_name, resource)
-    after_sign_in_path_for(resource)
+    require_username
   end
 end

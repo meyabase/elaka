@@ -161,16 +161,18 @@
           </ul>
         </span>
 
+        <span>
+          <% if entry.reports_count > 0 %>
+            <%= link_to entry_path(entry), class: "btn-sm m-0 btn-outline-light text-decoration-none", style: "color: #ababab;" do %>
+              <i class="bi bi-flag-fill text-danger"></i>
+            <% end %>
+          <% end %>
+        </span>
+
         <% if user_signed_in? and current_user.moderator? %>
           <span>
             <%= link_to edit_entry_path(entry), class: "btn-sm m-0 btn-outline-light text-decoration-none", style: "color: #ababab;" do %>
               <i class="bi bi-pencil-fill"></i>
-            <% end %>
-          </span>
-
-          <span>
-            <% if entry.reports_count > 0 %>
-              <i class="bi bi-flag-fill text-danger" style="padding-right: 0.5em;"></i>
             <% end %>
           </span>
 

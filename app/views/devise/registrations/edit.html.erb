@@ -7,151 +7,176 @@
           <div class="card-body">
             <div class="d-flex flex-column">
               <br>
-              <h5 class="text-secondary text-center">Edit Profile</h5>
-              <hr class="custom-horizontal">
 
-              <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-                <%= form_group_tag(resource.errors[:username]) do %>
-                  <div class="field">
-                    <%= f.text_field :username, class: 'form-control session-form', placeholder: 'username', id: "username" %>
-                    <% resource.errors.full_messages_for(:username).each do |message| %>
-                      <small class="help-block text-danger"><%= message %></small>
-                    <% end %>
-                  </div>
-                <% end %>
+              <% if current_user.username.blank? %>
+                <h5 class="text-secondary text-center">Setup Username</h5>
+                <hr class="custom-horizontal">
 
-                <%= form_group_tag(resource.errors[:email]) do %>
-                  <div class="field">
-                    <%= f.text_field :email, class: 'form-control session-form', placeholder: 'email', autocomplete: "email" %>
-                    <% resource.errors.full_messages_for(:email).each do |message| %>
-                      <small class="help-block text-danger"><%= message %></small>
-                    <% end %>
-                  </div>
-                <% end %>
-
-                <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-                  <div>
-                    Currently waiting confirmation for: <%= resource.unconfirmed_email %>
-                  </div>
-                <% end %>
-
-                <%= form_group_tag(resource.errors[:current_password]) do %>
-                  <div class="field">
-                    <div class="input-group">
-                      <%= f.password_field :current_password, autocomplete: "new-password",
-                                           class: 'form-control session-form password-format-input', placeholder: 'Current password', id: 'password-format'%>
-                      <button class="input-group-text toggle-password-btn bg-white" type="button" id="toggle-password-btn">
-                        <i class="bi bi-eye-slash-fill" aria-hidden="true"></i>
-                      </button>
+                <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+                  <%= form_group_tag(resource.errors[:username]) do %>
+                    <div class="field">
+                      <%= f.text_field :username, class: 'form-control session-form', placeholder: 'username', id: "username" %>
+                      <% resource.errors.full_messages_for(:username).each do |message| %>
+                        <small class="help-block text-danger"><%= message %></small>
+                      <% end %>
                     </div>
-                    <% resource.errors.full_messages_for(:current_password).each do |message| %>
-                      <small class="help-block text-danger"><%= message %></small>
-                      <br>
-                    <% end %>
-                    <small class="help-block text-secondary">
-                      We need your current password to confirm your changes
-                    </small>
+                  <% end %>
+
+                  <div class="form-group">
+                    <div class="actions">
+                      <%= f.submit "Set Username", class: "btn btn-primary btn-sm btn-block font-weight-bold", id: "submit" %>
+                    </div>
                   </div>
                 <% end %>
 
-                <button class="btn btn-outline-light btn-block dropdown-toggle text-secondary font-weight-bold"
-                        type="button" data-bs-toggle="collapse" data-bs-target=".password-collapse"
-                        aria-expanded="false" aria-controls="newPassword confirmNewPassword">
-                  Change current password
+              <% else %>
+
+                <h5 class="text-secondary text-center">Edit Profile</h5>
+                <hr class="custom-horizontal">
+
+                <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+                  <%= form_group_tag(resource.errors[:username]) do %>
+                    <div class="field">
+                      <%= f.text_field :username, class: 'form-control session-form', placeholder: 'username', id: "username" %>
+                      <% resource.errors.full_messages_for(:username).each do |message| %>
+                        <small class="help-block text-danger"><%= message %></small>
+                      <% end %>
+                    </div>
+                  <% end %>
+
+                  <%= form_group_tag(resource.errors[:email]) do %>
+                    <div class="field">
+                      <%= f.text_field :email, class: 'form-control session-form', placeholder: 'email', autocomplete: "email" %>
+                      <% resource.errors.full_messages_for(:email).each do |message| %>
+                        <small class="help-block text-danger"><%= message %></small>
+                      <% end %>
+                    </div>
+                  <% end %>
+
+                  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+                    <div>
+                      Currently waiting confirmation for: <%= resource.unconfirmed_email %>
+                    </div>
+                  <% end %>
+
+                  <%= form_group_tag(resource.errors[:current_password]) do %>
+                    <div class="field">
+                      <div class="input-group">
+                        <%= f.password_field :current_password, autocomplete: "new-password",
+                                             class: 'form-control session-form password-format-input', placeholder: 'Current password', id: 'password-format'%>
+                        <button class="input-group-text toggle-password-btn bg-white" type="button" id="toggle-password-btn">
+                          <i class="bi bi-eye-slash-fill" aria-hidden="true"></i>
+                        </button>
+                      </div>
+                      <% resource.errors.full_messages_for(:current_password).each do |message| %>
+                        <small class="help-block text-danger"><%= message %></small>
+                        <br>
+                      <% end %>
+                      <small class="help-block text-secondary">
+                        We need your current password to confirm your changes
+                      </small>
+                    </div>
+                  <% end %>
+
+                  <button class="btn btn-sm btn-outline-light btn-block dropdown-toggle text-secondary font-weight-bold"
+                          type="button" data-bs-toggle="collapse" data-bs-target=".password-collapse"
+                          aria-expanded="false" aria-controls="newPassword confirmNewPassword">
+                    Change current password
+                  </button>
+
+                  <div>
+                    <% resource.errors.full_messages_for(:password).each do |message| %>
+                      <small class="help-block text-danger"><%= message %></small>
+                    <% end %>
+                  </div>
+                  <div>
+                    <% resource.errors.full_messages_for(:password_confirmation).each do |message| %>
+                      <small class="help-block text-danger"><%= message %></small>
+                    <% end %>
+                  </div>
+
+                  <p></p>
+                  <%= form_group_tag(resource.errors[:password]) do %>
+                    <div class="collapse password-collapse" id="newPassword">
+                      <div class="field">
+                        <small class="text-secondary">
+                          <% if @minimum_password_length %>
+                            <%= @minimum_password_length %> characters minimum. Leave blank if you don't want to change it.
+                          <% end %><br/>
+                        </small>
+                        <div class="input-group">
+                          <%= f.password_field :password, autocomplete: "new-password",
+                                               class: 'form-control session-form password-format-input', placeholder: 'New password',
+                                               id: 'password-format-new'%>
+                          <button class="input-group-text toggle-password-btn bg-white" type="button" id="toggle-password-btn-new">
+                            <i class="bi bi-eye-slash-fill" aria-hidden="true"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  <% end %>
+
+                  <%= form_group_tag(resource.errors[:password_confirmation]) do %>
+                    <div class="collapse password-collapse" id="confirmNewPassword">
+                      <div class="field">
+                        <div class="input-group">
+                          <%= f.password_field :password_confirmation, autocomplete: "new-password",
+                                               class: 'form-control session-form password-format-input', placeholder: 'Confirm password',
+                                               id: 'password-format-confirm'%>
+                          <button class="input-group-text toggle-password-btn bg-white" type="button" id="toggle-password-btn-confirm">
+                            <i class="bi bi-eye-slash-fill" aria-hidden="true"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  <% end %>
+
+                  <br>
+                  <div class="form-group">
+                    <div class="actions">
+                      <%= f.submit "Update Details", class: "btn btn-primary btn-sm btn-block font-weight-bold" %>
+                    </div>
+                  </div>
+                <% end %>
+                <hr class="custom-horizontal">
+
+                <div class="col-md-6 text-center mx-auto">
+                  <h6>
+                    Unhappy?
+                  </h6>
+                </div>
+
+                <!-- Delete account trigger modal -->
+                <button type="button" class="btn btn-danger btn-sm font-weight-bold" data-bs-toggle="modal" data-bs-target="#deleteAccountModal">
+                  Delete Account
                 </button>
 
-                <div>
-                  <% resource.errors.full_messages_for(:password).each do |message| %>
-                    <small class="help-block text-danger"><%= message %></small>
-                  <% end %>
-                </div>
-                <div>
-                  <% resource.errors.full_messages_for(:password_confirmation).each do |message| %>
-                    <small class="help-block text-danger"><%= message %></small>
-                  <% end %>
-                </div>
-
-                <p></p>
-                <%= form_group_tag(resource.errors[:password]) do %>
-                  <div class="collapse password-collapse" id="newPassword">
-                    <div class="field">
-                      <small class="text-secondary">
-                        <% if @minimum_password_length %>
-                          <%= @minimum_password_length %> characters minimum. Leave blank if you don't want to change it.
-                        <% end %><br/>
-                      </small>
-                      <div class="input-group">
-                        <%= f.password_field :password, autocomplete: "new-password",
-                                             class: 'form-control session-form password-format-input', placeholder: 'New password',
-                                             id: 'password-format-new'%>
-                        <button class="input-group-text toggle-password-btn bg-white" type="button" id="toggle-password-btn-new">
-                          <i class="bi bi-eye-slash-fill" aria-hidden="true"></i>
+                <!-- Modal -->
+                <div class="modal fade" id="deleteAccountModal" tabindex="-1" role="dialog" aria-labelledby="deleteAccountModal" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="deleteAccountModal">Delete my account</h5>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
                         </button>
                       </div>
-                    </div>
-                  </div>
-                <% end %>
-
-                <%= form_group_tag(resource.errors[:password_confirmation]) do %>
-                  <div class="collapse password-collapse" id="confirmNewPassword">
-                    <div class="field">
-                      <div class="input-group">
-                        <%= f.password_field :password_confirmation, autocomplete: "new-password",
-                                             class: 'form-control session-form password-format-input', placeholder: 'Confirm password',
-                                             id: 'password-format-confirm'%>
-                        <button class="input-group-text toggle-password-btn bg-white" type="button" id="toggle-password-btn-confirm">
-                          <i class="bi bi-eye-slash-fill" aria-hidden="true"></i>
-                        </button>
+                      <div class="modal-body">
+                        <p class="text-secondary">
+                          Details associated with <strong>@<%= current_user.username %></strong> will be permanently removed,
+                          <strong class="text-danger">except</strong> translation entries.
+                        </p>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-sm btn-secondary font-weight-bold" data-bs-dismiss="modal">Cancel</button>
+                        <%= button_to "Confirm", registration_path(resource_name),
+                                      class: "btn btn-danger btn-sm font-weight-bold",
+                                      method: :delete %>
                       </div>
                     </div>
-                  </div>
-                <% end %>
-
-                <br>
-                <div class="form-group">
-                  <div class="actions">
-                    <%= f.submit "Update Details", class: "btn btn-primary btn-block font-weight-bold", id: "submit" %>
                   </div>
                 </div>
               <% end %>
-              <hr class="custom-horizontal">
-
-              <div class="col-md-6 text-center mx-auto">
-                <h6>
-                  Unhappy?
-                </h6>
-              </div>
-
-              <!-- Delete account trigger modal -->
-              <button type="button" class="btn btn-danger font-weight-bold" data-bs-toggle="modal" data-bs-target="#deleteAccountModal">
-                Delete Account
-              </button>
-
-              <!-- Modal -->
-              <div class="modal fade" id="deleteAccountModal" tabindex="-1" role="dialog" aria-labelledby="deleteAccountModal" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="deleteAccountModal">Delete my account</h5>
-                      <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                      <p class="text-secondary">
-                        Details associated with <strong>@<%= current_user.username %></strong> will be permanently removed,
-                        <strong class="text-danger">except</strong> translation entries.
-                      </p>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary font-weight-bold" data-bs-dismiss="modal">Cancel</button>
-                      <%= button_to "Confirm", registration_path(resource_name),
-                                    class: "btn btn-danger btn-sm font-weight-bold",
-                                    method: :delete %>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>

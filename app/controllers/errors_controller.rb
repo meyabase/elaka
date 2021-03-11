@@ -1,4 +1,6 @@
 class ErrorsController < ApplicationController
+  before_action :require_username
+
   def not_found
     render status: 404
   end

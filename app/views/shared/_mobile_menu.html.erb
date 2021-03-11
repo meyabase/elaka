@@ -34,7 +34,7 @@
 
           <div class="collapse navbar-collapse" id="toggleMobileNav">
             <div class="navbar-nav" style="border-top: 1px solid #6c757d;">
-              <% if user_signed_in? %>
+              <% if user_signed_in? and current_user.username? %>
                 <%= link_to profile_path(current_user), type: "button",
                             class: "remove-webkit btn dropdown-mobile-btn text-right text-secondary" do %>
                   <span style="font-size: 1.1em;">

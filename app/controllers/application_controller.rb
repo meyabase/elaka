@@ -46,4 +46,13 @@ class ApplicationController < ActionController::Base
     @devise_mapping ||= Devise.mappings[:user]
   end
 
+  private
+
+  def require_username
+    if user_signed_in? and current_user.username.blank?
+      flash[:alert] = "Set up username to continue"
+      redirect_to edit_user_registration_path
+    end
+  end
+
 end

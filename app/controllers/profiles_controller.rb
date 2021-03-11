@@ -1,5 +1,6 @@
 class ProfilesController < ApplicationController
   before_action :set_user
+  before_action :require_username
 
   def show
     if @user

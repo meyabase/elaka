@@ -58,7 +58,7 @@
 
     <ul class="navbar-nav mb-2 mb-lg-0">
 
-      <% if user_signed_in? %>
+      <% if user_signed_in? and current_user.username? %>
 
         <%= link_to profile_path(current_user), class: "btn menu-btn btn-outline-light text-left text-secondary" do %>
           <strong class="menu-btn-text">

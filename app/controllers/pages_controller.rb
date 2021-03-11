@@ -1,4 +1,5 @@
 class PagesController < ApplicationController
+  before_action :require_username
 
   def search
     @search = Entry.ransack(params[:q])

@@ -23,6 +23,7 @@ class User < ApplicationRecord
             :uniqueness =>  {:case_sensitive => false}
 
   validates :username,
+            on: :update,
             presence: { message: "can't be empty"},
             format: { with: /^[a-zA-Z0-9_.]*$/,
                       :multiline => true,
@@ -37,7 +38,8 @@ class User < ApplicationRecord
                                 login register join registration hot),
                          message: "%{value} is reserved." }
 
-  before_save :downcase_username_email
+  before_create :downcase_email
+  before_update :downcase_email, :downcase_username
 
   def login
     @login || self.username || self.email
@@ -51,8 +53,13 @@ class User < ApplicationRecord
        { value: login.strip.downcase}]).first
   end
 
-  def downcase_username_email
-    self.username = self.username.downcase
+  def downcase_email
     self.email = self.email.downcase
+  end
+
+  def downcase_username
+    if username
+      self.username = self.username.downcase
+    end
   end
 end
