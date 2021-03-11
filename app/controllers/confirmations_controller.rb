@@ -10,6 +10,6 @@ class ConfirmationsController < Devise::ConfirmationsController
   private
 
   def after_confirmation_path_for(resource_name, resource)
-    require_username
+    after_sign_in_path_for(resource)
   end
 end
