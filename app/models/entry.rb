@@ -33,6 +33,8 @@ class Entry < ApplicationRecord
   private
 
   def entry_uniqueness
+    squish_entry
+
     if Entry.where('"language" = ? AND "from" = ? AND "to" = ?',
                    language, from.downcase, to.downcase).exists?
       errors.add(:base, 'Identical translation already exists.')
@@ -41,5 +43,10 @@ class Entry < ApplicationRecord
                       language, from.downcase, to.downcase).exists?
       errors.add(:base, 'Reverse identical translation already exists.')
     end
+  end
+
+  def squish_entry
+    self.from = self.from.squish
+    self.to = self.to.squish
   end
 end
