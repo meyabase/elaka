@@ -24,8 +24,8 @@ class Entry < ApplicationRecord
             format: { with: /\A[a-zA-Z,.?!'‘`’\-\s]*\z/, message: "text contains invalid character(s)"}
 
   # Only validate using scopes on update. This is due to some filtering requirements for the model Entry
-  validates :from, uniqueness: { scope: [ :to, :language ], message: 'translation already exists.' }, on: :update
-  validates :to, uniqueness: { scope: [ :from, :language ], message: 'translation already exists.' }, on: :update
+  validates :from, uniqueness: { scope: [ :to, :language ], message: 'translation already exists.' }#, on: :update
+  validates :to, uniqueness: { scope: [ :from, :language ], message: 'translation already exists.' }#, on: :update
 
   # Only validate using the specified method on create
   validate :entry_uniqueness, on: :create
