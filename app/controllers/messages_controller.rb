@@ -3,6 +3,10 @@ class MessagesController < ApplicationController
   before_action :require_username
 
   def new
+    custom_meta_tags('Help Form',
+                     "Do you have any questions, report to make, suggestions or anything to say? Contact us now.",
+                     %w[contact help email question enquiry])
+
     @message = Message.new
   end
 

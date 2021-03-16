@@ -55,4 +55,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def custom_meta_tags(title, description, keywords)
+    @page_title = title
+    @page_description = description
+    @page_keywords = keywords
+  end
+
 end

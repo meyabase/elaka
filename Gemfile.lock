@@ -151,6 +151,8 @@ GEM
       rest-client (>= 2.0.2)
     marcel (0.3.3)
       mimemagic (~> 0.3.2)
+    meta-tags (2.14.0)
+      actionpack (>= 3.2.0, < 6.2)
     method_source (1.0.0)
     mime-types (3.3.1)
       mime-types-data (~> 3.2015)
@@ -317,6 +319,7 @@ DEPENDENCIES
   kaminari
   listen (~> 3.3)
   mailgun-ruby (~> 1.2.3)
+  meta-tags
   paper_trail
   paper_trail-association_tracking
   pg (~> 1.2, >= 1.2.3)

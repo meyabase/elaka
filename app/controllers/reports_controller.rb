@@ -6,6 +6,10 @@ class ReportsController < ApplicationController
   before_action :require_username
 
   def new
+    custom_meta_tags('Report Translation',
+                     "Report translation.",
+                     %w[report])
+
     @report = Report.new
   end
 

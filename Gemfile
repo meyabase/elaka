@@ -51,4 +51,4 @@ gem "recaptcha"
 gem 'jquery-rails'
 gem 'mailgun-ruby', '~>1.2.3'
 gem 'invisible_captcha'
-
+gem 'meta-tags'

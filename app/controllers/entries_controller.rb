@@ -8,6 +8,11 @@ class EntriesController < ApplicationController
   invisible_captcha only: [:create]
 
   def new
+    custom_meta_tags('Create translation',
+                     'Create a new, unique and interesting translation from English to Oshiwambo
+                                and be part of Elaka.',
+                     %w[create new post translate])
+
     @entry = Entry.new
     @kalipi = User.find_by(username: "kalipi")
   end
@@ -29,11 +34,33 @@ class EntriesController < ApplicationController
   end
 
   def index
+    custom_meta_tags('Translations',
+                     'An updated timeline of translations created and posted by Elaka community',
+                     %w[Translations timeline feed newsfeed all updated])
+
     @entries = Entry.order(created_at: :desc).page params[:page]
   end
 
   def show
+    from_value = @entry.from.split
+    to_value = @entry.to.split
+
+    custom_meta_tags("@#{ @entry.user.username } on Elaka:
+                            #{ @entry.from.chars.first(10).join } ->
+                            #{ @entry.to.chars.first(10).join }",
+                     "#{ @entry.from } -> #{ @entry.to }",
+                     from_value + to_value + %w[Translation translate])
     @reports = @entry.reports
+  end
+
+  def edit
+    from_value = @entry.from.split
+    to_value = @entry.to.split
+
+    custom_meta_tags("Edit translation: #{ @entry.from.chars.first(10).join } ->
+                            #{ @entry.to.chars.first(10).join }",
+                     "#{ @entry.from } -> #{ @entry.to }",
+                     from_value + to_value + %w[edit update])
   end
 
   def update

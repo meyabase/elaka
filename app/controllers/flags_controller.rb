@@ -1,16 +1,13 @@
 class FlagsController < ApplicationController
-  before_action :set_report, only: [:destroy]
-  before_action :set_paper_trail_whodunnit, only: [:destroy]
   before_action :require_username
 
   def index
+    custom_meta_tags('Reported Translations',
+                     "Here you can find all reported translations
+                     that do not meet our guidelines.",
+                     %w[reports reported wrong])
+
     @entries = Entry.where('reports_count > ?', 0).order(created_at: :desc).page params[:page]
-  end
-
-  def show
-  end
-
-  def destroy
   end
 
   private
