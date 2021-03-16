@@ -163,6 +163,7 @@ GEM
     msgpack (1.4.2)
     nested_form (0.3.2)
     netrc (0.11.0)
+    newrelic_rpm (6.15.0)
     nio4r (2.5.5)
     nokogiri (1.11.1-x86_64-darwin)
       racc (~> 1.4)
@@ -320,6 +321,7 @@ DEPENDENCIES
   listen (~> 3.3)
   mailgun-ruby (~> 1.2.3)
   meta-tags
+  newrelic_rpm
   paper_trail
   paper_trail-association_tracking
   pg (~> 1.2, >= 1.2.3)
