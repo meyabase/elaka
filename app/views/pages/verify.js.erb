@@ -1,0 +1,3 @@
+$("#verify-wrap").append("<%=j render 'pages/verify' %>")
+$("#verify-load-more").html("<%=j link_to_next_page @entries, 'load more', remote: true,
+                                   class: "text-secondary p-2 rounded btn-outline-dark text-decoration-none"%>")

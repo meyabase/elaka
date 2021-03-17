@@ -31,6 +31,13 @@
       <strong class="menu-btn-text">Reports</strong>
     <% end %>
 
+    <% if user_signed_in? and current_user.moderator? %>
+      <%= link_to verify_path, class: "btn menu-btn btn-outline-light text-left text-secondary" do %>
+        <i class="bi bi-patch-check-fill icon-btn" style="font-size: 1rem;"></i>
+        <strong class="menu-btn-text">Verify</strong>
+      <% end %>
+    <% end %>
+
     <%= link_to users_path, class: "btn menu-btn btn-outline-light text-left text-secondary" do %>
       <i class="bi bi-people-fill icon-btn" style="font-size: 1rem;"></i>
       <strong class="menu-btn-text" style="padding-right: 5px">Users</strong>

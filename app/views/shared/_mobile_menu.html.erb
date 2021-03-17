@@ -58,6 +58,13 @@
                 <% end %>
               <% end %>
 
+              <% if user_signed_in? and current_user.moderator? %>
+                <%= link_to verify_path, type: "button",
+                            class: "remove-webkit btn dropdown-mobile-btn text-right text-secondary" do %>
+                  <span>Verify Translations</span>
+                <% end %>
+              <% end %>
+
               <%= link_to search_path, type: "button",
                           class: "remove-webkit btn dropdown-mobile-btn text-right text-secondary" do %>
                 <span>Search Translations</span>

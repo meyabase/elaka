@@ -35,6 +35,7 @@ Rails.application.routes.draw do
   match 'search', to: 'pages#search', :via => 'get'
   match 'trending', to: 'pages#trending', :via => 'get'
   match 'users', to: 'pages#users', :via => 'get'
+  match 'verify', to: 'pages#verify', :via => 'get'
   match 'about', to: 'pages#about', :via => 'get'
   match 'privacy', to: 'pages#privacy', :via => 'get'
   match 'terms', to: 'pages#terms', :via => 'get'

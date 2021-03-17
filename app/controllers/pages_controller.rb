@@ -30,6 +30,15 @@ class PagesController < ApplicationController
     @users = @search.result.page params[:page]
   end
 
+  def verify
+    custom_meta_tags('Verify Translations',
+                     "Read through a list of all unverified translations and mark them valid",
+                     %w[verify mark valid])
+
+    @entries = Entry.where(cached_scoped_verify_votes_up: 0)
+    @entries = @entries.order(created_at: :desc).page params[:page]
+  end
+
   def about
     custom_meta_tags('About Elaka',
                      "Our goal is to contribute to effective communication, aid in the

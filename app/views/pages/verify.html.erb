@@ -1,0 +1,18 @@
+<!--suppress ALL -->
+<br>
+
+<h5 class="text-secondary" style="padding-bottom: 0.2em;">Verify Translations</h5>
+
+<!-- Show trending results -->
+<div id="verify-wrap">
+  <% @entries.each do | entry | %>
+    <%= render 'entries/entry', entry: entry %>
+    <br>
+  <% end %>
+</div>
+<div id="verify-load-more" class="text-center">
+  <%= link_to_next_page @entries, 'load more', remote: true,
+                        class: "text-secondary p-2 rounded btn-outline-dark text-decoration-none"%>
+</div>
+<br>
+<br>
