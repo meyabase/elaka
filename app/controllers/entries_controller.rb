@@ -35,8 +35,8 @@ class EntriesController < ApplicationController
 
   def index
     custom_meta_tags('Translations',
-                     'An updated timeline of translations created and posted by Elaka community',
-                     %w[Translations timeline feed newsfeed all updated])
+                     'An updated timeline of translations created and posted by Elaka community. Learn Oshiwambo now',
+                     %w[oshiwambo elaka Translations timeline feed newsfeed all updated])
 
     @entries = Entry.order(created_at: :desc).page params[:page]
   end
