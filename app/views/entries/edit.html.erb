@@ -201,17 +201,6 @@
         localStorage.setItem('translation', type); // Save to localStorage
     }
 
-    // Re-set to local storage again
-    var value = localStorage.getItem('translation')  // currently stored 'value'
-    if (value === 'one')
-        setTranslation(1, 'one', 'English', 'Oshindonga', 'a');
-    if (value === 'two')
-        setTranslation(2, 'two', 'Oshindonga', 'English', 'a');
-    if (value === 'three')
-        setTranslation(3, 'three', 'English', 'Oshikwanyama', 'b');
-    if (value === 'four')
-        setTranslation(4, 'four', 'Oshikwanyama', 'English', 'b');
-
     // Swap translations on click
     document.getElementById('swap-translation').addEventListener('click', function () {
         var value = localStorage.getItem('translation')  // currently stored 'value'
