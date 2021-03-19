@@ -53,6 +53,7 @@
                 <!-- Set translation type, see js script at the bottom -->
                 <%= f.number_field :translation, id: 'translation-type', value: 1, hidden: 'hidden' %>
                 <%= f.text_field :language, id: 'language', value: 'a', hidden: 'hidden' %>
+                <span hidden="hidden" id="initial-translation-type"><%= @entry.translation %></span>
 
                 <!-- Translation Modal -->
                 <div class="modal fade p-0" id="translationTypeModal" tabindex="-1" aria-labelledby="translationTypeModal" aria-hidden="true">
@@ -173,24 +174,17 @@
         return new bootstrap.Tooltip(tooltipTriggerEl)
     })
 
-    // Change translations when you click option in modal
-    // 'type' is the translation option which is also the localStorage 'value'
-    function translation(key, type, fromLanguage, toLanguage, language) {
-        document.getElementById(type).addEventListener('click', function () {
-            document.getElementById('translation-type').value = key;
-            document.getElementById('from-title').innerHTML = fromLanguage;
-            document.getElementById('to-title').innerHTML = toLanguage;
-            document.getElementById('language').value = language;
-            localStorage.setItem('translation', type); // Save to localStorage
-
-            document.getElementById('close-modal').click();  // Close the modal
-        })
-    }
-
-    translation(1, 'one', 'English', 'Oshindonga', 'a');
-    translation(2, 'two', 'Oshindonga', 'English', 'a');
-    translation(3, 'three', 'English', 'Oshikwanyama', 'b');
-    translation(4, 'four', 'Oshikwanyama', 'English', 'b');
+    // Get current translation
+    var transValue = document.getElementById('initial-translation-type').innerHTML
+    console.log(transValue)
+    if (transValue === '1')
+        localStorage.setItem('translation', 'one')
+    if (transValue === '2')
+        localStorage.setItem('translation', 'two')
+    if (transValue === '3')
+        localStorage.setItem('translation', 'three')
+    if (transValue === '4')
+        localStorage.setItem('translation', 'four')
 
     // Set translation
     function setTranslation(key, type, fromLanguage, toLanguage, language) {
@@ -198,20 +192,43 @@
         document.getElementById('from-title').innerHTML = fromLanguage;
         document.getElementById('to-title').innerHTML = toLanguage;
         document.getElementById('language').value = language;
+
         localStorage.setItem('translation', type); // Save to localStorage
     }
 
+    // Change translations when you click option in modal
+    // 'type' is the translation option which is also the localStorage 'value'
+    document.getElementById('one').addEventListener('click', function () {
+        setTranslation(1, 'one', 'English', 'Oshindonga', 'a');
+        document.getElementById('close-modal').click();  // Close the modal
+    })
+
+    document.getElementById('two').addEventListener('click', function () {
+        setTranslation(2, 'two', 'Oshindonga', 'English', 'a');
+        document.getElementById('close-modal').click();  // Close the modal
+    })
+
+    document.getElementById('three').addEventListener('click', function () {
+        setTranslation(3, 'three', 'English', 'Oshikwanyama', 'b');
+        document.getElementById('close-modal').click();  // Close the modal
+    })
+
+    document.getElementById('four').addEventListener('click', function () {
+        setTranslation(4, 'four', 'Oshikwanyama', 'English', 'b');
+        document.getElementById('close-modal').click();  // Close the modal
+    })
+
     // Swap translations on click
     document.getElementById('swap-translation').addEventListener('click', function () {
-        var value = localStorage.getItem('translation')  // currently stored 'value'
-
-        if (value === 'one')
+        var transValue = localStorage.getItem('translation')  // currently stored 'value'
+        console.log(transValue)
+        if (transValue === 'one')
             setTranslation(2, 'two', 'Oshindonga', 'English', 'a');
-        if (value === 'two')
+        if (transValue === 'two')
             setTranslation(1, 'one', 'English', 'Oshindonga', 'a');
-        if (value === 'three')
+        if (transValue === 'three')
             setTranslation(4, 'four', 'Oshikwanyama', 'English', 'b');
-        if (value === 'four')
+        if (transValue === 'four')
             setTranslation(3, 'three', 'English', 'Oshikwanyama', 'b');
 
         // [a, b] = [b, a];
