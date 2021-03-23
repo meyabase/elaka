@@ -32,7 +32,7 @@
   </thead>
   <tbody id="users-wrap">
   <% @users.each do | user | %>
-    <% unless user.confirmed_at %>
+    <% unless user.confirmed_at.blank? %>
       <%= render 'pages/users', user: user %>
     <% end %>
   <% end %>
