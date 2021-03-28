@@ -6,7 +6,7 @@ class RegistrationsController < Devise::RegistrationsController
   def new
     custom_meta_tags('Sign up to create your account',
                      'Join Learn Oshiwambo and contribute now',
-                     %w[sign-up signup join register create])
+                     %w[sign-up signup join register create learn oshiwambo])
 
     build_resource
     yield resource if block_given?
@@ -16,7 +16,7 @@ class RegistrationsController < Devise::RegistrationsController
   def edit
     custom_meta_tags('Edit your account',
                      'Edit and update your Elaka account',
-                     %w[edit profile edit_account details])
+                     %w[edit profile edit_account details learn oshiwambo])
 
     render :edit
   end

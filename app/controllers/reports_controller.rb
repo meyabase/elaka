@@ -8,7 +8,7 @@ class ReportsController < ApplicationController
   def new
     custom_meta_tags('Report Translation',
                      "Report translation.",
-                     %w[report])
+                     %w[report learn oshiwambo])
 
     @report = Report.new
   end

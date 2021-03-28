@@ -11,7 +11,7 @@ class EntriesController < ApplicationController
     custom_meta_tags('Create translation',
                      'Create a new, unique and interesting translation from English to Oshiwambo
                                 and be part of Elaka.',
-                     %w[create new post translate])
+                     %w[create new post translate learn oshiwambo])
 
     @entry = Entry.new
     @kalipi = User.find_by(username: "kalipi")
@@ -35,8 +35,10 @@ class EntriesController < ApplicationController
 
   def index
     custom_meta_tags('Translations',
-                     'An updated timeline of translations created and posted by Elaka community. Learn Oshiwambo now',
-                     %w[oshiwambo elaka Translations timeline feed newsfeed all updated])
+                     'Learn Oshiwambo is where numerous community members shape the future of Oshiwambo
+                                language, together. Contribute to the open source community, manage your translation
+                                entries, educate others',
+                     %w[learn oshiwambo elaka Translations timeline feed newsfeed all updated])
 
     @entries = Entry.order(created_at: :desc).page params[:page]
   end
@@ -46,10 +48,10 @@ class EntriesController < ApplicationController
     to_value = @entry.to.split
 
     custom_meta_tags("@#{ @entry.user.username } on Elaka:
-                            #{ @entry.from.chars.first(10).join } ->
+                            #{ @entry.from.chars.first(10).join } translates to
                             #{ @entry.to.chars.first(10).join }",
-                     "#{ @entry.from } -> #{ @entry.to }",
-                     from_value + to_value + %w[Translation translate])
+                     "#{ @entry.from } translates to #{ @entry.to }",
+                     from_value + to_value + %w[Translation translate learn oshiwambo])
     @reports = @entry.reports
   end
 
@@ -60,7 +62,7 @@ class EntriesController < ApplicationController
     custom_meta_tags("Edit translation: #{ @entry.from.chars.first(10).join } ->
                             #{ @entry.to.chars.first(10).join }",
                      "#{ @entry.from } -> #{ @entry.to }",
-                     from_value + to_value + %w[edit update])
+                     from_value + to_value + %w[edit update learn oshiwambo])
   end
 
   def update

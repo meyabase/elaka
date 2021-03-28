@@ -5,7 +5,7 @@ class ProfilesController < ApplicationController
   def show
     custom_meta_tags("@#{ @user.username }'s Timeline",
                      "Translations created by @#{ @user.username }.",
-                     "#{ @user.username }")
+                     ["#{ @user.username }", "learn", "oshiwambo"])
 
     if @user
       @entries = @user.entries.order(created_at: :desc).page params[:page]
@@ -15,7 +15,7 @@ class ProfilesController < ApplicationController
   def votes
     custom_meta_tags("@#{ @user.username }'s Votes",
                      "Translations voted by @#{ @user.username }.",
-                     ["#{ @user.username }", "votes"])
+                     ["#{ @user.username }", "votes", "learn", "oshiwambo"])
 
     @entries = (@user.get_voted Entry, :vote_scope => 'vote').page params[:page]
   end
@@ -23,7 +23,7 @@ class ProfilesController < ApplicationController
   def saved
     custom_meta_tags("@#{ @user.username }'s Bookmarks",
                      "Translations created by @#{ @user.username }.",
-                     ["#{ @user.username }", "saved", "bookmarks"])
+                     ["#{ @user.username }", "saved", "bookmarks", "learn", "oshiwambo"])
 
     @entries = (@user.get_voted Entry, :vote_scope => 'saved').page params[:page]
   end
@@ -31,7 +31,7 @@ class ProfilesController < ApplicationController
   def verified
     custom_meta_tags("@#{ @user.username }'s Verified",
                      "Translations verified by @#{ @user.username }.",
-                     ["#{ @user.username }", "verified"])
+                     ["#{ @user.username }", "verified", "learn", "oshiwambo"])
 
     @entries = (@user.get_voted Entry, :vote_scope => 'verify').page params[:page]
   end
