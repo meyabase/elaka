@@ -33,7 +33,7 @@ class RegistrationsController < Devise::RegistrationsController
   protected
 
   def update_resource(resource, params)
-   if user_signed_in? and current_user.username == ""
+   if user_signed_in? and current_user.username.blank?
      resource.update_without_password(params)
    else
      resource.update_with_password(params)
