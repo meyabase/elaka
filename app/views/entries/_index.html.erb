@@ -2,9 +2,14 @@
 <% @entries.each do | entry | %>
   <%= render 'entries/entry', entry: entry %>
   <% if  count % 20 == 0 %>
-    <div class="text-gray small text-center" style="padding-top: 1em; padding-bottom: 1em;">Become a moderator now! Send us a
-      <%= link_to "message", help_path, class: "text-yellow" %>.
-    </div>
+    <% if (user_signed_in? and not current_user.moderator?) or not user_signed_in? %>
+      <div class="text-gray small text-center" style="padding-top: 1em; padding-bottom: 1em;">
+        Become a moderator now! Send us a
+        <%= link_to "message", help_path, class: "text-yellow" %>.
+      </div>
+    <% else %>
+      <br>
+    <% end %>
   <% else %>
     <br>
   <% end %>
