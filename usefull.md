@@ -113,6 +113,9 @@ Setup Mailgun, Devise
 
 https://dev.to/rmtwrk/how-to-fully-customize-rails-transactional-emails-devise-24ac
 
+----------------------------------------------------------------------------
+Migrations 
 
+$ heroku run rails db:migrate --app elaka
 
 
