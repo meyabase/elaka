@@ -1,8 +1,23 @@
-<% count = 0 %>
+<% mod_count = 0 %>
+<% sign_count = 0 %>
 <% @entries.each do | entry | %>
+
+  <% unless user_signed_in? %>
+    <% if  sign_count == 0 %>
+      <div class="text-gray small text-center" style="padding-bottom: 1em;">
+        <%= link_to "Signup", new_registration_path(resource_name), class: "text-yellow" %>
+        or
+        <%= link_to "Log In", new_session_path(resource_name), class: "text-yellow" %>
+        to contribute now.
+      </div>
+    <% end %>
+    <% sign_count = sign_count + 1 %>
+  <% end %>
+
   <%= render 'entries/entry', entry: entry %>
-  <% if  count % 20 == 0 %>
-    <% if (user_signed_in? and not current_user.moderator?) or not user_signed_in? %>
+
+  <% if (user_signed_in? and not current_user.moderator?) or not user_signed_in? %>
+    <% if mod_count % 20 == 0 %>
       <div class="text-gray small text-center" style="padding-top: 1em; padding-bottom: 1em;">
         Become a moderator now! Send us a
         <%= link_to "message", help_path, class: "text-yellow" %>.
@@ -10,8 +25,8 @@
     <% else %>
       <br>
     <% end %>
+    <% mod_count = mod_count + 1 %>
   <% else %>
     <br>
   <% end %>
-  <% count = count + 1 %>
 <% end %>
