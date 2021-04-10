@@ -298,7 +298,6 @@
     function linkClipboard(id) {
         var entryPath = document.getElementById('link-value-' + id)
         entryPath.hidden = false
-        entryPath.focus()
         entryPath.select()
         document.execCommand('copy')
         entryPath.hidden = true
@@ -314,7 +313,6 @@
         fromTranslation.hidden = false
         toTranslation.hidden = false
         toTranslation.value = fromTranslation.value + ' -> ' + toTranslation.value
-        toTranslation.focus()
         toTranslation.select()
         document.execCommand('copy')
         fromTranslation.hidden = true
