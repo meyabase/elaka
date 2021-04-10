@@ -145,7 +145,7 @@
               </a>
             </li>
 
-            <input type="text" value="<%= entry_url(entry) %>" id="link-value-<%= entry.id %>" hidden>
+            <p id="link-value-<%= entry.id %>" hidden><%= entry_url(entry) %></p>
 
             <li>
               <a class="btn-outline-light remove-webkit dropdown-item text-secondary" type="button" id="copy-translation-<%= entry.id %>"
@@ -155,8 +155,7 @@
               </a>
             </li>
 
-            <input type="text" value="<%= entry.from %>" id="from-translation-value-<%= entry.id %>" hidden>
-            <input type="text" value="<%= entry.to %>" id="to-translation-value-<%= entry.id %>" hidden>
+            <p id="translation-values-<%= entry.id %>" hidden><%= entry.from %> -> <%= entry.to %></p>
 
           </ul>
         </span>
@@ -298,8 +297,7 @@
     function linkClipboard(id) {
         var entryPath = document.getElementById('link-value-' + id)
         entryPath.hidden = false
-        entryPath.select()
-        document.execCommand('copy')
+        navigator.clipboard.writeText(entryPath.innerText)
         entryPath.hidden = true
         $('.toast-body-entry-' + id).html('Link copied')
         $('.toast-entry-' + id).toast('show')
@@ -308,15 +306,10 @@
 
     // Copy both to anf from translation to clipboard
     function translationClipboard(id) {
-        var fromTranslation = document.getElementById('from-translation-value-' + id)
-        var toTranslation = document.getElementById('to-translation-value-' + id)
-        fromTranslation.hidden = false
-        toTranslation.hidden = false
-        toTranslation.value = fromTranslation.value + ' -> ' + toTranslation.value
-        toTranslation.select()
-        document.execCommand('copy')
-        fromTranslation.hidden = true
-        toTranslation.hidden = true
+        var translation = document.getElementById('translation-values-' + id)
+        translation.hidden = false
+        navigator.clipboard.writeText(translation.innerText)
+        translation.hidden = true
         $('.toast-body-entry-' + id).html('Translation copied')
         $('.toast-entry-' + id).toast('show')
     }
