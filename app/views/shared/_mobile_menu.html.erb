@@ -19,11 +19,9 @@
             <i class="bi bi-plus-circle-fill text-yellow"></i>
           <% end %>
 
-          <% if user_signed_in? and current_user.moderator? %>
-            <%= link_to reports_path, class: "remove-webkit btn nav-link text-secondary mobile-menu-btn",
-                        type: "button", id: "menu-four", onclick: "changeActiveFour()" do %>
-              <i class="bi bi-flag-fill text-yellow"></i>
-            <% end %>
+          <%= link_to search_path, class: "remove-webkit btn nav-link text-secondary mobile-menu-btn",
+                      type: "button", id: "menu-four", onclick: "changeActiveFour()" do %>
+            <i class="bi bi-search text-yellow"></i>
           <% end %>
 
           <button class="mobile-menu-btn btn" type="button" data-bs-toggle="collapse" data-bs-target="#toggleMobileNav"
@@ -51,13 +49,6 @@
                 <% end %>
               <% end %>
 
-              <% if not user_signed_in? or not current_user.moderator? %>
-                <%= link_to reports_path, type: "button",
-                            class: "remove-webkit btn dropdown-mobile-btn text-right text-secondary" do %>
-                  <span>Reported Translations</span>
-                <% end %>
-              <% end %>
-
               <% if user_signed_in? and current_user.moderator? %>
                 <%= link_to verify_path, type: "button",
                             class: "remove-webkit btn dropdown-mobile-btn text-right text-secondary" do %>
@@ -65,9 +56,9 @@
                 <% end %>
               <% end %>
 
-              <%= link_to search_path, type: "button",
+              <%= link_to reports_path, type: "button",
                           class: "remove-webkit btn dropdown-mobile-btn text-right text-secondary" do %>
-                <span>Search Translations</span>
+                <span>Reported Translations</span>
               <% end %>
 
               <%= link_to users_path, type: "button",

@@ -120,7 +120,7 @@
         <span class="dropup">
           <a class="btn-sm m-0 btn-outline-light text-decoration-none remove-webkit" style="color: #ababab;"
              type="button" id="more-menu-<%= entry.id %>" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="bi bi-three-dots"></i>
+            <i class="bi bi-three-dots" style="font-size: 1.3em;"></i>
           </a>
 
           <ul class="dropdown-menu" aria-labelledby="more-menu-<%= entry.id %>">
@@ -164,7 +164,7 @@
         <span>
           <% if entry.reports_count > 0 %>
             <%= link_to entry_path(entry), class: "btn-sm m-0 btn-outline-light text-decoration-none", style: "color: #ababab;" do %>
-              <i class="bi bi-flag-fill text-danger"></i>
+              <i class="bi bi-flag-fill text-danger" style="font-size: 1.3em;"></i>
             <% end %>
           <% end %>
         </span>
@@ -172,13 +172,15 @@
         <% if user_signed_in? and current_user.moderator? %>
           <span>
             <%= link_to edit_entry_path(entry), class: "btn-sm m-0 btn-outline-light text-decoration-none", style: "color: #ababab;" do %>
-              <i class="bi bi-pencil-fill"></i>
+              <i class="bi bi-pencil-fill"  style="font-size: 1.2em;"></i>
             <% end %>
           </span>
 
           <!-- Delete translation trigger modal -->
-          <i type="button" class="bi bi-trash btn-sm m-0 remove-webkit btn-outline-light text-decoration-none p-1"
-             style="color: #ababab;" data-bs-toggle="modal" data-bs-target="#delete-modal-<%= entry.id %>"></i>
+          <i type="button" class="remove-webkit btn-outline-light text-decoration-none"
+             style="color: #ababab;" data-bs-toggle="modal" data-bs-target="#delete-modal-<%= entry.id %>">
+            <span class="bi bi-trash btn-sm" style="font-size: 1.5em;"></span>
+          </i>
 
           <!-- Modal -->
           <div class="modal fade" id="delete-modal-<%= entry.id %>" tabindex="-1" role="dialog" aria-labelledby="deleteAccountModal" aria-hidden="true">
