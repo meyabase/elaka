@@ -239,13 +239,11 @@
 
   <!-- This is just a simple notice/toast when text is copied -->
   <div class="position-fixed top-0 start-50 translate-middle-x p-3" id="toast-entry-<%= entry.id %>" style="z-index: 5">
-    <div class="toast hide toast-entry-<%= entry.id %>  text-secondary bg-light border-0"
+    <div class="toast hide toast-entry-<%= entry.id %> border-0" style="background-color: #212529;"
          data-bs-delay="5000" role="alert" aria-live="assertive" aria-atomic="true">
-      <div class="custom-toast-header">
-        <strong id="toast-title-entry-<%= entry.id %>" class="text-success">Notice</strong>
-        <button type="button" style="float: right;" class="btn-close btn-close-secondary" data-bs-dismiss="toast" aria-label="Close"></button>
-      </div>
-      <div class="toast-body toast-body-entry-<%= entry.id %>">
+      <div class="toast-body text-center">
+        <span class="toast-body-entry-<%= entry.id %> text-yellow"></span>
+        <button type="button" style="float: right; font-size: 0.7em;" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
       </div>
     </div>
   </div>
@@ -271,10 +269,12 @@
 
     // Position toast according to screen size
     if ($(window).width() < 992) {
-        $('#toast-entry-<%= entry.id %>').removeClass().addClass("position-fixed top-0 start-50 translate-middle-x p-3");
+        $('#toast-entry-<%= entry.id %>').removeClass().addClass("position-fixed bottom-0 translate-middle-x start-50 p-3");
+        $('#toast-entry-<%= entry.id %>').css({'z-index' : '5', 'margin-bottom' : '3em'})
     }
     else {
         $('#toast-entry-<%= entry.id %>').removeClass().addClass("position-fixed top-0 end-0 p-3");
+        $('#toast-entry-<%= entry.id %>').css({'z-index' : '5'})
     }
 
     function removeFadeOut( element, speed ) {
@@ -290,7 +290,7 @@
     function confirmDelete(id) {
         removeFadeOut(document.getElementById('entry-card-' + id), 1000);
         document.getElementById('close-delete-modal-' + id).click();
-        $('.toast-body-entry-' + id).html('Translation deleted successfully.');
+        $('.toast-body-entry-' + id).html('Translation deleted ');
         $('.toast-entry-' + id).toast('show');
     }
 
@@ -302,9 +302,7 @@
         entryPath.select()
         document.execCommand('copy')
         entryPath.hidden = true
-        document.getElementById('toast-title-entry-' + id).className = "text-success"
-        document.getElementById('toast-title-entry-' + id).innerHTML = "Yey!"
-        $('.toast-body-entry-' + id).html('Link copied successfully!')
+        $('.toast-body-entry-' + id).html('Link copied')
         $('.toast-entry-' + id).toast('show')
         console.log($('#toast-entry-' + id))
     }
@@ -321,9 +319,7 @@
         document.execCommand('copy')
         fromTranslation.hidden = true
         toTranslation.hidden = true
-        document.getElementById('toast-title-entry-' + id).className = "text-success"
-        document.getElementById('toast-title-entry-' + id).innerHTML = "Eheno nee!"
-        $('.toast-body-entry-' + id).html('Translation copied successfully!')
+        $('.toast-body-entry-' + id).html('Translation copied')
         $('.toast-entry-' + id).toast('show')
     }
 </script>
