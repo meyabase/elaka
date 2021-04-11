@@ -89,8 +89,22 @@
               <div class="row gx-5 mx-auto">
                 <div class="col-md-6 p-0">
                   <div class="card from-card card-border-style p-2">
-                    <%= f.text_area :from, class: 'form-control small from-entry-form border-0',
-                                    id: 'from-text', spellcheck: 'false', autofocus: 'autofocus' %>
+
+                    <div id="desktop-from-form-control" hidden>
+                      <%= f.text_area :from, class: 'form-control small from-entry-form border-0',
+                                      id: 'from-text', spellcheck: 'false', autofocus: 'autofocus' %>
+                    </div>
+
+                    <div id="mobile-from-form-control" hidden>
+                      <div class="form-floating">
+                        <%= f.text_area :from, class: 'form-control small from-entry-form border-0',
+                                        id: 'from-text', spellcheck: 'false', autofocus: 'autofocus' %>
+                        <label for="from-text" class="small text-secondary" id="from-text-label">
+                          Oshindonga
+                        </label>
+                      </div>
+                    </div>
+
                     <div class="text-right fs-6 p-0 m-0">
                       <button type="button" class="btn from-count-btn" disabled>
                         <span id="from-count">0 / 50</span>
@@ -101,8 +115,22 @@
 
                 <div class="col-md-6 p-0">
                   <div class="card to-card card-border-style border-0 p-2">
-                    <%= f.text_area :to, class: 'form-control small to-entry-form border-0',
-                                    id: 'to-text', spellcheck: 'false', autofocus: 'autofocus' %>
+
+                    <div id="desktop-to-form-control" hidden>
+                      <%= f.text_area :to, class: 'form-control small to-entry-form border-0',
+                                      id: 'to-text', spellcheck: 'false', autofocus: 'autofocus' %>
+                    </div>
+
+                    <div id="mobile-to-form-control" hidden>
+                      <div class="form-floating">
+                        <%= f.text_area :to, class: 'form-control small to-entry-form border-0',
+                                        id: 'to-text', spellcheck: 'false', autofocus: 'autofocus' %>
+                        <label for="to-text" class="small text-secondary" id="to-text-label">
+                          English
+                        </label>
+                      </div>
+                    </div>
+
                     <div class="text-right fs-6 p-0 m-0">
                       <button type="button" class="btn to-count-btn" disabled>
                         <span id="to-count">0 / 50</span>
@@ -170,6 +198,20 @@
         return new bootstrap.Tooltip(tooltipTriggerEl)
     })
 
+    // Position toast according to screen size
+    if ($(window).width() > 767) {
+        document.getElementById('desktop-from-form-control').hidden = false
+        document.getElementById('mobile-from-form-control').hidden = true
+        document.getElementById('desktop-to-form-control').hidden = false
+        document.getElementById('mobile-to-form-control').hidden = true
+    }
+    else {
+        document.getElementById('desktop-from-form-control').hidden = true
+        document.getElementById('mobile-from-form-control').hidden = false
+        document.getElementById('desktop-to-form-control').hidden = true
+        document.getElementById('mobile-to-form-control').hidden = false
+    }
+
     // Change translations when you click option in modal
     // 'type' is the translation option which is also the localStorage 'value'
     function translation(key, type, fromLanguage, toLanguage, language) {
@@ -177,6 +219,10 @@
             document.getElementById('translation-type').value = key;
             document.getElementById('from-title').innerHTML = fromLanguage;
             document.getElementById('to-title').innerHTML = toLanguage;
+
+            document.getElementById('from-text-label').innerHTML = fromLanguage
+            document.getElementById('to-text-label').innerHTML = toLanguage
+            
             document.getElementById('language').value = language;
             localStorage.setItem('translation', type); // Save to localStorage
 
@@ -194,6 +240,10 @@
         document.getElementById('translation-type').value = key;
         document.getElementById('from-title').innerHTML = fromLanguage;
         document.getElementById('to-title').innerHTML = toLanguage;
+
+        document.getElementById('from-text-label').innerHTML = fromLanguage
+        document.getElementById('to-text-label').innerHTML = toLanguage
+
         document.getElementById('language').value = language;
         localStorage.setItem('translation', type); // Save to localStorage
     }
