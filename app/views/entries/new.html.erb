@@ -89,7 +89,7 @@
               <div class="row gx-5 mx-auto">
                 <div class="col-md-6 p-0">
                   <div class="card from-card card-border-style p-2">
-                    <%= f.text_area :from, class: 'form-control small from-entry-form border-0',
+                    <%= f.text_area :from, class: 'form-control small from-entry-form border-0', placeholder: "Oshindonga",
                                     id: 'from-text', spellcheck: 'false', autofocus: 'autofocus' %>
                     <div class="text-right fs-6 p-0 m-0">
                       <button type="button" class="btn from-count-btn" disabled>
@@ -101,7 +101,7 @@
 
                 <div class="col-md-6 p-0">
                   <div class="card to-card card-border-style border-0 p-2">
-                    <%= f.text_area :to, class: 'form-control small to-entry-form border-0',
+                    <%= f.text_area :to, class: 'form-control small to-entry-form border-0', placeholder: "English",
                                     id: 'to-text', spellcheck: 'false', autofocus: 'autofocus' %>
                     <div class="text-right fs-6 p-0 m-0">
                       <button type="button" class="btn to-count-btn" disabled>
@@ -177,6 +177,10 @@
             document.getElementById('translation-type').value = key;
             document.getElementById('from-title').innerHTML = fromLanguage;
             document.getElementById('to-title').innerHTML = toLanguage;
+
+            document.getElementById('from-text').placeholder = fromLanguage;
+            document.getElementById('to-text').placeholder = toLanguage;
+
             document.getElementById('language').value = language;
             localStorage.setItem('translation', type); // Save to localStorage
 
@@ -194,6 +198,10 @@
         document.getElementById('translation-type').value = key;
         document.getElementById('from-title').innerHTML = fromLanguage;
         document.getElementById('to-title').innerHTML = toLanguage;
+
+        document.getElementById('from-text').placeholder = fromLanguage;
+        document.getElementById('to-text').placeholder = toLanguage;
+
         document.getElementById('language').value = language;
         localStorage.setItem('translation', type); // Save to localStorage
     }
