@@ -25,7 +25,7 @@ class User < ApplicationRecord
   validates :username,
             on: :update,
             presence: { message: "can't be empty"},
-            format: { with: /^[a-zA-Z0-9_.]*$/,
+            format: { with: /^[a-zA-Z0-9_]*$/,
                       :multiline => true,
                       message: "is of incorrect format " },
             :uniqueness =>  {:case_sensitive => false},
