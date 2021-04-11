@@ -3,11 +3,11 @@ class ProfilesController < ApplicationController
   before_action :require_username
 
   def show
-    custom_meta_tags("@#{ @user.username }'s Timeline",
-                     "Translations created by @#{ @user.username }.",
-                     ["#{ @user.username }", "learn", "oshiwambo"])
-
     if @user
+      custom_meta_tags("@#{ @user.username }'s Timeline",
+                       "Translations created by @#{ @user.username }.",
+                       ["#{ @user.username }", "learn", "oshiwambo"])
+
       @entries = @user.entries.order(created_at: :desc).page params[:page]
     end
   end
