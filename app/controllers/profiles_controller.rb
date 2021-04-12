@@ -8,6 +8,7 @@ class ProfilesController < ApplicationController
                        "Translations created by @#{ @user.username }.",
                        ["#{ @user.username }", "learn", "oshiwambo"])
 
+      @count = Entry.count
       @entries = @user.entries.order(created_at: :desc).page params[:page]
     end
   end
@@ -17,6 +18,7 @@ class ProfilesController < ApplicationController
                      "Translations voted by @#{ @user.username }.",
                      ["#{ @user.username }", "votes", "learn", "oshiwambo"])
 
+    @count = Entry.count
     @entries = (@user.get_voted Entry, :vote_scope => 'vote').page params[:page]
   end
 
@@ -25,6 +27,7 @@ class ProfilesController < ApplicationController
                      "Translations created by @#{ @user.username }.",
                      ["#{ @user.username }", "saved", "bookmarks", "learn", "oshiwambo"])
 
+    @count = Entry.count
     @entries = (@user.get_voted Entry, :vote_scope => 'saved').page params[:page]
   end
 
@@ -33,6 +36,7 @@ class ProfilesController < ApplicationController
                      "Translations verified by @#{ @user.username }.",
                      ["#{ @user.username }", "verified", "learn", "oshiwambo"])
 
+    @count = Entry.count
     @entries = (@user.get_voted Entry, :vote_scope => 'verify').page params[:page]
   end
 

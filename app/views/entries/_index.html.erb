@@ -1,5 +1,6 @@
 <% mod_count = 0 %>
 <% sign_count = 0 %>
+<% other_count = 0 %>
 <% @entries.each do | entry | %>
 
   <% unless user_signed_in? %>
@@ -16,6 +17,15 @@
 
   <%= render 'entries/entry', entry: entry %>
 
+  <% if user_signed_in? and current_user.moderator? %>
+    <% if other_count % 20 == 0 %>
+      <div class="text-secondary small text-center" style="padding-top: 1em; padding-bottom: 1em;">
+        Boasting <%= @count %> translations 🚀🌕
+      </div>
+    <% end %>
+    <% other_count = other_count + 1 %>
+  <% end %>
+
   <% if (user_signed_in? and not current_user.moderator?) or not user_signed_in? %>
     <% if mod_count % 20 == 0 %>
       <div class="text-secondary small text-center" style="padding-top: 1em; padding-bottom: 1em;">
@@ -30,4 +40,5 @@
   <% else %>
     <br>
   <% end %>
+
 <% end %>
