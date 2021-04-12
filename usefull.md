@@ -118,4 +118,9 @@ Migrations
 
 $ heroku run rails db:migrate --app elaka
 
+----------------------------------------------------------------------------
+SQL PG
 
+select *
+from entries
+where user_id = '187' and created_at between 'April 10, 2021 15:00' and 'April 11, 2021 22:00';

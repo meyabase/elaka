@@ -5,7 +5,7 @@
     <%= is_moderator(user) %>
   </th>
   <td class="text-center table-row">
-    hidden
+    <%= user.entries_count %>
   </td>
   <td class="text-right table-row">
     <%= user.created_at.strftime("%b %Y") %>
