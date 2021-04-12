@@ -18,9 +18,10 @@
 
   <% if (user_signed_in? and not current_user.moderator?) or not user_signed_in? %>
     <% if mod_count % 20 == 0 %>
-      <div class="text-gray small text-center" style="padding-top: 1em; padding-bottom: 1em;">
-        Become a moderator now! Send us a
-        <%= link_to "message", help_path, class: "text-yellow" %>.
+      <div class="text-secondary small text-center" style="padding-top: 1em; padding-bottom: 1em;">
+        Become a
+        <%= link_to "moderator", help_path, class: "text-yellow" %>
+        now! <%= @count %> translations 🚀🌕
       </div>
     <% else %>
       <br>
