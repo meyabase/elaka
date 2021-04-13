@@ -40,7 +40,6 @@ class EntriesController < ApplicationController
                                 entries, educate others',
                      %w[learn oshiwambo elaka Translations timeline feed newsfeed all updated])
 
-    @count = Entry.count
     @entries = Entry.order(created_at: :desc).page params[:page]
   end
 

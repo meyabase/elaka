@@ -20,9 +20,8 @@
   <% if (user_signed_in? and not current_user.moderator?) or not user_signed_in? %>
     <% if mod_count % 20 == 0 %>
       <div class="text-secondary small text-center" style="padding-top: 1em; padding-bottom: 1em;">
-        Become a
-        <%= link_to "moderator", help_path, class: "text-yellow" %>
-        now! <%= @count %> translations 🚀🌕
+        Become a <%= link_to "moderator", help_path, class: "text-yellow" %> now! |
+        Check <%= link_to "this", about_path, class: "text-yellow" %> 🚀🌕
       </div>
     <% else %>
       <br>
@@ -30,7 +29,7 @@
     <% mod_count = mod_count + 1 %>
   <% elsif other_count % 20 == 0 %>
     <div class="text-secondary small text-center" style="padding-top: 1em; padding-bottom: 1em;">
-      Boasting <%= @count %> translations 🚀🌕
+      Check <%= link_to "this", about_path, class: "text-yellow" %> 🚀🌕
     </div>
     <% other_count = other_count + 1 %>
   <% else %>
