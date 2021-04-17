@@ -36,6 +36,7 @@ class PagesController < ApplicationController
                      %w[verify mark valid learn oshiwambo])
 
     @entries = Entry.where(cached_scoped_verify_votes_up: 0)
+    @count = @entries.count
     @entries = @entries.order(created_at: :desc).page params[:page]
   end
 

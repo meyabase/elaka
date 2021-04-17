@@ -1,7 +1,12 @@
 <!--suppress ALL -->
 <br>
 
-<h5 class="text-secondary" style="padding-bottom: 0.2em;">Verify Translations</h5>
+<h5 class="text-secondary" style="padding-bottom: 0.2em;">
+  <% unless @count.blank? %>
+    <%= @count %>
+  <% end %>
+  Unverified Translations
+</h5>
 
 <!-- Show trending results -->
 <div id="verify-wrap">

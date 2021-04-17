@@ -5,7 +5,13 @@
 <p></p>
 
 <p class="text-gray">
-  Counting <span class="text-yellow"><%= @count %></span> translations 🚀🌕
+  Counting
+  <span class="text-yellow">
+    <% unless @count.blank? %>
+      <%= @count %>
+    <% end %>
+  </span>
+  translations 🚀🌕
 </p>
 <hr class="custom-horizontal">
 
