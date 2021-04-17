@@ -9,11 +9,12 @@
   <i type="button" class="remove-webkit bi bi-patch-check-fill btn-sm m-0 text-decoration-none p-0 custom-gray"></i>
 </span>
 
+<!-- Check verify.html.erb for confirmDelete() function -->
 <span id="verify-form-<%= entry.id %>" hidden>
   <%= button_to verify_entry_path(entry), class: "btn btn-light bg-transparent text-decoration-none p-0",
                 remote: true, method: :put, style: "margin-right: 0.3em;",
                 id: "verify-entry-#{ entry.id }",
-                onclick: "verifyEntry(#{ entry.id })" do %>
+                onclick: "verifyEntry(#{ entry.id }); removeVerified(#{ entry.id });" do %>
   <i class="bi bi-toggle-off custom-gray" style=""></i>
 <% end %>
 </span>
@@ -59,5 +60,10 @@
         document.getElementById('verify-form-' + id).hidden = false
         document.getElementById('show-unverify-' + id).hidden = true
         document.getElementById('unverify-form-' + id).hidden = true
+    }
+
+    function removeVerified(id){
+        // Dummy to prevent errors in browser console
+        // See verify.html.erb for confirmDelete() function
     }
 </script>

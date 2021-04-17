@@ -287,7 +287,7 @@
     }
 
     function confirmDelete(id) {
-        removeFadeOut(document.getElementById('entry-card-' + id), 1000);
+        removeFadeOut(document.getElementById('entry-card-' + id), 500);
         document.getElementById('close-delete-modal-' + id).click();
         $('.toast-body-entry-' + id).html('Translation deleted ');
         $('.toast-entry-' + id).toast('show');

@@ -3,7 +3,9 @@
 
 <h5 class="text-secondary" style="padding-bottom: 0.2em;">
   <% unless @count.blank? %>
-    <%= @count %>
+    <span id="unverified-count">
+      <%= @count %>
+    </span>
   <% end %>
   Unverified Translations
 </h5>
@@ -11,8 +13,10 @@
 <!-- Show trending results -->
 <div id="verify-wrap">
   <% @entries.each do | entry | %>
-    <%= render 'entries/entry', entry: entry %>
-    <br>
+    <div id="verifiy-<%= entry.id %>">
+      <%= render 'entries/entry', entry: entry %>
+      <br>
+    </div>
   <% end %>
 </div>
 <div id="verify-load-more" class="text-center">
@@ -21,3 +25,22 @@
 </div>
 <br>
 <br>
+
+<script>
+    function removeFadeOut( element, speed ) {
+        var seconds = speed/1000;
+        element.style.transition = "opacity " + seconds + "s ease";
+
+        element.style.opacity = 0;
+        setTimeout(function() {
+            element.parentNode.removeChild(element);
+        }, speed);
+    }
+
+    // Remove translation when verified
+    function removeVerified(id) {
+        removeFadeOut(document.getElementById('verifiy-' + id), 200);
+        var count = document.getElementById('unverified-count')
+        count.innerText = Number(count.innerText) - 1
+    }
+</script>
