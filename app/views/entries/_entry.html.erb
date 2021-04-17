@@ -1,9 +1,9 @@
 <!--suppress ALL -->
 <div class="card p-3 border-0 shadow-sm" id="entry-card-<%= entry.id %>">
   <div class="row align-content-center">
-    <div class="col my-auto">
+    <div class="col">
       <div class="card-group mb-0">
-        <div class="card card-border-style">
+        <div class="card card-border-style m-0">
           <div class="card-header text-center card-border-style bg-white">
             <div class="row gx-5">
 
@@ -85,7 +85,7 @@
     </div>
   </div>
 
-  <div class="row m-0 entry-rows align-items-center">
+  <div class="row m-0 entry-row align-items-center">
     <div class="col-sm p-0">
       <div class="translation-source text-decoration-none d-inline" style="color: #ababab;">
         <span>
@@ -301,7 +301,6 @@
         entryPath.hidden = true
         $('.toast-body-entry-' + id).html('Link copied')
         $('.toast-entry-' + id).toast('show')
-        console.log($('#toast-entry-' + id))
     }
 
     // Copy both to anf from translation to clipboard

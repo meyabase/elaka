@@ -40,6 +40,10 @@ class PagesController < ApplicationController
     @entries = @entries.order(created_at: :desc).page params[:page]
   end
 
+  def unverify
+    @entry.unliked_by current_user, :vote_scope => 'verify'
+  end
+
   def about
     custom_meta_tags('About Elaka',
                      "Our goal is to contribute to effective communication, aid in the

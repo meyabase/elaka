@@ -11,32 +11,30 @@
 
 <!-- Check verify.html.erb for confirmDelete() function -->
 <span id="verify-form-<%= entry.id %>" hidden>
-  <%= button_to verify_entry_path(entry), class: "btn btn-light bg-transparent text-decoration-none p-0",
-                remote: true, method: :put, style: "margin-right: 0.3em;",
+  <%= button_to verify_entry_path(entry), class: "bi bi-toggle-off custom-gray btn bg-transparent text-decoration-none p-0",
+                remote: true, method: :put, style: "margin-right: 0.3em; font-size: 1.8em; height: 24px",
                 id: "verify-entry-#{ entry.id }",
                 onclick: "verifyEntry(#{ entry.id }); removeVerified(#{ entry.id });" do %>
-  <i class="bi bi-toggle-off custom-gray" style=""></i>
-<% end %>
+  <% end %>
 </span>
 
 <span id="unverify-form-<%= entry.id %>" hidden>
-  <%= button_to unverify_entry_path(entry), class: "btn bg-transparent text-decoration-none p-0",
-                remote: true, method: :put, style: "margin-right: 0.3em;",
+  <%= button_to unverify_entry_path(entry), class: "bi bi-toggle-on custom-blue btn bg-transparent text-decoration-none p-0",
+                remote: true, method: :put, style: "margin-right: 0.3em; font-size: 1.8em; height: 24px",
                 id: "unverify-entry-#{ entry.id }",
                 onclick: "unverifyEntry(#{ entry.id })" do %>
-  <i class="bi bi-toggle-on custom-blue" style="" ></i>
-<% end %>
+  <% end %>
 </span>
 
 <script>
     if ( <%= current_user.voted_up_on? entry, :vote_scope => 'verify' %> ) {
         document.getElementById('show-verify-<%= entry.id %>').hidden = true
         document.getElementById('verify-form-<%= entry.id %>').hidden = true
-        document.getElementById('show-unverify-<%= entry.id %>').hidden = false
+        document.getElementById('show-unverify-<%= entry.id %>').hidden = true
         document.getElementById('unverify-form-<%= entry.id %>').hidden = false
     }
     else if ( (<%= entry.find_votes_for(:vote_scope => 'verify').size %>) === 0 ) {
-        document.getElementById('show-verify-<%= entry.id %>').hidden = false
+        document.getElementById('show-verify-<%= entry.id %>').hidden = true
         document.getElementById('verify-form-<%= entry.id %>').hidden = false
         document.getElementById('show-unverify-<%= entry.id %>').hidden = true
         document.getElementById('unverify-form-<%= entry.id %>').hidden = true
@@ -51,12 +49,12 @@
     function verifyEntry(id) {
         document.getElementById('show-verify-' + id).hidden = true
         document.getElementById('verify-form-' + id).hidden = true
-        document.getElementById('show-unverify-' + id).hidden = false
+        document.getElementById('show-unverify-' + id).hidden = true
         document.getElementById('unverify-form-' + id).hidden = false
     }
 
     function unverifyEntry(id) {
-        document.getElementById('show-verify-' + id).hidden = false
+        document.getElementById('show-verify-' + id).hidden = true
         document.getElementById('verify-form-' + id).hidden = false
         document.getElementById('show-unverify-' + id).hidden = true
         document.getElementById('unverify-form-' + id).hidden = true

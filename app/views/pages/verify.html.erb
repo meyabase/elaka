@@ -13,10 +13,30 @@
 <!-- Show trending results -->
 <div id="verify-wrap">
   <% @entries.each do | entry | %>
+
+    <span id="unverify-form-undo-<%= entry.id %>" hidden>
+      <%= button_to unverify_entry_path(entry), class: "bi bi-toggle-on text-decoration-none p-0",
+                remote: true, method: :put, style: "font-size: 0em; color: #202123;",
+                id: "unverify-entry-undo-#{ entry.id }" do %>
+      <% end %>
+    </span>
+
     <div id="verifiy-<%= entry.id %>">
       <%= render 'entries/entry', entry: entry %>
       <br>
     </div>
+
+    <!-- This is just a simple notice/toast when text is copied -->
+    <div class="position-fixed top-0 start-50 translate-middle-x p-3" id="toast-verify-<%= entry.id %>" style="z-index: 5">
+      <div class="toast hide toast-verify-<%= entry.id %> border-0" style="background-color: #212529;"
+           data-bs-delay="6000" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-body text-center">
+          <span class="toast-body-verify-<%= entry.id %> text-secondary"></span>
+          <button type="button" style="float: right; font-size: 0.7em;" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+      </div>
+    </div>
+
   <% end %>
 </div>
 <div id="verify-load-more" class="text-center">
@@ -27,7 +47,9 @@
 <br>
 
 <script>
-    function removeFadeOut( element, speed ) {
+    // Initialize ID
+    var id_num = ''
+    function removeFadeOut(element, speed) {
         var seconds = speed/1000;
         element.style.transition = "opacity " + seconds + "s ease";
 
@@ -39,8 +61,34 @@
 
     // Remove translation when verified
     function removeVerified(id) {
+        position_toast(id)
+
         removeFadeOut(document.getElementById('verifiy-' + id), 200);
         var count = document.getElementById('unverified-count')
         count.innerText = Number(count.innerText) - 1
+
+        // assign ID
+        id_num = id
+        $('.toast-body-verify-' + id).html('Translation Verified. <a class="text-yellow" href="" onclick="undo()">Undo</a>')
+        $('.toast-verify-' + id).toast('show')
+    }
+
+    // Position toast according to screen size
+    function position_toast(id) {
+        if ($(window).width() < 992) {
+            $('#toast-verify-' + id).removeClass().addClass("position-fixed bottom-0 translate-middle-x start-50 p-3");
+            $('#toast-verify-' + id).css({'z-index' : '5', 'margin-bottom' : '3em'})
+        }
+        else {
+            $('#toast-verify-' + id).removeClass().addClass("position-fixed top-0 end-0 p-3");
+            $('#toast-verify-' + id).css({'z-index' : '5'})
+        }
+    }
+
+    function undo() {
+        // Access ID
+        id = id_num
+        document.getElementById('unverify-form-undo-' + id).hidden = false
+        document.getElementById('unverify-entry-undo-' + id).click()
     }
 </script>

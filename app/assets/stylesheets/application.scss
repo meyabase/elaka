@@ -363,14 +363,8 @@ hr {
   border-color: #f3f3f3;
 }
 
-.entry-rows {
-  padding-top: 10px;
-}
-
-@media (max-width: 900px){
-  .entry-rows {
-    padding-top: 0;
-  }
+.entry-row {
+  padding-top: 5px;
 }
 
 .username {
