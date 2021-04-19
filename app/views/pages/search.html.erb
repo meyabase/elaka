@@ -15,7 +15,13 @@
 <% end %>
 
 <!-- Show search results -->
-<p class="text-secondary font-weight-bold">Search Results</p>
+<% if @entries.count > 10 %>
+  <% filter = "More than 10 translations found" %>
+<% else %>
+  <% filter = pluralize(@entries.count, "translation") + " found" %>
+<% end %>
+<p class="text-secondary"><%= filter %></p>
+
 <div id="search-wrap">
   <% @entries.each do | entry | %>
     <%= render 'entries/entry', entry: entry %>
