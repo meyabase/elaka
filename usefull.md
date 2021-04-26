@@ -1,3 +1,10 @@
+Create app
+
+$ rails new myapp --database=postgresql
+$ rake db:setup
+$ rake db:migrate
+----------------------------------------------------------------------------
+
 Update DB heroku
 https://stackoverflow.com/questions/19097558/pg-undefinedtable-error-relation-users-does-not-exist
 
