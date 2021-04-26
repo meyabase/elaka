@@ -51,8 +51,8 @@
                 </div>
 
                 <!-- Set translation type, see js script at the bottom -->
-                <%= f.number_field :translation, id: 'translation-type', value: 1, hidden: 'hidden' %>
-                <%= f.text_field :language, id: 'language', value: 'a', hidden: 'hidden' %>
+                <%= f.number_field :translation, id: 'translation-type', hidden: 'hidden' %>
+                <%= f.text_field :language, id: 'language', hidden: 'hidden' %>
                 <span hidden="hidden" id="initial-translation-type"><%= @entry.translation %></span>
 
                 <!-- Translation Modal -->
