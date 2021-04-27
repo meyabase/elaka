@@ -51,7 +51,9 @@ class PagesController < ApplicationController
                       accelerate education and more",
                      %w[about why us learn oshiwambo])
     @count = Entry.count
-    @general = User.where(moderator: false).order(Arel.sql('RANDOM()')).first
+
+    @general = User.where.not(username: nil).and(User.where(moderator: false))
+                   .order(Arel.sql('RANDOM()')).first
     @moderator = User.where(moderator: true).order(Arel.sql('RANDOM()')).first
   end
 
