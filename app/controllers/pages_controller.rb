@@ -82,15 +82,8 @@ class PagesController < ApplicationController
                      "Partake in Learn Oshiwambo's competitions and help advance Oshiwambo
                       to English translations.",
                      %w[competition win reward learn oshiwambo])
-  end
 
-  # also same method in profiles_controller.rb and entries_controller.rb
-  def get_verified(entry)
-    @vote = (entry.get_likes :vote_scope => 'verify').first
-    if @vote
-      @user = User.find_by(id: @vote.voter_id)
-    end
+    @users = User.all.order(competition: :desc).limit(10)
   end
-  helper_method :get_verified, :hot
 
 end

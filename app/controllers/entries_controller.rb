@@ -26,6 +26,17 @@ class EntriesController < ApplicationController
 
       # for anonymous id routing, update :link based on id
       @entry.update_column(:link, ((@entry.id**3).to_s(36)))
+
+      # temporary for the competition
+      if @entry.created_at >= DateTime.parse("2021-04-27 22:00:00")
+        count = current_user.competition
+        unless count
+          count = 0
+        end
+        count += 1
+        current_user.update_column(:competition, count)
+      end
+
       redirect_to new_entry_path
     else
       flash.now[:error] = @entry.errors.full_messages[0]
