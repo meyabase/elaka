@@ -5,30 +5,26 @@
 
 
 <strong class="text-yellow" style="font-size: 1.7em;">Rankings</strong>
-<% if @users.blank? %>
-  <div class="text-secondary m-0 p-0 small">
-    Top 10 users will be shown here
-  </div>
-<%  else  %>
-  <div class="text-secondary m-0 p-0 small">
-    Top 10 users with the highest number of entries
-  </div>
-  <hr class="custom-horizontal">
+<div class="text-secondary m-0 p-0 small">
+  Top 10 users with the highest number of entries
+</div>
+<hr class="custom-horizontal">
 
-  <table class="table table-custom table-hover text-gray">
-    <thead>
-    <tr style="font-weight: normal;">
-      <th class="border-0" style="font-weight: normal;" scope="col">Username</th>
-      <th class="border-0 text-right" style="font-weight: normal;" scope="col">Joined</th>
-    </tr>
-    </thead>
-    <tbody>
-    <% @users.each do | user | %>
+<table class="table table-custom table-hover text-gray">
+  <thead>
+  <tr style="font-weight: normal;">
+    <th class="border-0" style="font-weight: normal;" scope="col">Username</th>
+    <th class="border-0 text-right" style="font-weight: normal;" scope="col">Joined</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @users.each do | user | %>
+    <% unless user.confirmed_at.blank? or user.username.blank? %>
       <%= render 'pages/competition', user: user %>
     <% end %>
-    </tbody>
-  </table>
-<% end %>
+  <% end %>
+  </tbody>
+</table>
 
 <br>
 
