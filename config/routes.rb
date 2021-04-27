@@ -40,6 +40,7 @@ Rails.application.routes.draw do
   match 'privacy', to: 'pages#privacy', :via => 'get'
   match 'terms', to: 'pages#terms', :via => 'get'
   match 'guidelines', to: 'pages#guidelines', :via => 'get'
+  match 'competition', to: 'pages#competition', :via => 'get'
 
   # Make sure profile routes are always last to allow mis-routing
   # See https://stackoverflow.com/questions/16796244/rails-username-in-url

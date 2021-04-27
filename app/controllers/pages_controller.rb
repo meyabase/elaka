@@ -75,6 +75,13 @@ class PagesController < ApplicationController
                      %w[guidelines learn oshiwambo])
   end
 
+  def competition
+    custom_meta_tags('Elaka Competition',
+                     "Partake in Learn Oshiwambo's competitions and help advance Oshiwambo
+                      to English translations.",
+                     %w[competition win reward learn oshiwambo])
+  end
+
   # also same method in profiles_controller.rb and entries_controller.rb
   def get_verified(entry)
     @vote = (entry.get_likes :vote_scope => 'verify').first
