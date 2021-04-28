@@ -5,7 +5,6 @@ class EntriesController < ApplicationController
   before_action :kalipi_sign_in, only: :create
   after_action :kalipi_sign_out, only: :create
   before_action :require_username
-  before_action :require_login, only: :new
   invisible_captcha only: [:create]
 
   def new

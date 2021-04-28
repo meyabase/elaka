@@ -19,7 +19,7 @@
   </thead>
   <tbody>
   <% @users.each do | user | %>
-    <% unless user.confirmed_at.blank? or user.username.blank? %>
+    <% unless user.confirmed_at.blank? or user.username.blank? or user.moderator? %>
       <%= render 'pages/competition', user: user %>
     <% end %>
   <% end %>
