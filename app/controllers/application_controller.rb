@@ -48,6 +48,13 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def require_login
+    unless user_signed_in?
+      redirect_to new_session_path(resource_name)
+      flash[:error] = "Please login to continue. This is a temporary feature for the competition."
+    end
+  end
+
   def require_username
     if user_signed_in? and current_user.username.blank?
       flash[:alert] = "Set up username to continue"
