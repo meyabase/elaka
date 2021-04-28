@@ -132,6 +132,10 @@ select *
 from entries
 where user_id = '187' and created_at between 'April 10, 2021 15:00' and 'April 11, 2021 22:00';
 
+select *
+from users
+order by competition desc;
+
 ----------------------------------------------------------------------------
 $ rake db:rollback STEP=1
 
