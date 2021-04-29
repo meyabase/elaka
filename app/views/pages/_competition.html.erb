@@ -4,6 +4,9 @@
     <%= "@" + user.username %>
     <%= is_moderator(user) %>
   </th>
+  <td class="text-center table-row">
+    <%= user.competition %>
+  </td>
   <td class="text-right table-row">
     <%= user.created_at.strftime("%b %Y") %>
   </td>
