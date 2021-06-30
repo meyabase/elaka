@@ -5,7 +5,7 @@ ruby '3.0.0'
 
 gem 'rails', '~> 6.1.3'
 gem 'pg', '~> 1.2', '>= 1.2.3'
-gem 'puma', '~> 5.0'
+gem "puma", ">= 5.3.1"
 gem 'sass-rails', '>= 6'
 gem 'webpacker', '~> 5.0'
 gem 'turbolinks', '~> 5'
@@ -53,3 +53,5 @@ gem 'mailgun-ruby', '~>1.2.3'
 gem 'invisible_captcha'
 gem 'meta-tags'
 gem 'newrelic_rpm'
+gem "nokogiri", ">= 1.11.4"
+gem "actionpack", ">= 6.1.3.2"
