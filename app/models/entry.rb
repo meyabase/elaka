@@ -6,7 +6,8 @@ class Entry < ApplicationRecord
   paginates_per 15
   has_paper_trail
 
-  # https://guides.rubyonrails.org/association_basics.html#options-for-belongs-to-counter-cache
+  # https://guides.rubyonrails.org/association_basics.html
+  # options-for-belongs-to-counter-cache
   belongs_to :user, counter_cache: true
   has_many :reports, dependent: :destroy
   accepts_nested_attributes_for :reports

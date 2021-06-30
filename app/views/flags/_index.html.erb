@@ -1,23 +1,31 @@
+<!--suppress CheckTagEmptyBody -->
 <% @entries.each do | entry | %>
-  <!--suppress CheckTagEmptyBody -->
-  <div class="card p-3 bg-transparent border-dark">
+  <div class="card p-3 bg-transparent border-dark" id="report-block-<%= entry.id %>">
 
     <%= render 'entries/entry', entry: entry %>
 
     <br>
 
-    <% if entry.reports_count > 0 %>
     <span class="text-secondary font-weight-bold">
-      <%= pluralize(entry.reports_count, 'report') %>
-    </span>
-      <hr class="text-secondary">
+        <%= pluralize(entry.reports_count, 'report') %>
+      </span>
+    <hr class="text-secondary">
 
-      <% get_reports(entry).each do |report| %>
-        <%= render 'flags/content', report: report, entry: entry %>
-      <% end %>
-
+    <% get_reports(entry).each do |report| %>
+      <%= render 'flags/content', report: report, entry: entry %>
     <% end %>
 
   </div>
-  <br>
+  <br id="br-<%= entry.id %>">
+
+  <!-- This is just a simple notice/toast when text is copied -->
+  <div class="position-fixed top-0 start-50 translate-middle-x p-3" id="toast-report-<%= entry.id %>" style="z-index: 5">
+    <div class="toast hide toast-report-<%= entry.id %> border-0" style="background-color: #212529;"
+         data-bs-delay="6000" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-body text-center">
+        <span class="toast-body-report-<%= entry.id %> text-secondary"></span>
+        <button type="button" style="float: right; font-size: 0.7em;" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
 <% end %>

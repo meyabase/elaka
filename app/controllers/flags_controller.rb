@@ -7,7 +7,9 @@ class FlagsController < ApplicationController
                      that do not meet our guidelines.",
                      %w[reports learn oshiwambo elaka reported wrong])
 
-    @entries = Entry.where('reports_count > ?', 0).order(created_at: :desc).page params[:page]
+    @entries = Entry.where('reports_count > ?', 0)
+    @count = @entries.count
+    @entries = @entries.order(created_at: :desc).page params[:page]
   end
 
   private

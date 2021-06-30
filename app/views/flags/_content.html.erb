@@ -48,7 +48,8 @@
               <%= button_to "Confirm", entry_report_path(@entry, report),
                             class: "btn btn-danger font-weight-bold",
                             method: :delete,
-                            onclick: "confirmDeleteReport(#{ report.id })" %>
+                            onclick: "removeReported(#{@entry.id}, #{@entry.reports_count}, #{report.id})" %>
+
             </div>
           </div>
         </div>
@@ -57,26 +58,47 @@
   </span>
 </div>
 
-<!-- This is just a simple notice/toast when report is deleted -->
-<div class="position-fixed top-0 start-50 translate-middle-x p-3" id="toast-report-<%= report.id %>" style="z-index: 5">
-  <div class="toast toast-report-<%= report.id %> hide text-secondary bg-light border-0"
-       data-bs-delay="1500" role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="custom-toast-header">
-      <strong class="text-success">Notice</strong>
-      <button type="button" style="float: right;" class="btn-close btn-close-secondary" data-bs-dismiss="toast" aria-label="Close"></button>
-    </div>
-    <div class="toast-body toast-body-report-<%= report.id %>">
-    </div>
-  </div>
-</div>
-
 <script>
-    // Position toast according to screen size
-    if ($(window).width() < 992) {
-        $('#toast-report-<%= report.id %>').removeClass().addClass("position-fixed top-0 start-50 translate-middle-x p-3");
+
+    // Remove translation when verified
+    var erc = 0
+    var which
+    function removeReported(id, entry_reports_count, r_id) {
+        position_toast(id)
+        document.getElementById('close-report-modal-' + r_id).click()
+
+        if (erc !== 0) {
+            which = erc
+        } else {
+            which = Number(entry_reports_count)
+        }
+
+        if (which > 1) {
+            removeFadeOut(document.getElementById('report-column-' + r_id), 200);
+            erc = which - 1
+        } else {
+            removeFadeOut(document.getElementById('report-block-' + id), 200);
+            removeFadeOut(document.getElementById('br-' + id), 200);
+
+            var count = document.getElementById('total-report-count')
+            count.innerText = Number(count.innerText) - 1
+        }
+
+        $('.toast-body-report-' + id).html('Report Removed.')
+        $('.toast-report-' + id).toast('show')
     }
-    else {
-        $('#toast-report-<%= report.id %>').removeClass().addClass("position-fixed top-0 end-0 p-3");
+
+    // Position toast according to screen size
+    function position_toast(id) {
+        var ts = $('#toast-report-' + id)
+        if ($(window).width() < 992) {
+            ts.removeClass().addClass("position-fixed bottom-0 translate-middle-x start-50 p-3");
+            ts.css({'z-index' : '5', 'margin-bottom' : '3em'})
+        }
+        else {
+            ts.removeClass().addClass("position-fixed top-0 end-0 p-3");
+            ts.css({'z-index' : '5'})
+        }
     }
 
     function removeFadeOut( element, speed ) {
@@ -87,12 +109,5 @@
         setTimeout(function() {
             element.parentNode.removeChild(element);
         }, speed);
-    }
-
-    function confirmDeleteReport(id) {
-        removeFadeOut(document.getElementById('report-column-' + id), 1000);
-        document.getElementById('close-report-modal-' + id).click()
-        $('.toast-body-report-' + id).html('Report deleted successfully.')
-        $('.toast-report-' + id).toast('show')
     }
 </script>

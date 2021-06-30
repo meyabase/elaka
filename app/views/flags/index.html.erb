@@ -1,7 +1,15 @@
 <!--suppress CheckTagEmptyBody -->
 <br>
-
-<h5 class="text-secondary" style="padding-bottom: 0.2em;">Reported Translations</h5>
+<h5 class="text-secondary" style="padding-bottom: 0.2em;">
+  <span id="total-report-count">
+    <%= @count %>
+  </span>
+  <% if @count > 1 %>
+    Reported Translations
+  <% else %>
+    Reported Translation
+  <% end %>
+</h5>
 
 <div id="flags-wrap">
   <%= render 'flags/index' %>
