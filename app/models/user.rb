@@ -12,9 +12,18 @@ class User < ApplicationRecord
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable, :confirmable,
-         :recoverable, :rememberable, :validatable,
-         authentication_keys: [:login]
+
+  # remove ability to send email confirmation and password reset links etc when in development mode
+  if Rails.env.production?
+    devise :database_authenticatable, :registerable, :confirmable,
+           :recoverable, :rememberable, :validatable,
+           authentication_keys: [:login]
+  else
+    devise :database_authenticatable, :registerable,
+           :recoverable, :rememberable, :validatable,
+           authentication_keys: [:login]
+  end
+
 
   validates :email,
             presence: { message: "can't be empty"},
