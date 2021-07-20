@@ -55,3 +55,4 @@ gem 'meta-tags'
 gem 'newrelic_rpm'
 gem "nokogiri", ">= 1.11.4"
 gem "actionpack", ">= 6.1.3.2"
+gem "addressable", ">= 2.8.0"
