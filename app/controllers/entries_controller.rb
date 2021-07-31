@@ -49,7 +49,7 @@ class EntriesController < ApplicationController
                      'Learn Oshiwambo is where numerous community members shape the future of Oshiwambo
                                 language, together. Contribute to the open source community, manage your translation
                                 entries, educate others',
-                     %w[learn oshiwambo elaka Translations timeline feed newsfeed all updated])
+                     %w[learn oshiwambo elaka Translations translate english oshindonga oshikwanyama])
 
     @entries = Entry.order(created_at: :desc).page params[:page]
   end
@@ -62,7 +62,7 @@ class EntriesController < ApplicationController
                             #{ @entry.from.chars.first(10).join } translates to
                             #{ @entry.to.chars.first(10).join }",
                      "#{ @entry.from } translates to #{ @entry.to }",
-                     from_value + to_value + %w[Translation translate learn oshiwambo])
+                     from_value + to_value + %w[Translation translate learn oshiwambo english oshindonga oshikwanyama])
     @reports = @entry.reports
   end
 
@@ -73,7 +73,7 @@ class EntriesController < ApplicationController
     custom_meta_tags("Edit translation: #{ @entry.from.chars.first(10).join } ->
                             #{ @entry.to.chars.first(10).join }",
                      "#{ @entry.from } -> #{ @entry.to }",
-                     from_value + to_value + %w[edit update learn oshiwambo])
+                     from_value + to_value + %w[edit learn oshiwambo])
   end
 
   def update
