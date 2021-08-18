@@ -3,7 +3,7 @@
               class: "btn btn-light like", onclick: "goToSignIn();" do %>
   <i class="bi bi-hand-thumbs-up" style="color: #ababab;" ></i>
   <small style="color: #ababab;">
-    <%= trim_zero(entry.get_likes.size) %>
+    <%= trim_zero(entry.get_likes(:vote_scope => 'vote').size) %>
   </small>
 <% end %>
 
@@ -11,7 +11,7 @@
               class: "btn btn-light dislike", onclick: "goToSignIn();" do %>
   <i class="bi bi-hand-thumbs-down" style="color: #ababab;" ></i>
   <small style="color: #ababab;">
-    <%= trim_zero(entry.get_dislikes.size) %>
+    <%= trim_zero(entry.get_dislikes(:vote_scope => 'vote').size) %>
   </small>
 <% end %>
 
