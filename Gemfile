@@ -53,6 +53,6 @@ gem 'mailgun-ruby', '~>1.2.3'
 gem 'invisible_captcha'
 gem 'meta-tags'
 gem 'newrelic_rpm'
-gem "nokogiri", ">= 1.11.4"
-gem "actionpack", ">= 6.1.3.2"
+gem "nokogiri", ">= 1.12.5"
+gem "actionpack", ">= 6.1.4.1"
 gem "addressable", ">= 2.8.0"
