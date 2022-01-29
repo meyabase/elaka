@@ -19,15 +19,18 @@
     "glob-parent": "^5.1.2",
     "ssri": "^6.0.2",
     "is-svg": "^4.2.2",
-    "postcss": "^8.2.13",
+    "postcss": "^7.0.36",
     "dns-packet": "^1.3.2",
     "browserslist": "^4.16.5",
     "hosted-git-info": "^2.8.9",
-    "tar": "^6.1.9"
+    "tar": "^6.1.2"
   },
   "version": "0.1.0",
   "devDependencies": {
     "webpack": "^4.46.0",
     "webpack-dev-server": "^3.11.2"
-  }
+  },
+  "engines": {
+    "node": "14.18.3"
+  },
 }
