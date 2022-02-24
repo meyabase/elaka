@@ -40,7 +40,7 @@ $ bundle install
 Next, migrate the database:
 
 ```
-$ rails db:migrate
+$ rake db:migrate
 ```
 
 I did not implement any automated tests, so skip the following testing stage:
